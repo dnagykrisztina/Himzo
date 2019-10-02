@@ -1,2 +1,3 @@
-# Himzo
-Himzo
+Telepítsd a Github extension-t. https://visualstudio.github.com/
+
+Miután feltelepült, indítsd újra a visual studio-t, és nyomj rá a Github ikonra. Bejelentkezés után látni fogod a projektjeidet. Válaszd ki a dnagykrisztina/Himzo projektet, és kattints a clone-ra. Miután betöltődött a Github-os projekt, a solution explorer-t betöltve fenn a Solutions and Folders ikon segítségével válaszd ki a Himzo.Web solution-t és a Visual Studio be fogja tölteni neked a Razor projektet.
