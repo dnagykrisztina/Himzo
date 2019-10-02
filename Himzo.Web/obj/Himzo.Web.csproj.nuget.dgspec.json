@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nagyk\\Source\\Repos\\Himzo\\Himzo.Web\\Himzo.Web.csproj": {}
+    "C:\\Users\\nagyk\\source\\repos\\dnagykrisztina\\Himzo\\Himzo.Web\\Himzo.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nagyk\\Source\\Repos\\Himzo\\Himzo.Web\\Himzo.Web.csproj": {
+    "C:\\Users\\nagyk\\source\\repos\\dnagykrisztina\\Himzo\\Himzo.Web\\Himzo.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nagyk\\Source\\Repos\\Himzo\\Himzo.Web\\Himzo.Web.csproj",
+        "projectUniqueName": "C:\\Users\\nagyk\\source\\repos\\dnagykrisztina\\Himzo\\Himzo.Web\\Himzo.Web.csproj",
         "projectName": "Himzo.Web",
-        "projectPath": "C:\\Users\\nagyk\\Source\\Repos\\Himzo\\Himzo.Web\\Himzo.Web.csproj",
+        "projectPath": "C:\\Users\\nagyk\\source\\repos\\dnagykrisztina\\Himzo\\Himzo.Web\\Himzo.Web.csproj",
         "packagesPath": "C:\\Users\\nagyk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nagyk\\Source\\Repos\\Himzo\\Himzo.Web\\obj\\",
+        "outputPath": "C:\\Users\\nagyk\\source\\repos\\dnagykrisztina\\Himzo\\Himzo.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
