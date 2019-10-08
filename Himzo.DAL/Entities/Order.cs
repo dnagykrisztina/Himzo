@@ -25,7 +25,6 @@ namespace Himzo.Dal.Entities
         public DateTime Deadline { get; set; }
         public byte[] Pattern { get; set; }
         public string OrderComment { get; set; }
-        public User Owner { get; set; }
         public DateTime OrderTime { get; set; }
         public string Fonts { get; set; }
         public ProductType Type { get; set; }

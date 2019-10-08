@@ -10,5 +10,6 @@ namespace Himzo.Dal.Entities
         public int UserId { get; set; }
         public string Name { get; set; }
         public string University { get; set; }
+        public IList<Order> Orders { get; set; }
     }
 }
