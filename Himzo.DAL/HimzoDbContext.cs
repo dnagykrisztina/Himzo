@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 
 using Himzo.Dal.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Himzo.Dal
 {
-    public class HimzoDbContext : DbContext
+    public class HimzoDbContext : IdentityDbContext<User, Role, int>
     {
         public HimzoDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Order> Orders { get; set; }
