@@ -23,32 +23,22 @@ namespace Himzo.Web.Controllers
 
         // GET: api/Contents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Content>>> GetContents()
+        public async Task<ActionResult<IEnumerable<Content>>> GetContents(string page)
         {
-            return await _context.Contents.ToListAsync();
-        }
-
-        // GET: api/Contents/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Content>> GetContent(string title)
-        {
-            var content = await _context.Contents.FindAsync(title);
-
-            if (content == null)
+            if (page == "")
             {
-                return NotFound();
+                return new EmptyResult();
             }
-
-            return content;
+            return await _context.Contents.Where(x => x.Title == page).ToListAsync();
         }
 
         // PUT: api/Contents/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutContent(int id, Content content)
+        [HttpPut("{page}/{slug}")]
+        public async Task<IActionResult> PutContent(string page, string slug, Content content)
         {
-            if (id != content.ContentId)
+            if (page != content.Page && slug != content.Slug)
             {
                 return BadRequest();
             }
@@ -61,7 +51,7 @@ namespace Himzo.Web.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ContentExists(id))
+                if (!ContentExists(page, slug))
                 {
                     return NotFound();
                 }
@@ -77,6 +67,7 @@ namespace Himzo.Web.Controllers
         // POST: api/Contents
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        /*
         [HttpPost]
         public async Task<ActionResult<Content>> PostContent(Content content)
         {
@@ -85,8 +76,10 @@ namespace Himzo.Web.Controllers
 
             return CreatedAtAction("GetContent", new { id = content.ContentId }, content);
         }
+        */
 
         // DELETE: api/Contents/5
+        /*
         [HttpDelete("{id}")]
         public async Task<ActionResult<Content>> DeleteContent(int id)
         {
@@ -101,10 +94,11 @@ namespace Himzo.Web.Controllers
 
             return content;
         }
+        */
 
-        private bool ContentExists(int id)
+        private bool ContentExists(string page, string slug)
         {
-            return _context.Contents.Any(e => e.ContentId == id);
+            return _context.Contents.Any(e => e.Page == page && e.Slug == slug);
         }
     }
 }
