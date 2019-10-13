@@ -5,7 +5,10 @@ using System.Text;
 
 namespace Himzo.Dal.Entities
 {
-    public class Role : IdentityRole
+    public class Role : IdentityRole<int>
     {
+        public const string Admin = "Admin";
+        public const string Kortag = "Kortag";
+        public const string User = "User";
     }
 }

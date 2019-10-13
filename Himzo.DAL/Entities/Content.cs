@@ -9,6 +9,7 @@ namespace Himzo.Dal.Entities
         public int ContentId { get; set; }
         public string Title { get; set; }
         public string ContentString { get; set; }
+        public string Path { get; set; }
         public DateTime UpdateTime { get; set; }
     }
 }

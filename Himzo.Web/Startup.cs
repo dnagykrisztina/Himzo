@@ -30,7 +30,7 @@ namespace Himzo.Web
             services.AddControllers();
             services.AddDbContext<HimzoDbContext>(
                 o => o.UseSqlServer(Configuration.GetConnectionString(nameof(HimzoDbContext))));
-            services.AddIdentity<User, Role>();
+            services.AddIdentity<User, Role>().AddEntityFrameworkStores<HimzoDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,9 +42,8 @@ namespace Himzo.Web
             }
 
             app.UseRouting();
-
             app.UseAuthorization();
-
+            app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles(); // For the wwwroot folder
 

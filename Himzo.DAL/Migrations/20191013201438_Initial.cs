@@ -15,6 +15,7 @@ namespace Himzo.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(nullable: true),
                     ContentString = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true),
                     UpdateTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -38,10 +39,26 @@ namespace Himzo.Dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    NormalizedName = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(nullable: true),
                     NormalizedUserName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -56,7 +73,6 @@ namespace Himzo.Dal.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     University = table.Column<string>(nullable: true)
                 },
@@ -73,7 +89,7 @@ namespace Himzo.Dal.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UpdateTime = table.Column<DateTime>(nullable: false),
                     Content = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,11 +115,11 @@ namespace Himzo.Dal.Migrations
                     Deadline = table.Column<DateTime>(nullable: false),
                     Pattern = table.Column<byte[]>(nullable: true),
                     OrderComment = table.Column<string>(nullable: true),
-                    OwnerId = table.Column<string>(nullable: true),
                     OrderTime = table.Column<DateTime>(nullable: false),
                     Fonts = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: false),
-                    PatternPlace = table.Column<string>(nullable: true)
+                    PatternPlace = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,8 +131,8 @@ namespace Himzo.Dal.Migrations
                         principalColumn: "CommentId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Users_OwnerId",
-                        column: x => x.OwnerId,
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -133,9 +149,9 @@ namespace Himzo.Dal.Migrations
                 column: "CommentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_OwnerId",
+                name: "IX_Orders_UserId",
                 table: "Orders",
-                column: "OwnerId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -148,6 +164,9 @@ namespace Himzo.Dal.Migrations
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Comments");
