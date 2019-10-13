@@ -29,7 +29,7 @@ namespace Himzo.Web.Controllers
             {
                 return new EmptyResult();
             }
-            return await _context.Contents.Where(x => x.Title == page).ToListAsync();
+            return await _context.Contents.Where(x => x.Page == page).ToListAsync();
         }
 
         // PUT: api/Contents/5
