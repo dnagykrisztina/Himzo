@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Himzo.Dal.Migrations
 {
     [DbContext(typeof(HimzoDbContext))]
-    [Migration("20191008160529_Initial")]
+    [Migration("20191013201438_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,8 +34,8 @@ namespace Himzo.Dal.Migrations
                     b.Property<DateTime>("UpdateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("CommentId");
 
@@ -52,6 +52,9 @@ namespace Himzo.Dal.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ContentString")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -114,9 +117,6 @@ namespace Himzo.Dal.Migrations
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<byte[]>("Pattern")
                         .HasColumnType("varbinary(max)");
 
@@ -129,19 +129,45 @@ namespace Himzo.Dal.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("OrderId");
 
                     b.HasIndex("CommentId");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("Himzo.Dal.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("Himzo.Dal.Entities.User", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -188,9 +214,6 @@ namespace Himzo.Dal.Migrations
                     b.Property<string>("University")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -202,7 +225,7 @@ namespace Himzo.Dal.Migrations
             modelBuilder.Entity("Himzo.Dal.Entities.Comment", b =>
                 {
                     b.HasOne("Himzo.Dal.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("UserId");
                 });
 
@@ -212,9 +235,9 @@ namespace Himzo.Dal.Migrations
                         .WithMany()
                         .HasForeignKey("CommentId");
 
-                    b.HasOne("Himzo.Dal.Entities.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
+                    b.HasOne("Himzo.Dal.Entities.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

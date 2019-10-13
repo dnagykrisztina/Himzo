@@ -29,5 +29,6 @@ namespace Himzo.Dal.Entities
         public string Fonts { get; set; }
         public ProductType Type { get; set; }
         public string PatternPlace { get; set; }
+        public User User { get; set; }
     }
 }

@@ -5,11 +5,13 @@ using System.Text;
 
 namespace Himzo.Dal.Entities
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string University { get; set; }
-        public IList<Order> Orders { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

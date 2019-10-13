@@ -14,11 +14,26 @@ namespace Himzo.Dal
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Content> Contents { get; set; }
         public DbSet<Image> Images { get; set; }
-        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany(u => u.Orders);
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Comment);
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.User);
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Orders)
+                .WithOne(o => o.User);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Comments)
+                .WithOne(c => c.User);
+            modelBuilder.Entity<Role>().ToTable("Roles");
         }
 
     }
