@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="hu">
+    <div id="admin">
+        <head>
+        <meta charset="utf-8" />
+        <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <title>Himzo · Rolunk</title>
+
+        <link
+        rel="canonical"
+        href="https://getbootstrap.com/docs/4.3/examples/carousel/"
+        />
+        <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+        />
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <script
+        src="https://kit.fontawesome.com/be6f5cd1bf.js"
+        crossorigin="anonymous"
+        ></script>
+
+        <!-- Bootstrap core CSS -->
+        <link
+        href="/docs/4.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+        />
+
+        <!-- Custom styles for this template -->
+        <link href="../carousel.css" rel="stylesheet" />
+        </head>
+        <header>
+        <himzoheader></himzoheader>
+        </header>
+
+        <body>
+            <main role="main">
+                <div class="jumbotron">
+                    <div class="container">
+                        <div class="field display-3">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('title')"
+                                @click="focusField('title')"
+                                >{{ title }}
+                            </span>
+                            <input
+                                v-model="title"
+                                v-show="showField('title')"
+                                id="title"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('title')"
+                                @blur="blurField"
+                            />
+                        </div>
+                        <div class="field">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('title_description')"
+                                @click="focusField('title_description')"
+                                >{{ titleDescription }}
+                            </span>
+                            <input
+                                v-model="title_description"
+                                v-show="showField('title_description')"
+                                id="title_description"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('title')"
+                                @blur="blurField"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing messaging and featurettes
+                ================================================== -->
+                <!-- Wrap the rest of the page in another container to center all the content. -->
+
+                <div class="container marketing">
+                <!-- START THE FEATURETTES -->
+
+                <hr class="featurette-divider" />
+
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <div class="field lead">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('job_description')"
+                                @click="focusField('job_description')"
+                                >{{ job_description }}
+                            </span>
+                            <input
+                                v-model="job_description"
+                                v-show="showField('job_description')"
+                                id="job_description"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('title')"
+                                @blur="blurField"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class=" lead featurette-heading">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('job_title')"
+                                @click="focusField('job_title')"
+                                >{{ job_title }}
+                            </span>
+                            <input
+                                v-model="job_title"
+                                v-show="showField('job_title')"
+                                id="job_title"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('job_title')"
+                                @blur="blurField"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="featurette-divider" />
+
+                <div class="row featurette">
+                    <div class="col-md-7 order-md-2">
+                        <div class="lead field">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('history_description')"
+                                @click="focusField('history_description')"
+                                >{{ history_description }}
+                            </span>
+                            <input
+                                v-model="history_description"
+                                v-show="showField('history_description')"
+                                id="history_description"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('title')"
+                                @blur="blurField"
+                            />  
+                        </div>
+                    </div>
+            
+                    <div class="col-md-5 order-md-1">
+                        <div class=" lead featurette-heading">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('history_title')"
+                                @click="focusField('history_title')"
+                                >{{ history_title }}
+                            </span>
+                            <input
+                                v-model="history_title"
+                                v-show="showField('history_title')"
+                                id="history_title"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('history_title')"
+                                @blur="blurField"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="featurette-divider" />
+
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <div class="field lead">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('how_to_join_description')"
+                                @click="focusField('how_to_join_description')"
+                                >{{ how_to_join_description }}
+                            </span>
+                            <input
+                                v-model="how_to_join_description"
+                                v-show="showField('how_to_join_description')"
+                                id="how_to_join_description"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('title')"
+                                @blur="blurField"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class=" lead featurette-heading">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('how_to_join_title')"
+                                @click="focusField('how_to_join_title')"
+                                >{{ how_to_join_title }}
+                            </span>
+                            <input
+                                v-model="how_to_join_title"
+                                v-show="showField('how_to_join_title')"
+                                id="how_to_join_title"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('how_to_join_title')"
+                                @blur="blurField"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="featurette-divider" />
+
+                <div class="text-center">
+                    <img src="./images/picture.jpg" class="rounded" alt="..." />
+                </div>
+                <div class="text-center">
+                    <h2 class="featurette-heading">{{ team_title }}</h2>
+                    <p class="lead">{{ team_description }}</p>
+                </div>
+
+                <hr class="featurette-divider" />
+                
+                <!-- /END THE FEATURETTES -->
+                
+                <!-- /.container -->
+            </main>
+        </body>
+        <!-- FOOTER -->
+        <footer class="page-footer font-small cyan darken-3">
+            <himzofooter></himzofooter>
+        </footer>
+        <!-- Footer -->
+        
+        <foot>
+            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+            <script src="admin.js"></script>
+
+        </foot>
+    </div>
+</html>
