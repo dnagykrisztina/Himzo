@@ -176,7 +176,7 @@ var app = new Vue({
       sweaterTitle: "VIK-es pulcsik",
       sweaterDescription:
         "Több féle színben elérhetőek a VIK-es pulóverek. Ha megtetszett valamelyik, a himzo.sch.bme.hu email címen kaphatsz több információt róla.",
-      photo: "./images/picture.jpg",
+      photo: "../images/picture.jpg",
 
       scrollBackToTop: "Vissza a  tetejére",
 
