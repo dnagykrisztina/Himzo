@@ -34,6 +34,26 @@
         crossorigin="anonymous"
       ></script>
 
+      <!-- POPOVER a logokhoz-->
+      <script type='text/javascript'
+        src='http://code.jquery.com/jquery-1.10.1.js'></script>
+      <script type='text/javascript'
+        src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" type="text/css"
+        href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css">
+
+      <script type='text/javascript'>//<![CDATA[ 
+        $(function(){
+        // prevents jumping
+        $("a.pop-me-over").on("click", function (e) {
+            e.preventDefault();
+            return true;
+        });
+        $(".pop-me-over").popover();
+        });//]]> 
+        </script>
+        <!-- POPOVER-->
+
       <!-- Bootstrap core CSS -->
       <link
         href="/docs/4.3/dist/css/bootstrap.min.css"
@@ -187,7 +207,7 @@
       </main>
     </body>
     <!-- FOOTER -->
-    <footer class="page-footer font-small cyan darken-3">
+    <footer>
       <himzofooter></himzofooter>
     </footer>
     <foot>

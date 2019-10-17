@@ -52,49 +52,55 @@ Vue.component("himzoheader", {
 
 Vue.component("himzofooter", {
   template: `
-   <div>
-   <!-- Footer Elements -->
-   <div class="container">
-   <p class="float-right"><a href="">Vissza a tetejére</a></p>
-
-          <!-- Grid row-->
-          <div class="row">
-      
-            <!-- Grid column -->
-            <div class="col-md-12 py-5">
-              <div class="mb-5 flex-center">
-      
-                <!-- E-mail -->
-                <a >
-                    <i class="fas fa-envelope fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                </a>
-
-                <!-- Cím -->
-                <a >
-                    <i class="fas fa-home fa-lg white-text mr-md-5 mr-3 fa-2x"></i>
-                </a>
-
-                <!-- Facebook -->
-                <a href="https://www.facebook.com/pulcsi.es.foltmekor/">
-                  <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-                </a>
+  <!-- Footer -->
+<footer class="page-footer font-small special-color-dark pt-4">
 
 
-              </div>
-            </div>
-            <!-- Grid column -->
-      
-          </div>
-          <!-- Grid row-->
-      
-        </div>
-        <!-- Footer Elements -->
-      
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© Pulcsi és FoltMéKör</a>
-        </div>
-        <!-- Copyright -->
-      </div>`
+<div class="container">
+<p class="float-right row"><a href="">Vissza a tetejére</a></p>
+</div>
+
+
+
+
+  <!-- Footer Elements -->
+  <div class="container logo">
+
+    <!-- Social buttons -->
+
+        <!-- E-mail -->
+        <a >
+            <a class="pop-me-over" data-toggle="popover" data-placement="bottom" 
+              data-content="himzo@sch.bme.hu"
+              ><i class="fas fa-envelope mx-3 fa-2x"></i></a> 
+        </a>
+
+        <!-- Cím -->
+        <a >
+            <a class="pop-me-over" data-toggle="popover" data-placement="top" 
+              data-content="Schönherz Kollégium 819. szoba Írinyi József 42
+              Budapest"
+              ><i class="fas fa-home mx-3 fa-2x"></i></a> 
+        </a>
+
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/pulcsi.es.foltmekor/">
+            <i class="fab fa-facebook-f mx-3 fa-2x"> </i>
+        </a>
+
+    <!-- Social buttons -->
+
+  </div>
+  <!-- Footer Elements -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© Pulcsi és FoltMéKör</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+   `
 });
 
 Vue.component("order", {
