@@ -159,7 +159,7 @@ li.dropdown {
 }
 
 .jumbotron {
-  background-color: #dfedb4;
+  background-color: #DFEDB4;
 }
 
 /*form validation*/
@@ -169,4 +169,14 @@ li.dropdown {
 
 .lh-condensed {
   line-height: 1.25;
+}
+.backToTheTop{
+  text-align: right;
+  margin-right: 20%;
+}
+
+.logo{
+  clear:both;
+  margin-bottom:20px;
+  text-align: center;
 }
