@@ -25,7 +25,16 @@ namespace Himzo.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            return await _context.Orders.ToListAsync<Order>();
+            
+
+            string search = HttpContext.Request.Query["search"].ToString();
+            string name = HttpContext.Request.Query["name"].ToString();
+            string email = HttpContext.Request.Query["email"].ToString();
+
+            return await _context.Orders.Where(x => x.OrderComment.Contains(search))
+                                        .Where(x => x.User.Name.Contains(name))
+                                        .Where(x => x.User.Email.Contains(email)).ToListAsync<Order>();
+
         }
 
         // GET: api/Orders/5
@@ -42,6 +51,7 @@ namespace Himzo.Web.Controllers
             return order;
         }
 
+        //TODO: change this for FETCH
         // PUT: api/Orders/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -82,7 +92,7 @@ namespace Himzo.Web.Controllers
         {
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
-            
+
             return CreatedAtAction(nameof(GetOrder), new { id = order.OrderId }, order);
         }
 
