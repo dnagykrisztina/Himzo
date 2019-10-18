@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Himzo.Dal;
 using Himzo.Dal.Entities;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Identity;
 
 namespace Himzo.Web.Controllers
 {
@@ -16,18 +17,23 @@ namespace Himzo.Web.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly HimzoDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public OrdersController(HimzoDbContext context)
+        public OrdersController(HimzoDbContext context, UserManager<IdentityUser> userManager = null)
         {
             _context = context;
+            _userManager = userManager;
+            
         }
 
         // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
+            //Current user and role for role based orderslist views 
+            //var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            //var user = GetCurrentUserAsync();
+            //string rolename =  _userManager.GetRolesAsync(user).Result.FirstOrDefault();
 
             string search = HttpContext.Request.Query["search"].ToString();
             string name = HttpContext.Request.Query["name"].ToString();
@@ -53,39 +59,7 @@ namespace Himzo.Web.Controllers
             return order;
         }
 
-        //TODO: change this for FETCH
-        // PUT: api/Orders/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
-        {
-            if (id != order.OrderId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(order).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!OrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+        //PATCH: api/orders/5
         [Route("{orderId}")]
         [HttpPatch]
         public async Task<IActionResult> PatchOrder(int orderId, [FromBody] JsonPatchDocument<Order> patchModel)
@@ -98,16 +72,15 @@ namespace Himzo.Web.Controllers
                     return NotFound();
                 }
 
-                _context.Entry(order).State = EntityState.Modified;
-                
                 patchModel.ApplyTo(order);
 
                 _context.Orders.Update(order);
 
                 await _context.SaveChangesAsync();
 
-                //return Ok();
                 return new ObjectResult(order);
+
+
             }
             catch (Exception e)
             {
