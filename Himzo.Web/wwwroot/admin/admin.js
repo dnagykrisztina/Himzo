@@ -204,8 +204,8 @@ var app = new Vue({
       how_to_join_description:
         "Csatlakozási lehetőség: Auctor elit sed vulputate mi. Ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Dui ut ornare lectus sit. Lobortis feugiat vivamus at augue eget arcu dictum varius duis.",
       how_to_join_title: "Csatlakozási lehetőség",
-      team_title: "Valami",
-      team_description: "Még valami",
+      team_title: "A csapatunk",
+      team_description: "A csapatunk leírása",
       editField: "",
 
       //tagok

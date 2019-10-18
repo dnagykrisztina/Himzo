@@ -135,7 +135,13 @@ li.dropdown {
 .btn {
   color: #f1f1f1;
   background-color: #ff7e67;
-  border-color: rgb(139, 69, 56);
+  border-color: #ff7e67;
+  margin: 5%;
+}
+.btn:hover {
+  background-color: #ff6b51; /* Green */
+  color: #f1f1f1;
+  border-color: #ff6b51;
 }
 
 .bd-placeholder-img {
@@ -153,9 +159,12 @@ li.dropdown {
   }
 }
 /*background colors*/
-.navbar-dark {
+.navbar-dark,
+.navbar,
+.navbar-expand-md,
+.navbar-dark,
+.fixed-top .bg-dark {
   background-color: #445c3c;
-  size: 100000px;
 }
 
 .jumbotron {
@@ -169,4 +178,14 @@ li.dropdown {
 
 .lh-condensed {
   line-height: 1.25;
+}
+.backToTheTop {
+  text-align: right;
+  margin-right: 20%;
+}
+
+.logo {
+  clear: both;
+  margin-bottom: 20px;
+  text-align: center;
 }

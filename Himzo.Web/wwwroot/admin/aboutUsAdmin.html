@@ -53,6 +53,7 @@
                                 v-show="!showField('title')"
                                 @click="focusField('title')"
                                 >{{ title }}
+                                
                             </span>
                             <input
                                 v-model="title"
@@ -92,10 +93,30 @@
                 <!-- START THE FEATURETTES -->
 
                 <hr class="featurette-divider" />
-
                 <div class="row featurette">
+            
+                    <div class="col-md-5">
+                        <div class=" lead featurette-heading">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('tjob_titleitle')"
+                                @click="focusField('job_title')"
+                                >{{ job_title }}
+                            </span>
+                            <input
+                                v-model="job_title"
+                                v-show="showField('job_title')"
+                                id="job_title"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('title')"
+                                @blur="blurField"
+                                />
+                            </div>
+                            <a class="btn btn-lg btn-primary" href="/docs/4.3/components/navbar/" role="button">Mentés</a>
+                    </div>
                     <div class="col-md-7">
-                        <div class="field lead">
+                        <div class="lead field">
                             <span
                                 class="field-valueg"
                                 v-show="!showField('job_description')"
@@ -110,26 +131,7 @@
                                 class="field-value form-control"
                                 @focus="focusField('title')"
                                 @blur="blurField"
-                            />
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class=" lead featurette-heading">
-                            <span
-                                class="field-valueg"
-                                v-show="!showField('job_title')"
-                                @click="focusField('job_title')"
-                                >{{ job_title }}
-                            </span>
-                            <input
-                                v-model="job_title"
-                                v-show="showField('job_title')"
-                                id="job_title"
-                                type="text"
-                                class="field-value form-control"
-                                @focus="focusField('job_title')"
-                                @blur="blurField"
-                            />
+                            />  
                         </div>
                     </div>
                 </div>
@@ -137,7 +139,28 @@
                 <hr class="featurette-divider" />
 
                 <div class="row featurette">
+            
                     <div class="col-md-7 order-md-2">
+                        <div class=" lead featurette-heading">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('history_title')"
+                                @click="focusField('history_title')"
+                                >{{ history_title }}
+                            </span>
+                            <input
+                                v-model="history_title"
+                                v-show="showField('history_title')"
+                                id="history_title"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('history_title')"
+                                @blur="blurField"
+                                />
+                            </div>
+                            <a class="btn btn-lg btn-primary" href="/docs/4.3/components/navbar/" role="button">Mentés</a>
+                    </div>
+                    <div class="col-md-5 order-md-1">
                         <div class="lead field">
                             <span
                                 class="field-valueg"
@@ -156,31 +179,32 @@
                             />  
                         </div>
                     </div>
-            
-                    <div class="col-md-5 order-md-1">
-                        <div class=" lead featurette-heading">
-                            <span
-                                class="field-valueg"
-                                v-show="!showField('history_title')"
-                                @click="focusField('history_title')"
-                                >{{ history_title }}
-                            </span>
-                            <input
-                                v-model="history_title"
-                                v-show="showField('history_title')"
-                                id="history_title"
-                                type="text"
-                                class="field-value form-control"
-                                @focus="focusField('history_title')"
-                                @blur="blurField"
-                            />
-                        </div>
-                    </div>
                 </div>
 
                 <hr class="featurette-divider" />
 
                 <div class="row featurette">
+                    
+                    <div class="col-md-5">
+                        <div class=" lead featurette-heading">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('how_to_join_title')"
+                                @click="focusField('how_to_join_title')"
+                                >{{ how_to_join_title }}
+                            </span>
+                            <input
+                            v-model="how_to_join_title"
+                            v-show="showField('how_to_join_title')"
+                            id="how_to_join_title"
+                            type="text"
+                            class="field-value form-control"
+                            @focus="focusField('how_to_join_title')"
+                            @blur="blurField"
+                            />
+                        </div>
+                        <a class="btn btn-lg btn-primary" href="/docs/4.3/components/navbar/" role="button">Mentés</a>
+                    </div>
                     <div class="col-md-7">
                         <div class="field lead">
                             <span
@@ -200,36 +224,54 @@
                             />
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class=" lead featurette-heading">
-                            <span
-                                class="field-valueg"
-                                v-show="!showField('how_to_join_title')"
-                                @click="focusField('how_to_join_title')"
-                                >{{ how_to_join_title }}
-                            </span>
-                            <input
-                                v-model="how_to_join_title"
-                                v-show="showField('how_to_join_title')"
-                                id="how_to_join_title"
-                                type="text"
-                                class="field-value form-control"
-                                @focus="focusField('how_to_join_title')"
-                                @blur="blurField"
-                            />
-                        </div>
-                    </div>
                 </div>
 
                 <hr class="featurette-divider" />
 
-                <div class="text-center">
-                    <img src="./images/picture.jpg" class="rounded" alt="..." />
+                  <div class="row featurette">
+                    
+            
+                    <div class="col-md-7 order-md-2">
+                        <div class=" lead featurette-heading">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('team_title')"
+                                @click="focusField('team_title')"
+                                >{{ team_title }}
+                            </span>
+                            <input
+                            v-model="team_title"
+                            v-show="showField('team_title')"
+                            id="team_title"
+                            type="text"
+                            class="field-value form-control"
+                            @focus="focusField('team_title')"
+                            @blur="blurField"
+                            />
+                        </div>
+                        <a class="btn btn-lg btn-primary" href="/docs/4.3/components/navbar/" role="button">Mentés</a>
+                    </div>
+                    <div class="col-md-5 order-md-1">
+                        <div class="lead field">
+                            <span
+                                class="field-valueg"
+                                v-show="!showField('team_description')"
+                                @click="focusField('team_description')"
+                                >{{ team_description }}
+                            </span>
+                            <input
+                                v-model="team_description"
+                                v-show="showField('team_description')"
+                                id="team_description"
+                                type="text"
+                                class="field-value form-control"
+                                @focus="focusField('title')"
+                                @blur="blurField"
+                            />  
+                        </div>
+                    </div>
                 </div>
-                <div class="text-center">
-                    <h2 class="featurette-heading">{{ team_title }}</h2>
-                    <p class="lead">{{ team_description }}</p>
-                </div>
+
 
                 <hr class="featurette-divider" />
                 
