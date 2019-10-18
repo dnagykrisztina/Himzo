@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Himzo.Dal;
 using Himzo.Dal.Entities;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Himzo.Web.Controllers
 {
@@ -25,7 +26,8 @@ namespace Himzo.Web.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            
+
+            //var user = GetCurrentUserAsync();
 
             string search = HttpContext.Request.Query["search"].ToString();
             string name = HttpContext.Request.Query["name"].ToString();
@@ -82,6 +84,37 @@ namespace Himzo.Web.Controllers
             }
 
             return NoContent();
+        }
+
+        [Route("{orderId}")]
+        [HttpPatch]
+        public async Task<IActionResult> PatchOrder(int orderId, [FromBody] JsonPatchDocument<Order> patchModel)
+        {
+            try
+            {
+                Order order = await _context.Orders.FindAsync(orderId);
+                if (order == null) {
+
+                    return NotFound();
+                }
+
+                _context.Entry(order).State = EntityState.Modified;
+                
+                patchModel.ApplyTo(order);
+
+                _context.Orders.Update(order);
+
+                await _context.SaveChangesAsync();
+
+                //return Ok();
+                return new ObjectResult(order);
+            }
+            catch (Exception e)
+            {
+                
+            }
+
+            return BadRequest("Error updating customer");
         }
 
         // POST: api/Orders
