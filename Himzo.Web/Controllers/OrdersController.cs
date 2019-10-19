@@ -17,9 +17,9 @@ namespace Himzo.Web.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly HimzoDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<User> _userManager;
 
-        public OrdersController(HimzoDbContext context, UserManager<IdentityUser> userManager = null)
+        public OrdersController(HimzoDbContext context, UserManager<User> userManager = null)
         {
             _context = context;
             _userManager = userManager;
@@ -31,9 +31,9 @@ namespace Himzo.Web.Controllers
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             //Current user and role for role based orderslist views 
-            //var user = await _userManager.GetUserAsync(HttpContext.User);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            //string rolename =  _userManager.GetRolesAsync(user).Result.FirstOrDefault();
+            string rolename =  _userManager.GetRolesAsync(user).Result.FirstOrDefault();
 
             string search = HttpContext.Request.Query["search"].ToString();
             string name = HttpContext.Request.Query["name"].ToString();
