@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Himzo.Dal;
 using Himzo.Dal.Entities;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Himzo.Web.Controllers
 {
@@ -23,45 +24,48 @@ namespace Himzo.Web.Controllers
 
         // GET: api/Contents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Content>>> GetContents(string page)
+        public async Task<ActionResult<IEnumerable<Content>>> GetContents()
         {
-            if (page == "")
+            string path = HttpContext.Request.Query["path"].ToString();
+
+            if (path != "")
             {
-                return new EmptyResult();
+                return await _context.Contents.Where(x => x.Path == (path)).ToListAsync<Content>();
             }
-            return await _context.Contents.Where(x => x.Page == page).ToListAsync();
+
+            return new EmptyResult();
         }
 
-        // PUT: api/Contents/5
+        // Patch: api/Contents/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{page}/{slug}")]
-        public async Task<IActionResult> PutContent(string page, string slug, Content content)
+        [Route("{path}")]
+        [HttpPatch]
+        public async Task<IActionResult> PatchContent(string path, [FromBody] JsonPatchDocument<Content> patchModel)
         {
-            if (page != content.Page && slug != content.Slug)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(content).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ContentExists(page, slug))
+                Content content = await _context.Contents.Where(x => x.Path == path).FirstOrDefaultAsync();
+                if (content == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                patchModel.ApplyTo(content);
+
+                _context.Contents.Update(content);
+
+                await _context.SaveChangesAsync();
+
+                return new ObjectResult(content);
+
+            }
+            catch (Exception e)
+            {
+
             }
 
-            return NoContent();
+            return BadRequest("Error updating content");
         }
 
         // POST: api/Contents
@@ -96,9 +100,9 @@ namespace Himzo.Web.Controllers
         }
         */
 
-        private bool ContentExists(string page, string slug)
+        private bool ContentExists(string path)
         {
-            return _context.Contents.Any(e => e.Page == page && e.Slug == slug);
+            return _context.Contents.Any(e => e.Path == path);
         }
     }
 }
