@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Himzo.Dal;
 using Himzo.Dal.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Himzo.Web.Controllers
 {
@@ -15,17 +17,26 @@ namespace Himzo.Web.Controllers
     public class ImagesController : ControllerBase
     {
         private readonly HimzoDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public ImagesController(HimzoDbContext context)
+        public ImagesController(HimzoDbContext context, UserManager<User> userManager = null)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Images
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Image>>> GetImages()
         {
-            return await _context.Images.ToListAsync();
+            string path = HttpContext.Request.Query["path"].ToString();
+
+            if (path != "")
+            {
+                return await _context.Images.Where(x => x.ImageId.ToString() == (path)).ToListAsync<Image>();
+            }
+
+            return new EmptyResult();
         }
 
         // GET: api/Images/5
@@ -42,36 +53,36 @@ namespace Himzo.Web.Controllers
             return image;
         }
 
-        // PUT: api/Images/5
+        // PATCH: api/Images/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutImage(int id, Image image)
+        [Route("{id}")]
+        [HttpPatch]
+        public async Task<IActionResult> PutImage(int id, [FromBody] JsonPatchDocument<Image> patchModel)
         {
-            if (id != image.ImageId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(image).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ImageExists(id))
+                Image image = await _context.Images.Where(x => x.ImageId == id).FirstOrDefaultAsync();
+                if (image == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                patchModel.ApplyTo(image);
+
+                _context.Images.Update(image);
+
+                await _context.SaveChangesAsync();
+
+                return new ObjectResult(image);
+
+            }
+            catch (Exception e)
+            {
+
             }
 
-            return NoContent();
+            return BadRequest("Error updating content");
         }
 
         // POST: api/Images
