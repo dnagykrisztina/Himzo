@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Himzo.Dal;
 using Himzo.Dal.Entities;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Identity;
 
 namespace Himzo.Web.Controllers
 {
@@ -16,12 +17,22 @@ namespace Himzo.Web.Controllers
     public class ContentsController : ControllerBase
     {
         private readonly HimzoDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public ContentsController(HimzoDbContext context)
+        private const string PATCH_AUTHORITY_LEVEL = "Admin";
+        private const string POST_AUTHORITY_LEVEL = "Admin";
+        private const string DELETE_AUTHORITY_LEVEL = "Admin";
+
+        public ContentsController(HimzoDbContext context, UserManager<User> userManager = null)
         {
             _context = context;
+            _userManager = userManager;
         }
 
+        /*
+         * Visszaadja az adott oldalon található contenteket.
+         * Hiányzó oldal getParam esetén üres listát ad vissza.
+         */
         // GET: api/Contents
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Content>>> GetContents()
@@ -36,16 +47,25 @@ namespace Himzo.Web.Controllers
             return new EmptyResult();
         }
 
+        /*
+         *  Content id alapján frissíti az oldalon található contentet.
+         *  Ehhez a művelethez admin jogosultság szükséges.
+         */
         // Patch: api/Contents/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [Route("{path}")]
+        [Route("{id}")]
         [HttpPatch]
-        public async Task<IActionResult> PatchContent(string path, [FromBody] JsonPatchDocument<Content> patchModel)
+        public async Task<IActionResult> PatchContent(int id, [FromBody] JsonPatchDocument<Content> patchModel)
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null || await _userManager.IsInRoleAsync(user, PATCH_AUTHORITY_LEVEL) == false)
+            {
+                return Unauthorized("Error updating content because of incorrect authority level.");
+            }
+
             try
             {
-                Content content = await _context.Contents.Where(x => x.Path == path).FirstOrDefaultAsync();
+                Content content = await _context.Contents.Where(x => x.ContentId == id).FirstOrDefaultAsync();
                 if (content == null)
                 {
                     return NotFound();
