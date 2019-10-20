@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <div id="admin">
+    <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <meta name="description" content="" />
+      <meta
+        name="author"
+        content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+      />
+      <meta name="generator" content="Jekyll v3.8.5" />
+      <title>Hímző</title>
+
+      <link
+        rel="canonical"
+        href="https://getbootstrap.com/docs/4.3/examples/carousel/"
+      />
+      <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
+      <script
+        src="https://kit.fontawesome.com/be6f5cd1bf.js"
+        crossorigin="anonymous"
+      ></script>
+
+      <!-- Bootstrap core CSS -->
+      <link
+        href="/docs/4.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+      />
+
+      <!-- Custom styles for this template -->
+      <link href="../carousel.css" rel="stylesheet" />
+    </head>
+    <header>
+      <himzoheader></himzoheader>
+    </header>
+
+    <body>
+      <main role="main">
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+          <div class="container">
+            <div class="display-3">
+              <div class="field">
+                <span
+                  class="field-value featurette-heading"
+                  v-show="!showField('title')"
+                  @click="focusField('title')"
+                  >{{ title }}</span
+                >
+                <input
+                  v-model="title"
+                  v-show="showField('title')"
+                  id="title"
+                  type="text"
+                  class="field-value form-control"
+                  @focus="focusField('title')"
+                  @blur="blurField"
+                />
+              </div>
+
+              <div class="field">
+                <h3>
+                  <span
+                    class="field-valueg"
+                    v-show="!showField('titleDescription')"
+                    @click="focusField('titleDescription')"
+                    >{{ titleDescription }}</span
+                  >
+                  <input
+                    v-model="titleDescription"
+                    v-show="showField('titleDescription')"
+                    id="titleDescription"
+                    type="text"
+                    class="field-value form-control"
+                    @focus="focusField('titleDescription')"
+                    @blur="blurField"
+                  />
+                </h3>
+              </div>
+            </div>
+            <p>
+              <a
+                class="btn btn-primary btn-lg"
+                href="indexAdmin.html"
+                role="button"
+                >{{ moreButton }}&raquo;</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <!-- Marketing messaging and featurettes
+            ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+
+        <div class="container marketing">
+          <!-- START THE FEATURETTES -->
+
+          <hr class="featurette-divider" />
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <div class="field">
+                <span
+                  class="field-value featurette-heading"
+                  v-show="!showField('patchTitle')"
+                  @click="focusField('patchTitle')"
+                  >{{ patchTitle }}</span
+                >
+                <input
+                  v-model="patchTitle"
+                  v-show="showField('patchTitle')"
+                  id="patchTitle"
+                  type="text"
+                  class="field-value form-control"
+                  @focus="focusField('patchTitle')"
+                  @blur="blurField"
+                />
+              </div>
+
+              <div class="field">
+                <span
+                  class="field-valueg"
+                  v-show="!showField('patchDescription')"
+                  @click="focusField('patchDescription')"
+                  >{{ patchDescription }}</span
+                >
+                <input
+                  v-model="patchDescription"
+                  v-show="showField('patchDescription')"
+                  id="patchDescription"
+                  type="text"
+                  class="field-value form-control"
+                  @focus="focusField('patchDescription')"
+                  @blur="blurField"
+                />
+              </div>
+              <a
+                href="patchFormAdmin.html"
+                class="btn btn-lg btn-block btn-outline-primary"
+                >Rendelés</a
+              >
+            </div>
+            <div class="col-md-5">
+              <svg
+                class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                width="500"
+                height="500"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                role="img"
+                aria-label="Placeholder: 500x500"
+              >
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#eee" />
+              </svg>
+            </div>
+          </div>
+
+          <hr class="featurette-divider" />
+
+          <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <div class="field">
+                <span
+                  class="field-value featurette-heading"
+                  v-show="!showField('embroideredPatternTitle')"
+                  @click="focusField('embroideredPatternTitle')"
+                  >{{ embroideredPatternTitle }}</span
+                >
+                <input
+                  v-model="embroideredPatternTitle"
+                  v-show="showField('embroideredPatternTitle')"
+                  id="embroideredPatternTitle"
+                  type="text"
+                  class="field-value form-control"
+                  @focus="focusField('embroideredPatternTitle')"
+                  @blur="blurField"
+                />
+              </div>
+              <div class="field">
+                <span
+                  class="field-valueg"
+                  v-show="!showField('embroideredPatternDescription')"
+                  @click="focusField('embroideredPatternDescription')"
+                  >{{ embroideredPatternDescription }}</span
+                >
+                <input
+                  v-model="embroideredPatternDescription"
+                  v-show="showField('embroideredPatternDescription')"
+                  id="embroideredPatternDescription"
+                  type="text"
+                  class="field-value form-control"
+                  @focus="focusField('embroideredPatternDescription')"
+                  @blur="blurField"
+                />
+              </div>
+              <a
+                href="patternFormAdmin.html"
+                class="btn btn-lg btn-block btn-outline-primary"
+                >Rendelés</a
+              >
+            </div>
+            <div class="col-md-5 order-md-1">
+              <svg
+                class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                width="500"
+                height="500"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                role="img"
+                aria-label="Placeholder: 500x500"
+              >
+                <title>Placeholder</title>
+
+                <rect width="100%" height="100%" fill="#eee" />
+              </svg>
+            </div>
+          </div>
+
+          <hr class="featurette-divider" />
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <div class="field">
+                <span
+                  class="field-value featurette-heading"
+                  v-show="!showField('sweaterTitle')"
+                  @click="focusField('sweaterTitle')"
+                  >{{ sweaterTitle }}</span
+                >
+                <input
+                  v-model="sweaterTitle"
+                  v-show="showField('sweaterTitle')"
+                  id="sweaterTitle"
+                  type="text"
+                  class="field-value form-control"
+                  @focus="focusField('sweaterTitle')"
+                  @blur="blurField"
+                />
+              </div>
+              <div class="field">
+                <span
+                  class="field-valueg"
+                  v-show="!showField('sweaterDescription')"
+                  @click="focusField('sweaterDescription')"
+                  >{{ sweaterDescription }}</span
+                >
+                <input
+                  v-model="sweaterDescription"
+                  v-show="showField('sweaterDescription')"
+                  id="sweaterDescription"
+                  type="text"
+                  class="field-value form-control"
+                  @focus="focusField('sweaterDescription')"
+                  @blur="blurField"
+                />
+              </div>
+            </div>
+            <div class="col-md-5">
+              <img
+                v-bind:src="photo"
+                class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+                width="500"
+                height="500"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+                role="img"
+                aria-label="Placeholder: 500x500"
+              />
+            </div>
+          </div>
+
+          <hr class="featurette-divider" />
+          <button class="btn btn-primary" type="submit">
+            Mentés
+          </button>
+          <hr class="featurette-divider" />
+
+          <!-- /END THE FEATURETTES -->
+        </div>
+        <!-- /.container -->
+      </main>
+    </body>
+    <!-- FOOTER -->
+    <footer class="page-footer font-small cyan darken-3">
+      <himzofooter></himzofooter>
+    </footer>
+    <foot>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="admin.js"></script>
+    </foot>
+  </div>
+</html>
