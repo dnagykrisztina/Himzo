@@ -26,39 +26,102 @@ namespace Himzo.Web.Controllers
             
         }
 
+        /*
+         * Visszaadja a felhasználónak a saját rendeléseit, a körtagnak / adminnak a saját vagy az összes
+         * rendelést az all getParam értéke alapján (ha true, akkor az összeset).
+         * Körtag / admin képes szűrni az eredményeket:
+         * - search : leírásban keresés
+         * - name : rendelő nevében keresés
+         * - email : rendelő emailjében keresés
+         * A szűrési paraméterek kombinálhatók.
+         */
         // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
-            //Current user and role for role based orderslist views 
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-
-            string rolename =  _userManager.GetRolesAsync(user).Result.FirstOrDefault();
-
+            string all = HttpContext.Request.Query["all"].ToString();
             string search = HttpContext.Request.Query["search"].ToString();
             string name = HttpContext.Request.Query["name"].ToString();
             string email = HttpContext.Request.Query["email"].ToString();
+            //Current user and role for role based orderslist views 
+            var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            return await _context.Orders.Where(x => x.OrderComment.Contains(search))
+            if (user == null)
+            {
+                return Unauthorized("Error accessing orders because of incorrect authority level!");
+            }
+
+            if (await _userManager.IsInRoleAsync(user, "User"))
+            {
+                return await _context.Orders.Where(x => x.User.Id == user.Id)
+                                            .OrderBy(x => x.OrderTime)
+                                            .ToListAsync<Order>();
+
+            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                if (all != null && all.Equals("true"))
+                {
+                    return await _context.Orders.Where(x => x.OrderComment.Contains(search))
                                         .Where(x => x.User.Name.Contains(name))
-                                        .Where(x => x.User.Email.Contains(email)).ToListAsync<Order>();
+                                        .Where(x => x.User.Email.Contains(email))
+                                        .OrderBy(x => x.OrderState)
+                                        .OrderBy(x => x.Deadline)
+                                        .ToListAsync<Order>();
+                } else
+                {
+                    return await _context.Orders.Where(x => x.User.Id == user.Id)
+                                                .OrderBy(x => x.OrderTime)
+                                                .ToListAsync<Order>();
+                }
+            }
+
+            return new EmptyResult();
 
         }
 
+        /*
+         * Visszaadja a megadott id-val rendelkező ordert.
+         * Egy felhasználónak csak a saját rendelését adja vissza.
+         */
         // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            
+            if (user == null)
+            {
+                return Unauthorized("Error accessing orders because of incorrect authority level!");
+            }
+            
             var order = await _context.Orders.FindAsync(id);
-
             if (order == null)
             {
                 return NotFound();
             }
 
-            return order;
+            if (await _userManager.IsInRoleAsync(user, "User"))
+            {
+                if (user.Id != order.User.Id)
+                {
+                    return Unauthorized("The requested order cannot be accessed by this user!");
+                } else
+                {
+                    return order;
+                }
+            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                return order;
+            }
+           
+            return new EmptyResult();
         }
 
+        /*
+         * Updateli az adott ordert.
+         * Egy felhasználó csak a saját ordereit tudja updatelni.
+         * Körtag és admin képes más rendeléseket is updatelni (pl állapot miatt).
+         */
         //PATCH: api/orders/5
         [Route("{orderId}")]
         [HttpPatch]
@@ -66,33 +129,58 @@ namespace Himzo.Web.Controllers
         {
             try
             {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                if (user == null)
+                {
+                    return Unauthorized("Error accessing orders because of incorrect authority level!");
+                }
+
                 Order order = await _context.Orders.FindAsync(orderId);
                 if (order == null) {
 
                     return NotFound();
                 }
 
-                patchModel.ApplyTo(order);
+                if (await _userManager.IsInRoleAsync(user, "User")) {
+                    if (user.Id != order.User.Id)
+                    {
+                        return Unauthorized("Error patching order. A user can only patch their own orders.");
+                    } else
+                    {
+                        patchModel.ApplyTo(order);
 
-                _context.Orders.Update(order);
+                        _context.Orders.Update(order);
 
-                await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync();
 
-                return new ObjectResult(order);
+                        return new ObjectResult(order);
+                    }
+                } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    patchModel.ApplyTo(order);
 
+                    _context.Orders.Update(order);
 
+                    await _context.SaveChangesAsync();
+
+                    return new ObjectResult(order);
+                }
+                
             }
             catch (Exception e)
             {
                 
             }
 
-            return BadRequest("Error updating customer");
+            return BadRequest("Error updating order");
         }
 
+        /*
+         * Létrehoz egy új ordert.
+         * Minden role jogosult erre.
+         */
         // POST: api/Orders
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         public async Task<ActionResult<Order>> PostOrder(Order order)
         {
@@ -102,20 +190,47 @@ namespace Himzo.Web.Controllers
             return CreatedAtAction(nameof(GetOrder), new { id = order.OrderId }, order);
         }
 
+        /*
+         * Töröl egy létező ordert id alapján.
+         * Egy felhasználó csak a saját orderét képes törölni.
+         * Körtag/admin képes megrendelést törölni (?)
+         */
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Order>> DeleteOrder(int id)
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null)
+            {
+                return Unauthorized("Error deleting order because of incorrect authority level!");
+            }
+
             var order = await _context.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
             }
 
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
+            if (await _userManager.IsInRoleAsync(user, "User"))
+            {
+                if (user.Id != order.User.Id)
+                {
+                    return Unauthorized("Error deleting order. A user can only delete their own orders.");
+                } else
+                {
+                    _context.Orders.Remove(order);
+                    await _context.SaveChangesAsync();
+                    return order;
+                }
+            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            {
+                _context.Orders.Remove(order);
+                await _context.SaveChangesAsync();
+                return order;
+            }
 
-            return order;
+            return BadRequest("Error deleting order");
         }
 
         private bool OrderExists(int id)
