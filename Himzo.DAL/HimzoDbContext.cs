@@ -26,8 +26,13 @@ namespace Himzo.Dal
                 .WithMany(u => u.Orders);
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.Comment);
+
             modelBuilder.Entity<Comment>()
-                .HasOne(c => c.User);
+                .HasOne(c => c.User)
+                .WithMany(u => u.Comments);
+
+            modelBuilder.Entity<Role>().ToTable("Roles");
+
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Orders)
@@ -35,7 +40,7 @@ namespace Himzo.Dal
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Comments)
                 .WithOne(c => c.User);
-            modelBuilder.Entity<Role>().ToTable("Roles");
+
         }
 
     }

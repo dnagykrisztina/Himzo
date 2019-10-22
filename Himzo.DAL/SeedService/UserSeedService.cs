@@ -2,6 +2,7 @@
 using Himzo.Dal.SeedInterfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Himzo.Dal.SeedService
@@ -17,7 +18,7 @@ namespace Himzo.Dal.SeedService
             _userManager = userManager;
         }
 
-        public async Task SeedRoleAsync()
+        public async Task SeedUserAsync()
         {
             if (!await _roleManager.RoleExistsAsync(Role.Admin))
                 await _roleManager.CreateAsync(new Role { Name = Role.Admin });
@@ -25,10 +26,7 @@ namespace Himzo.Dal.SeedService
                 await _roleManager.CreateAsync(new Role { Name = Role.Kortag });
             if (!await _roleManager.RoleExistsAsync(Role.User))
                 await _roleManager.CreateAsync(new Role { Name = Role.User });
-        }
 
-        public async Task SeedUserAsync()
-        {
             if ((await _userManager.GetUsersInRoleAsync(Role.Admin)).Count == 0)
             {
                 var user = new User
@@ -36,9 +34,11 @@ namespace Himzo.Dal.SeedService
                     Email = "admin@himzo.hu",
                     Name = "Adminisztrátor",
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "admin"
+                    UserName = "admin",
+                    Comments = new List<Comment>(),
+                    Orders = new List<Order>()
                 };
-                var createResult = await _userManager.CreateAsync(user, "Admin");
+                var createResult = await _userManager.CreateAsync(user, "$Administrator123");
                 var addToRoleResult = await _userManager.AddToRoleAsync(user, Role.Admin);
                 if (!createResult.Succeeded || !addToRoleResult.Succeeded)
                     throw new ApplicationException($"Admin user cannot be created!");
@@ -51,9 +51,11 @@ namespace Himzo.Dal.SeedService
                     Email = "kortag@himzo.hu",
                     Name = "Kortag",
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "kortag"
+                    UserName = "kortag",
+                    Comments = new List<Comment>(),
+                    Orders = new List<Order>()
                 };
-                var createResult = await _userManager.CreateAsync(user, "Kortag");
+                var createResult = await _userManager.CreateAsync(user, "#Kortag123");
                 var addToRoleResult = await _userManager.AddToRoleAsync(user, Role.Kortag);
                 if (!createResult.Succeeded || !addToRoleResult.Succeeded)
                     throw new ApplicationException($"Kortag user cannot be created!");
@@ -66,10 +68,12 @@ namespace Himzo.Dal.SeedService
                     Email = "testuser@himzo.hu",
                     Name = "TestUser",
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "testuser"
+                    UserName = "testuser",
+                    Comments = new List<Comment>(),
+                    Orders = new List<Order>()
                 };
-                var createResult = await _userManager.CreateAsync(user, "TestUser");
-                var addToRoleResult = await _userManager.AddToRoleAsync(user, Role.Admin);
+                var createResult = await _userManager.CreateAsync(user, "$TestUser123");
+                var addToRoleResult = await _userManager.AddToRoleAsync(user, Role.User);
                 if (!createResult.Succeeded || !addToRoleResult.Succeeded)
                     throw new ApplicationException($"Test user cannot be created!");
             }
