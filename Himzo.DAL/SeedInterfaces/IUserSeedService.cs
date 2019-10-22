@@ -7,7 +7,6 @@ namespace Himzo.Dal.SeedInterfaces
 {
     public interface IUserSeedService
     {
-        public Task SeedRoleAsync();
         public Task SeedUserAsync();
     }
 }
