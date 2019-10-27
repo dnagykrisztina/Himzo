@@ -2,7 +2,7 @@
   <div>
     <div>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="indexUser.html">{{ titleHimzo }}</a>
+        <a class="navbar-brand" href="index.html">{{ titleHimzo }}</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -17,21 +17,23 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="indexUser.html">{{ order }}</a>
+              <a class="nav-link" href="index.html">{{ order }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="userOrderUser.html">{{ myOrders }}</a>
+              <a class="nav-link" href="index.html#/userorder">{{ myOrders }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="aboutUsUser.html">{{ aboutUs }}</a>
+              <a class="nav-link" href="index.html#/aboutus">{{ aboutUs }}</a>
             </li>
             <li class="dropdown nav-item">
               <a href="#" class="dropbtn nav-link">{{ username }}</a>
               <div class="dropdown-content">
-                <a href="profileUser.html">{{ profile }}</a>
-                <a href="index.html">{{ singOut }}</a>
+                <a href="index.html#/profile">{{ profile }}</a>
+                <a href="index.html">{{ signOut }}</a>
               </div>
             </li>
+            <a class="nav-link" href="index.html#/signin">{{ signIn }}</a>
+            <li class="nav-item"></li>
           </ul>
         </div>
       </nav>
@@ -51,15 +53,14 @@ export default {
       aboutUs: "Rólunk",
       username: "Önnönmagam",
       profile: "Profilom",
-      singOut: "Kilépés",
-      logIn: "Bejelentkezés"
+      signOut: "Kilépés",
+      signIn: "Bejelentkezés"
     };
   }
 };
 </script>
 
 <style scoped>
-
 /*lenyíló menü*/
 
 li a,

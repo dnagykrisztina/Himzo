@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header></Header>
-    <Title></Title>
     <ProfileBody></ProfileBody>
     <Footer></Footer>
   </div>
@@ -9,16 +8,16 @@
 
 <script>
 import Header from "./Header.vue";
-import Title from "./Title.vue";
+//import Title from "./Title.vue";
 import ProfileBody from "./ProfileBody.vue";
 import Footer from "./Footer.vue";
 
 export default {
-  name: "ProfileBody",
+  name: "Profile",
   props: {},
   components: {
     Header,
-    Title,
+    //Title,
     ProfileBody,
     Footer
   }
