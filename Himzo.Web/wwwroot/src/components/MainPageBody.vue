@@ -15,19 +15,7 @@
 
         <div class="col-md-5">
           <!-- <coverflow :coverList="coverList" :coverWidth="100" :index="2" @change="handleChange"></coverflow> -->
-          <svg
-            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-            width="500"
-            height="500"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-            role="img"
-            aria-label="Placeholder: 500x500"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#eee" />
-          </svg>
+          <Coverflow></Coverflow>
         </div>
       </div>
 
@@ -43,20 +31,7 @@
           >Rendelés</a>
         </div>
         <div class="col-md-5 order-md-1">
-          <svg
-            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-            width="500"
-            height="500"
-            xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-            role="img"
-            aria-label="Placeholder: 500x500"
-          >
-            <title>Placeholder</title>
-
-            <rect width="100%" height="100%" fill="#eee" />
-          </svg>
+          <Coverflow></Coverflow>
         </div>
       </div>
 
@@ -68,39 +43,8 @@
           <p class="lead">{{ sweaterDescription }}</p>
         </div>
         <div class="col-md-5">
-          <img
-            v-bind:src="photo"
-            class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
-            width="500"
-            height="500"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-            role="img"
-            aria-label="Placeholder: 500x500"
-          />
+          <Coverflow></Coverflow>
         </div>
-      </div>
-
-      <div id="coverflow">
-        <section data-cover="../images/picture.jpg"></section>
-        <section
-          data-cover="http://a3.mzstatic.com/us/r1000/102/Music/95/45/3f/mzi.xqnmexwi.170x170-75.jpg"
-        ></section>
-        <section
-          data-cover="http://a4.mzstatic.com/us/r1000/014/Music/ea/6f/96/mzi.egqrvlca.170x170-75.jpg"
-        ></section>
-        <section
-          data-cover="http://a3.mzstatic.com/us/r1000/096/Music/1a/86/1f/mzi.dcotnnwo.170x170-75.jpg"
-        ></section>
-        <section
-          data-cover="http://a4.mzstatic.com/us/r1000/094/Music/a8/8b/db/mzi.dyzjtwow.170x170-75.jpg"
-        ></section>
-        <section
-          data-cover="http://a1.mzstatic.com/us/r1000/024/Music/81/54/3b/mzi.cceuzwlz.170x170-75.jpg"
-        ></section>
-        <section
-          data-cover="http://a5.mzstatic.com/us/r1000/103/Music/2f/08/9e/mzi.gxjxokia.170x170-75.jpg"
-        ></section>
       </div>
 
       <hr class="featurette-divider" />
@@ -113,6 +57,8 @@
 </template>
 
 <script>
+import Coverflow from "./Coverflow";
+
 export default {
   name: "MainPageBody",
   props: {},
@@ -131,7 +77,9 @@ export default {
     };
   },
 
-  components: {}
+  components: {
+    Coverflow
+  }
 };
 </script>
 

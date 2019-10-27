@@ -7,6 +7,7 @@ body {
   padding-bottom: 3rem;
   color: #5a5a5a;
   background-color: #fcf4e0;
+  width: 100%;
 }
 
 /* CUSTOMIZE THE CAROUSEL
@@ -97,6 +98,10 @@ body {
   background-color: #ff7e67;
   border-color: rgb(139, 69, 56);
 }
+.btn:hover {
+  background-color: rgb(139, 69, 56);
+  border-color: #ff7e67;
+}
 
 .bd-placeholder-img {
   font-size: 1.125rem;
@@ -119,7 +124,7 @@ body {
 }
 
 .jumbotron {
-  background-color: #DFEDB4;
+  background-color: #dfedb4;
 }
 
 /*form validation*/
@@ -130,14 +135,14 @@ body {
 .lh-condensed {
   line-height: 1.25;
 }
-.backToTheTop{
+.backToTheTop {
   text-align: right;
   margin-right: 20%;
 }
 
-.logo{
-  clear:both;
-  margin-bottom:20px;
+.logo {
+  clear: both;
+  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -147,4 +152,7 @@ body {
   margin: 10%;
   width: 100%;
 }
-
+.navbar .navbar-expand-md .navbar-dark .fixed-top .bg-dark {
+  background: #445c3c;
+  color: #445c3c;
+}

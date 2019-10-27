@@ -7,9 +7,6 @@
         <h1 class="display-3">{{ title }}</h1>
 
         <p>{{ titleDescription }}</p>
-        <p>
-          <a class="btn btn-primary btn-lg" href="#" role="button">{{ moreButton }}&raquo;</a>
-        </p>
       </div>
     </div>
   </main>
