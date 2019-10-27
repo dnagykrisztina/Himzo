@@ -30,7 +30,7 @@ Vue.component("himzoheader", {
                 <a href="#" class="dropbtn nav-link">{{ username }}</a>
                 <div class="dropdown-content">
                   <a href="profileUser.html">{{ profile }}</a>
-                  <a href="index.html">{{ singOut }}</a>
+                  <a onclick="signOut()">{{ singOut }}</a>
                 </div>
               </li>
             </ul>
@@ -122,7 +122,7 @@ Vue.component("himzoheader", {
       </div>
     `
   });
-  
+
   var app = new Vue({
     el: "#user",
   
@@ -263,7 +263,20 @@ Vue.component("himzoheader", {
       },
       showField(name) {
         return this.editField == name;
+      },
+      getUser: function() {
+          var self = this;
+          axios.get('/api/User', function (data, status, request) {
+          if (status == 200) {
+              self.username = data.userName;
+              console.log(this.username);
+          }
+        });
       }
+    },
+
+    mounted: function() {
+        this.getUser();
     }
   });
   

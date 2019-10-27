@@ -25,6 +25,7 @@ namespace Himzo.Web
         }
 
         public IConfiguration Configuration { get; }
+        public object UIFramework { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,6 +35,25 @@ namespace Himzo.Web
                 o => o.UseSqlServer(Configuration.GetConnectionString(nameof(HimzoDbContext))));
             services.AddIdentity<User, Role>().
                 AddEntityFrameworkStores<HimzoDbContext>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigins",
+                builder =>
+                {
+                    builder.WithOrigins("https://accounts.google.com");
+                });
+            });
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
             services.AddScoped<IUserSeedService, UserSeedService>();
 
         }
@@ -47,9 +67,13 @@ namespace Himzo.Web
             }
 
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
             app.UseAuthentication();
-            app.UseDefaultFiles();
+            DefaultFilesOptions options = new DefaultFilesOptions();
+            options.DefaultFileNames.Clear();
+            options.DefaultFileNames.Add("general/signin.html");
+            app.UseDefaultFiles(options);
             app.UseStaticFiles(); // For the wwwroot folder
 
             app.UseEndpoints(endpoints =>

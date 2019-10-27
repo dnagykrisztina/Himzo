@@ -34,7 +34,7 @@ namespace Himzo.Dal.SeedService
                     Email = "admin@himzo.hu",
                     Name = "Adminisztrátor",
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "admin",
+                    UserName = "admin@himzo.hu",
                     Comments = new List<Comment>(),
                     Orders = new List<Order>()
                 };
@@ -51,7 +51,7 @@ namespace Himzo.Dal.SeedService
                     Email = "kortag@himzo.hu",
                     Name = "Kortag",
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "kortag",
+                    UserName = "kortag@himzo.hu",
                     Comments = new List<Comment>(),
                     Orders = new List<Order>()
                 };
@@ -68,7 +68,7 @@ namespace Himzo.Dal.SeedService
                     Email = "testuser@himzo.hu",
                     Name = "TestUser",
                     SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = "testuser",
+                    UserName = "testuser@himzo.hu",
                     Comments = new List<Comment>(),
                     Orders = new List<Order>()
                 };
