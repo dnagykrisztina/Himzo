@@ -12,7 +12,7 @@ import PatchFormBody from "./PatchFormBody.vue";
 import Footer from "./Footer.vue";
 
 export default {
-  name: "Index",
+  name: "PatchForm",
   props: {},
   components: {
     Header,

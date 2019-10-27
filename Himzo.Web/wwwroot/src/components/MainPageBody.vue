@@ -10,7 +10,7 @@
         <div class="col-md-7">
           <h2 class="featurette-heading">{{ patchTitle }}</h2>
           <p class="lead">{{ patchDescription }}</p>
-          <a href="signin.html" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
+          <a href="index.html#/patchform" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
         </div>
 
         <div class="col-md-5">
@@ -37,7 +37,10 @@
         <div class="col-md-7 order-md-2">
           <h2 class="featurette-heading">{{ embroideredPatternTitle }}</h2>
           <p class="lead">{{ embroideredPatternDescription }}</p>
-          <a href="signin.html" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
+          <a
+            href="index.html#/patternform"
+            class="btn btn-lg btn-block btn-outline-primary"
+          >Rendelés</a>
         </div>
         <div class="col-md-5 order-md-1">
           <svg
