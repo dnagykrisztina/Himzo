@@ -5,3 +5,4 @@
 /.vs
 **/bin
 **/obj
+/Himzo.Web/wwwroot/node_modules
