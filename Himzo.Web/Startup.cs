@@ -14,6 +14,7 @@ using Himzo.Dal;
 using Himzo.Dal.Entities;
 using Himzo.Dal.SeedInterfaces;
 using Himzo.Dal.SeedService;
+using Microsoft.OpenApi.Models;
 
 namespace Himzo.Web
 {
@@ -36,6 +37,11 @@ namespace Himzo.Web
                 AddEntityFrameworkStores<HimzoDbContext>();
             services.AddScoped<IUserSeedService, UserSeedService>();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Himzo API", Version = "v1" });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +51,12 @@ namespace Himzo.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Himzo API V1");
+            });
 
             app.UseRouting();
             app.UseAuthorization();
@@ -56,6 +68,7 @@ namespace Himzo.Web
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
