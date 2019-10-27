@@ -12,6 +12,7 @@
           <p class="lead">{{ patchDescription }}</p>
           <a href="signin.html" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
         </div>
+
         <div class="col-md-5">
           <!-- <coverflow :coverList="coverList" :coverWidth="100" :index="2" @change="handleChange"></coverflow> -->
           <svg
@@ -124,38 +125,10 @@ export default {
       sweaterDescription:
         "Több féle színben elérhetőek a VIK-es pulóverek. Ha megtetszett valamelyik, a himzo.sch.bme.hu email címen kaphatsz több információt róla.",
       photo: "../images/picture.jpg"
-      /*coverList: [
-        {
-          cover: "http://ogu51f989.bkt.clouddn.com/react.png",
-          title: "React"
-        },
-        {
-          cover: "http://ogu51f989.bkt.clouddn.com/angular.png",
-          title: "Angular"
-        },
-        {
-          cover: "http://ogu51f989.bkt.clouddn.com/vue.png",
-          title: "Vue"
-        },
-        {
-          cover: "http://ogu51f989.bkt.clouddn.com/webpack.png",
-          title: "Webpack"
-        },
-        {
-          cover: "http://ogu51f989.bkt.clouddn.com/yarn.png",
-          title: "Yarn"
-        },
-        {
-          cover: "http://ogu51f989.bkt.clouddn.com/node.png",
-          title: "Node"
-        }
-      ]*/
     };
   },
 
-  components: {
-    //coverflow
-  }
+  components: {}
 };
 </script>
 
