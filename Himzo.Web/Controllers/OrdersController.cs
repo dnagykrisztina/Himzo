@@ -148,6 +148,15 @@ namespace Himzo.Web.Controllers
                         return Unauthorized("Error patching order. A user can only patch their own orders.");
                     } else
                     {
+                        Order tempOrder = order;
+
+                        patchModel.ApplyTo(tempOrder);
+
+                        if (tempOrder.Comment != order.Comment)
+                        {
+                            return Unauthorized("Error patching order. A user cannot patch the comment on their order.");
+                        }
+
                         patchModel.ApplyTo(order);
 
                         _context.Orders.Update(order);
@@ -158,6 +167,7 @@ namespace Himzo.Web.Controllers
                     }
                 } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
                 {
+                    
                     patchModel.ApplyTo(order);
 
                     _context.Orders.Update(order);
