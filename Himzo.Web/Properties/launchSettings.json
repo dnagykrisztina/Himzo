@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": ".\\public\\index.html",
+      "launchUrl": ".\\dist\\index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "Himzo.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": ".\\public\\index.html",
+      "launchUrl": ".\\dist\\index.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
