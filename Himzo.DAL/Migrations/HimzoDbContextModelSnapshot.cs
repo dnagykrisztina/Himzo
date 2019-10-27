@@ -79,6 +79,9 @@ namespace Himzo.Dal.Migrations
                     b.Property<byte[]>("ByteImage")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 

@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Himzo.Dal;
 using Himzo.Dal.Entities;
+using Himzo.Dal.SeedInterfaces;
+using Himzo.Dal.SeedService;
 
 namespace Himzo.Web
 {
@@ -27,10 +29,13 @@ namespace Himzo.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddDbContext<HimzoDbContext>(
                 o => o.UseSqlServer(Configuration.GetConnectionString(nameof(HimzoDbContext))));
-            services.AddIdentity<User, Role>().AddEntityFrameworkStores<HimzoDbContext>();
+            services.AddIdentity<User, Role>().
+                AddEntityFrameworkStores<HimzoDbContext>();
+            services.AddScoped<IUserSeedService, UserSeedService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

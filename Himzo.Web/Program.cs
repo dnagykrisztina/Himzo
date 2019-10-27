@@ -14,12 +14,12 @@ namespace Himzo.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
-            CreateWebHostBuilder(args)
-                .Build()
-                .MigrateDatabase<HimzoDbContext>()
-                .Run();
+            (await CreateWebHostBuilder(args)
+                                       .Build()
+                                       .MigrateDatabase<HimzoDbContext>())
+                                       .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
