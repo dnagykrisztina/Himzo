@@ -49,11 +49,8 @@ namespace Himzo.Web
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    IConfigurationSection googleAuthNSection =
-                        Configuration.GetSection("Authentication:Google");
-
-                    options.ClientId = googleAuthNSection["ClientId"];
-                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                    options.ClientId = "955067358940-useatbvb53ek23cora7tcrufngvf14mc.apps.googleusercontent.com";
+                    options.ClientSecret = "0t-axPW-a08nwuxJep5xtCF3";
                 });
             services.AddScoped<IUserSeedService, UserSeedService>();
 
