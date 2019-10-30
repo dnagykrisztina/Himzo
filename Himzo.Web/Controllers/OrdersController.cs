@@ -37,7 +37,7 @@ namespace Himzo.Web.Controllers
          */
         // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrders()
         {
             string all = HttpContext.Request.Query["all"].ToString();
             string search = HttpContext.Request.Query["search"].ToString();
@@ -53,9 +53,17 @@ namespace Himzo.Web.Controllers
 
             if (await _userManager.IsInRoleAsync(user, "User"))
             {
+
                 return await _context.Orders.Where(x => x.User.Id == user.Id)
                                             .OrderBy(x => x.OrderTime)
-                                            .ToListAsync<Order>();
+                                            .Select(x => new OrderDTO() {
+                                                OrderId = x.OrderId,
+                                                CommentUpdateTime = x.Comment.UpdateTime,
+                                                CommentContent = x.Comment.Content,
+                                                OrderState = x.OrderState,
+                                                Amount = x.Amount,
+                                                Type = x.Type
+                                            }).ToListAsync<OrderDTO>();
 
             } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
             {
@@ -66,12 +74,30 @@ namespace Himzo.Web.Controllers
                                         .Where(x => x.User.Email.Contains(email))
                                         .OrderBy(x => x.OrderState)
                                         .OrderBy(x => x.Deadline)
-                                        .ToListAsync<Order>();
+                                        .Select(x => new OrderDTO()
+                                        {
+                                            OrderId = x.OrderId,
+                                            CommentUpdateTime = x.Comment.UpdateTime,
+                                            CommentContent = x.Comment.Content,
+                                            OrderState = x.OrderState,
+                                            Amount = x.Amount,
+                                            Type = x.Type
+                                        })
+                                        .ToListAsync<OrderDTO>();
                 } else
                 {
                     return await _context.Orders.Where(x => x.User.Id == user.Id)
                                                 .OrderBy(x => x.OrderTime)
-                                                .ToListAsync<Order>();
+                                                .Select(x => new OrderDTO()
+                                                {
+                                                    OrderId = x.OrderId,
+                                                    CommentUpdateTime = x.Comment.UpdateTime,
+                                                    CommentContent = x.Comment.Content,
+                                                    OrderState = x.OrderState,
+                                                    Amount = x.Amount,
+                                                    Type = x.Type
+                                                })
+                                                .ToListAsync<OrderDTO>();
                 }
             }
 
