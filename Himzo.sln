@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himzo.Web", "Himzo.Web\Himzo.Web.csproj", "{29438C46-3F4C-4949-8EA7-09618913A187}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Himzo.Web", "Himzo.Web\Himzo.Web.csproj", "{29438C46-3F4C-4949-8EA7-09618913A187}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F7E493B3-4C78-4D5D-A347-D0278998F39F} = {F7E493B3-4C78-4D5D-A347-D0278998F39F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Himzo.Dal", "Himzo.DAL\Himzo.Dal.csproj", "{F7E493B3-4C78-4D5D-A347-D0278998F39F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Himzo.Dal", "Himzo.DAL\Himzo.Dal.csproj", "{F7E493B3-4C78-4D5D-A347-D0278998F39F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HimzoTests", "HimzoTests\HimzoTests.csproj", "{5280D7D8-5535-460F-8EA7-8DBAE3D89366}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{F7E493B3-4C78-4D5D-A347-D0278998F39F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7E493B3-4C78-4D5D-A347-D0278998F39F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7E493B3-4C78-4D5D-A347-D0278998F39F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5280D7D8-5535-460F-8EA7-8DBAE3D89366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5280D7D8-5535-460F-8EA7-8DBAE3D89366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5280D7D8-5535-460F-8EA7-8DBAE3D89366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5280D7D8-5535-460F-8EA7-8DBAE3D89366}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
