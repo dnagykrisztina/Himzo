@@ -9,6 +9,7 @@ using Himzo.Dal;
 using Himzo.Dal.Entities;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Identity;
+using AutoMapper.Mappers;
 
 namespace Himzo.Web.Controllers
 {
@@ -111,7 +112,7 @@ namespace Himzo.Web.Controllers
          */
         // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Order>> GetOrder(int id)
+        public async Task<ActionResult<OrderDetailsDTO>> GetOrder(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             
@@ -133,11 +134,12 @@ namespace Himzo.Web.Controllers
                     return Unauthorized("The requested order cannot be accessed by this user!");
                 } else
                 {
-                    return order;
+                    return ConvertToOrderDetailsDTO(order);
+                                                
                 }
             } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
             {
-                return order;
+                return ConvertToOrderDetailsDTO(order);
             }
            
             return new EmptyResult();
@@ -174,16 +176,15 @@ namespace Himzo.Web.Controllers
                         return Unauthorized("Error patching order. A user can only patch their own orders.");
                     } else
                     {
-                        Order tempOrder = order;
+                        Order tempOrder = new Order();
+
+                        tempOrder = order;
 
                         patchModel.ApplyTo(tempOrder);
 
-                        if (tempOrder.Comment != order.Comment)
-                        {
-                            return Unauthorized("Error patching order. A user cannot patch the comment on their order.");
-                        }
+                        var orderPatchDTO = ConvertToPatchDetailsDTO(tempOrder);
 
-                        patchModel.ApplyTo(order);
+                        order = MapToOrder(orderPatchDTO, tempOrder);
 
                         _context.Orders.Update(order);
 
@@ -193,8 +194,25 @@ namespace Himzo.Web.Controllers
                     }
                 } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
                 {
+
+                    Order tempOrder = new Order();
+
+                    tempOrder = order;
+
+                    patchModel.ApplyTo(tempOrder);
                     
-                    patchModel.ApplyTo(order);
+
+                    if (user.Id != order.User.Id)
+                    {
+
+                        var orderPatchDTO = ConvertToPatchDTO(tempOrder);
+                        order = MapToOrder(orderPatchDTO, tempOrder);
+
+                    } else
+                    {
+                        var orderPatchDTO = ConvertToPatchDetailsDTO(tempOrder);
+                        order = MapToOrder(orderPatchDTO, tempOrder);
+                    }
 
                     _context.Orders.Update(order);
 
@@ -272,6 +290,75 @@ namespace Himzo.Web.Controllers
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
+        }
+
+        private OrderDetailsDTO ConvertToOrderDetailsDTO (Order order)
+        {
+            return new OrderDetailsDTO()
+            {
+                OrderId = order.OrderId,
+                CommentUpdateTime = order.Comment.UpdateTime,
+                CommentContent = order.Comment.Content,
+                OrderState = order.OrderState,
+                Size = order.Size,
+                Amount = order.Amount,
+                Deadline = order.Deadline,
+                Pattern = order.Pattern,
+                OrderComment = order.OrderComment,
+                OrderTime = order.OrderTime,
+                Fonts = order.Fonts,
+                Type = order.Type,
+                PatternPlace = order.PatternPlace
+            };
+        }
+
+        private OrderPatchDetailsDTO ConvertToPatchDetailsDTO(Order order)
+        {
+            return new OrderPatchDetailsDTO()
+            {
+                Size = order.Size,
+                Amount = order.Amount,
+                Deadline = order.Deadline,
+                Pattern = order.Pattern,
+                OrderComment = order.OrderComment,
+                OrderTime = order.OrderTime,
+                Fonts = order.Fonts,
+                Type = order.Type,
+                PatternPlace = order.PatternPlace
+            };
+        }
+
+        private OrderPatchDTO ConvertToPatchDTO(Order order)
+        {
+            return new OrderPatchDTO()
+            {
+                CommentUpdateTime = order.Comment.UpdateTime,
+                CommentContent = order.Comment.Content,
+                OrderState = order.OrderState,
+            };
+        }
+
+        private Order MapToOrder(OrderPatchDetailsDTO orderDTO, Order order)
+        {
+            order.Size = orderDTO.Size;
+            order.Amount = orderDTO.Amount;
+            order.Deadline = orderDTO.Deadline;
+            order.Pattern = orderDTO.Pattern;
+            order.OrderComment = orderDTO.OrderComment;
+            order.OrderTime = orderDTO.OrderTime;
+            order.Fonts = orderDTO.Fonts;
+            order.Type = orderDTO.Type;
+            order.PatternPlace = orderDTO.PatternPlace;
+            return order;
+        }
+
+        private Order MapToOrder(OrderPatchDTO orderDTO, Order order)
+        {
+            order.Comment.UpdateTime = orderDTO.CommentUpdateTime;
+            order.Comment.Content = orderDTO.CommentContent;
+            order.OrderState = orderDTO.OrderState;
+
+            return order;
         }
     }
 }
