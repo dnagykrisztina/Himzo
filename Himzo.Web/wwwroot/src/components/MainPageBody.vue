@@ -77,6 +77,22 @@ export default {
     };
   },
 
+  mounted: function() {
+    this.testFetch();
+  },
+  methods: {
+    testFetch: () => {
+      fetch("http://localhost:52140/api/Comments", {
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+        .then(v => v.json())
+        .then(v => console.log(v));
+    }
+  },
+
   components: {
     Coverflow
   }
