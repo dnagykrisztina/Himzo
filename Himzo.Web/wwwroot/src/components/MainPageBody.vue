@@ -3,6 +3,11 @@
   <main role="main">
     <div class="container marketing">
       <!-- START THE FEATURETTES -->
+      <p>{{info}}</p>
+
+      <ul>
+        <li v-for="todo in todos" :key="todo.commentId">{{todo.content}}</li>
+      </ul>
 
       <hr class="featurette-divider" />
 
@@ -59,25 +64,61 @@
 
 <script>
 import Coverflow from "./Coverflow";
+import axios from "axios";
 
 export default {
   name: "MainPageBody",
   props: {},
   data() {
     return {
-      patchTitle: "Foltok",
-      patchDescription:
-        "Foltot igy meg igy kell rendelni. Nem csak rendezvényekre készítjük őket, hanem egyéni megrendeléseket is fogadunk!",
-      embroideredPatternTitle: "Hímzett minták",
-      embroideredPatternDescription:
-        "Hozott anyagokra tudunk neked hímeztetni, ez meg ez kell hozzá, tök jó lesz.",
-      sweaterTitle: "VIK-es pulcsik",
-      sweaterDescription:
-        "Több féle színben elérhetőek a VIK-es pulóverek. Ha megtetszett valamelyik, a himzo.sch.bme.hu email címen kaphatsz több információt róla.",
+      patchTitle: null,
+      info: null,
+      patchTitles: [],
+
+      patchDescription: null,
+      embroideredPatternTitle: null,
+      embroideredPatternDescription: null,
+      sweaterTitle: null,
+      sweaterDescription: null,
       photo: "../images/picture.jpg"
     };
   },
 
+  /* mounted: function() {
+    this.testFetch();
+  },
+  methods: {
+    testFetch: () => {
+      fetch("http://localhost:52140/api/Comments", {
+        mode: "cors",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+        .then(v => v.json())
+        .then(v => console.log(v));
+    }
+    http://localhost:3000/Comments
+  },*/
+  /*async created() {
+    try {
+      const res = await axios.get("http://localhost:3000/Comments");
+      this.todos = res.data;
+    } catch (e) {
+      console.log(e);
+    }
+  },*/
+  // axios
+  // .get("http://localhost:3000/Comments")
+  //.then(response => (this.info = response));
+  async mounted() {
+    try {
+      const res = await axios.get("http://localhost:52140/api/Comments");
+      this.todos = res.data;
+    } catch (e) {
+      console.log(e);
+    }
+  },
   components: {
     Coverflow
   }
