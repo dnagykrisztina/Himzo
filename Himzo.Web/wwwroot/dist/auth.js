@@ -5,7 +5,6 @@
         "KeepMeSignedIn": $('#KeepMeSignIn')[0].value == 'on'
     };
 
-    console.log(jsonData);
     $.ajax({
         url: "/api/Auth/Login",
         method: "POST",
@@ -15,8 +14,7 @@
         dataType: 'json',
         success: function (data) {
             if (data.success == true) {
-                alert(whoAmi());
-                window.location = "/user/indexUser.html";
+                window.location = "/dist/index.html";
             } else {
                 alert(data.message);
             }
