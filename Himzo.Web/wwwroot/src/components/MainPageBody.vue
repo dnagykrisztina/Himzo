@@ -6,7 +6,7 @@
       <p>{{info}}</p>
 
       <ul>
-        <li v-for="todo in todos" :key="todo.commentId">{{todo.content}}</li>
+        <li v-for="todo in todos" :key="todo.contentId">{{todo.title}} {{todo.contentString}}</li>
       </ul>
 
       <hr class="featurette-divider" />
@@ -16,7 +16,7 @@
           <h2 class="featurette-heading">{{ patchTitle }}</h2>
           <p class="lead">{{ patchDescription }}</p>
           <a href="index.html#/patchform" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
-            <div>halika</div>
+          <div>halika</div>
         </div>
 
         <div class="col-md-5">
@@ -74,7 +74,7 @@ export default {
       patchTitle: null,
       info: null,
       patchTitles: [],
-
+      todos: [],
       patchDescription: null,
       embroideredPatternTitle: null,
       embroideredPatternDescription: null,
@@ -113,7 +113,9 @@ export default {
   //.then(response => (this.info = response));
   async mounted() {
     try {
-      const res = await axios.get("http://localhost:52140/api/Comments");
+      const res = await axios.get(
+        "http://localhost:52140/api/Contents?path=welcome"
+      );
       this.todos = res.data;
     } catch (e) {
       console.log(e);
