@@ -177,30 +177,22 @@ namespace Himzo.Web.Controllers
                     } else
                     {
                         Order tempOrder = new Order();
-
                         tempOrder = order;
-
                         patchModel.ApplyTo(tempOrder);
 
                         var orderPatchDTO = ConvertToPatchDetailsDTO(tempOrder);
-
-                        order = MapToOrder(orderPatchDTO, tempOrder);
+                        order = await MapToOrderAsync(orderPatchDTO, tempOrder);
 
                         _context.Orders.Update(order);
-
                         await _context.SaveChangesAsync();
-
                         return new ObjectResult(order);
                     }
                 } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
                 {
 
                     Order tempOrder = new Order();
-
                     tempOrder = order;
-
                     patchModel.ApplyTo(tempOrder);
-                    
 
                     if (user.Id != order.User.Id)
                     {
@@ -210,14 +202,14 @@ namespace Himzo.Web.Controllers
 
                     } else
                     {
-                        var orderPatchDTO = ConvertToPatchDetailsDTO(tempOrder);
+                        var orderPatchDetailsDTO = ConvertToPatchDetailsDTO(tempOrder);
+                        var orderPatchDTO = ConvertToPatchDTO(tempOrder);
+                        order = await MapToOrderAsync(orderPatchDetailsDTO, tempOrder);
                         order = MapToOrder(orderPatchDTO, tempOrder);
                     }
 
                     _context.Orders.Update(order);
-
                     await _context.SaveChangesAsync();
-
                     return new ObjectResult(order);
                 }
                 
@@ -236,8 +228,17 @@ namespace Himzo.Web.Controllers
          */
         // POST: api/Orders
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Order>> PostOrder(OrderPatchDetailsDTO orderDTO)
         {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null)
+            {
+                return Unauthorized("Error accessing orders because of incorrect authority level!");
+            }
+
+            Order order = new Order();
+            order = await MapToOrderAsync(orderDTO, order);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
@@ -338,7 +339,7 @@ namespace Himzo.Web.Controllers
             };
         }
 
-        private Order MapToOrder(OrderPatchDetailsDTO orderDTO, Order order)
+        private async Task<Order> MapToOrderAsync(OrderPatchDetailsDTO orderDTO, Order order)
         {
             order.Size = orderDTO.Size;
             order.Amount = orderDTO.Amount;
@@ -349,12 +350,13 @@ namespace Himzo.Web.Controllers
             order.Fonts = orderDTO.Fonts;
             order.Type = orderDTO.Type;
             order.PatternPlace = orderDTO.PatternPlace;
+            order.User = await _userManager.GetUserAsync(HttpContext.User);
             return order;
         }
 
         private Order MapToOrder(OrderPatchDTO orderDTO, Order order)
         {
-            order.Comment.UpdateTime = orderDTO.CommentUpdateTime;
+            order.Comment.UpdateTime = DateTime.Now;
             order.Comment.Content = orderDTO.CommentContent;
             order.OrderState = orderDTO.OrderState;
 

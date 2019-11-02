@@ -10,4 +10,5 @@ namespace Himzo.Dal.Entities
         public string Title { get; set; }
         public string ContentString { get; set; }
     }
+
 }
