@@ -35,13 +35,17 @@ namespace Himzo.Web.Controllers
         */
         // GET: api/Images
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Image>>> GetImages()
+        public async Task<ActionResult<IEnumerable<ImageDTO>>> GetImages()
         {
             string path = HttpContext.Request.Query["path"].ToString();
       
             if (path != "")
             {
-                return await _context.Images.Where(x => x.ImageId.ToString().Equals(path)).ToListAsync<Image>();
+                return await _context.Images.Where(x => x.ImageId.ToString().Equals(path) && x.Active)
+                    .Select(x => new ImageDTO() { 
+                        ImageId = x.ImageId,
+                        ByteImage = x.ByteImage
+                    }).ToListAsync<ImageDTO>();
             }
 
             return new EmptyResult();
@@ -53,16 +57,16 @@ namespace Himzo.Web.Controllers
          */
         // GET: api/Images/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Image>> GetImage(int id)
+        public async Task<ActionResult<ImageDTO>> GetImage(int id)
         {
             var image = await _context.Images.FindAsync(id);
 
-            if (image == null)
+            if (image == null || !image.Active)
             {
                 return NotFound();
             }
 
-            return image;
+            return ConvertToImageDTO(image);
         }
 
 
@@ -73,7 +77,7 @@ namespace Himzo.Web.Controllers
         // PATCH: api/Images/5
         [Route("{id}")]
         [HttpPatch]
-        public async Task<IActionResult> PutImage(int id, [FromBody] JsonPatchDocument<Image> patchModel)
+        public async Task<IActionResult> PutImage(int id, [FromBody] JsonPatchDocument<ImagePatchDTO> patchModel)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -90,12 +94,12 @@ namespace Himzo.Web.Controllers
                     return NotFound();
                 }
 
-                patchModel.ApplyTo(image);
+                ImagePatchDTO imageDTO = ConvertToImagePatchDTO(image);
+                patchModel.ApplyTo(imageDTO);
+                image = MapToImage(imageDTO, image);
 
                 _context.Images.Update(image);
-
                 await _context.SaveChangesAsync();
-
                 return new ObjectResult(image);
 
             }
@@ -113,7 +117,7 @@ namespace Himzo.Web.Controllers
          * Ehhez a művelethez admin jogosultság szükséges.
          */
         [HttpPost]
-        public async Task<ActionResult<Image>> PostImage(Image image)
+        public async Task<ActionResult<ImagePatchDTO>> PostImage(ImagePatchDTO imageDTO)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -121,6 +125,9 @@ namespace Himzo.Web.Controllers
             {
                 return Unauthorized("Error posting image because of incorrect authority level.");
             }
+
+            Image image = new Image();
+            image = MapToImage(imageDTO, image);
 
             _context.Images.Add(image);
             await _context.SaveChangesAsync();
@@ -134,7 +141,7 @@ namespace Himzo.Web.Controllers
          * Ehhez a művelethez admin jogosultság szükséges.
          */
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Image>> DeleteImage(int id)
+        public async Task<ActionResult<ImageDTO>> DeleteImage(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -152,7 +159,7 @@ namespace Himzo.Web.Controllers
             _context.Images.Remove(image);
             await _context.SaveChangesAsync();
 
-            return image;
+            return ConvertToImageDTO(image);
         }
 
         /*
@@ -161,6 +168,33 @@ namespace Himzo.Web.Controllers
         private bool ImageExists(int id)
         {
             return _context.Images.Any(e => e.ImageId == id);
+        }
+
+        private ImageDTO ConvertToImageDTO(Image image)
+        {
+            return new ImageDTO()
+            {
+                ImageId = image.ImageId,
+                ByteImage = image.ByteImage
+            };
+        }
+
+        private ImagePatchDTO ConvertToImagePatchDTO(Image image)
+        {
+            return new ImagePatchDTO()
+            {
+                Active = image.Active,
+                ByteImage = image.ByteImage,
+                Path = image.Path
+            };
+        }
+
+        private Image MapToImage(ImagePatchDTO imageDTO, Image image)
+        {
+            image.Active = imageDTO.Active;
+            image.ByteImage = imageDTO.ByteImage;
+            image.Path = imageDTO.Path;
+            return image;
         }
 
     }

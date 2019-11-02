@@ -9,4 +9,11 @@ namespace Himzo.Dal.Entities
         public int ImageId { get; set; }
         public byte[] ByteImage { get; set; }
     }
+
+    public class ImagePatchDTO
+    {
+        public string Path { get; set; }
+        public byte[] ByteImage { get; set; }
+        public Boolean Active { get; set; }
+    }
 }

@@ -35,13 +35,18 @@ namespace Himzo.Web.Controllers
          */
         // GET: api/Contents
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Content>>> GetContents()
+        public async Task<ActionResult<IEnumerable<ContentDTO>>> GetContents()
         {
             string path = HttpContext.Request.Query["path"].ToString();
 
             if (path != "")
             {
-                return await _context.Contents.Where(x => x.Path == (path)).ToListAsync<Content>();
+                return await _context.Contents.Where(x => x.Path == (path)).Select(x => new ContentDTO()
+                {
+                    ContentId = x.ContentId,
+                    Title = x.Title,
+                    ContentString = x.ContentString
+                }).ToListAsync<ContentDTO>();
             }
 
             return new EmptyResult();
@@ -54,7 +59,7 @@ namespace Himzo.Web.Controllers
         // Patch: api/Contents/5
         [Route("{id}")]
         [HttpPatch]
-        public async Task<IActionResult> PatchContent(int id, [FromBody] JsonPatchDocument<Content> patchModel)
+        public async Task<IActionResult> PatchContent(int id, [FromBody] JsonPatchDocument<ContentDTO> patchModel)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -71,12 +76,12 @@ namespace Himzo.Web.Controllers
                     return NotFound();
                 }
 
-                patchModel.ApplyTo(content);
+                ContentDTO contentDTO = ConvertToContentDTO(content);
+                patchModel.ApplyTo(contentDTO);
+                content = MapToContent(contentDTO, content);
 
                 _context.Contents.Update(content);
-
                 await _context.SaveChangesAsync();
-
                 return new ObjectResult(content);
 
             }
@@ -123,6 +128,24 @@ namespace Himzo.Web.Controllers
         private bool ContentExists(string path)
         {
             return _context.Contents.Any(e => e.Path == path);
+        }
+
+        private ContentDTO ConvertToContentDTO(Content content)
+        {
+            return new ContentDTO()
+            {
+                ContentId = content.ContentId,
+                ContentString = content.ContentString,
+                Title = content.Title
+            };
+        }
+
+        private Content MapToContent(ContentDTO contentDTO, Content content) 
+        {
+            content.ContentString = contentDTO.ContentString;
+            content.Title = contentDTO.Title;
+            content.UpdateTime = DateTime.Now;
+            return content;
         }
     }
 }
