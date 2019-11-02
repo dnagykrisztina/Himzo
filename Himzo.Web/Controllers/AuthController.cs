@@ -270,26 +270,44 @@ namespace Himzo.Web.Controllers
         }
 
         [Produces("application/json")]
+        [Route("api/[controller]/MicrosoftLogin")]
+        public IActionResult MicrosoftLogin()
+        {
+            string redirectUrl = Url.Action("ExternalLoginResponse", "Auth", "api");
+            var properties = _SignInManager.ConfigureExternalAuthenticationProperties("Microsoft", redirectUrl);
+            return new ChallengeResult("Microsoft", properties);
+        }
+
+        [Produces("application/json")]
+        [Route("api/[controller]/FacebookLogin")]
+        public IActionResult FacebookLogin()
+        {
+            string redirectUrl = Url.Action("ExternalLoginResponse", "Auth", "api");
+            var properties = _SignInManager.ConfigureExternalAuthenticationProperties("Facebook", redirectUrl);
+            return new ChallengeResult("Facebook", properties);
+        }
+
+        [Produces("application/json")]
         [Route("api/[controller]/GoogleLogin")]
         public IActionResult GoogleLogin()
         {
-            string redirectUrl = Url.Action("GoogleResponse", "Auth", "api");
+            string redirectUrl = Url.Action("ExternalLoginResponse", "Auth", "api");
             var properties = _SignInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
             return new ChallengeResult("Google", properties);
         }
 
         [Produces("application/json")]
-        [Route("api/[controller]/GoogleResponse")]
-        public async Task<IActionResult> GoogleResponse()
+        [Route("api/[controller]/ExternalLoginResponse")]
+        public async Task<IActionResult> ExternalLoginResponse()
         {
             ExternalLoginInfo info = await _SignInManager.GetExternalLoginInfoAsync();
             if (info == null)
-                return Redirect("/");
+                return Redirect("/dist/index.html#/signin");
 
             var result = await _SignInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
             string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };
             if (result.Succeeded)
-                return Redirect("/user/indexUser.html");
+                return Redirect("/dist/index.html");
             else
             {
                 User user = new User
@@ -308,10 +326,10 @@ namespace Himzo.Web.Controllers
                     if (identResult.Succeeded)
                     {
                         await _SignInManager.SignInAsync(user, false);
-                        return Redirect("/user/indexUser.html");
+                        return Redirect("/dist/index.html");
                     }
                 }
-                return Redirect("/");
+                return Redirect("/dist/index.html#/signin");
             }
         }
     }

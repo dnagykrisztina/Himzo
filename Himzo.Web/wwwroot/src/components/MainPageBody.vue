@@ -11,6 +11,7 @@
           <h2 class="featurette-heading">{{ patchTitle }}</h2>
           <p class="lead">{{ patchDescription }}</p>
           <a href="index.html#/patchform" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
+            <div>halika</div>
         </div>
 
         <div class="col-md-5">

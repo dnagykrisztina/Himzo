@@ -15,6 +15,8 @@ using Himzo.Dal.Entities;
 using Himzo.Dal.SeedInterfaces;
 using Himzo.Dal.SeedService;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Himzo.Web
 {
@@ -51,6 +53,11 @@ namespace Himzo.Web
                 {
                     options.ClientId = "955067358940-useatbvb53ek23cora7tcrufngvf14mc.apps.googleusercontent.com";
                     options.ClientSecret = "0t-axPW-a08nwuxJep5xtCF3";
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = "410791969831854";
+                    options.AppSecret = "f571eca2aac43741a3729af44fd886d9";
                 });
             services.AddScoped<IUserSeedService, UserSeedService>();
 
@@ -81,9 +88,27 @@ namespace Himzo.Web
             app.UseAuthentication();
             DefaultFilesOptions options = new DefaultFilesOptions();
             options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("general/signin.html");
+            options.DefaultFileNames.Add("dist/index.html");
             app.UseDefaultFiles(options);
             app.UseStaticFiles(); // For the wwwroot folder
+            app.UseStaticFiles(new StaticFileOptions // js folder
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "dist", "js")),
+                RequestPath = "/js"
+            });
+            app.UseStaticFiles(new StaticFileOptions // img folder
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "dist", "img")),
+                RequestPath = "/img"
+            });
+            app.UseStaticFiles(new StaticFileOptions // css folder
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "dist", "css")),
+                RequestPath = "/css"
+            });
 
             app.UseEndpoints(endpoints =>
             {

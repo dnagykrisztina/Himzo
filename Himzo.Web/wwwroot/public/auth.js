@@ -31,6 +31,10 @@ function googleLogin() {
     this.window.location.href = "/api/Auth/GoogleLogin"
 }
 
+function facebookLogin() {
+    this.window.location.href = "/api/Auth/FacebookLogin"
+}
+
 function whoAmi() {
     var username = "";
     $.ajax({
