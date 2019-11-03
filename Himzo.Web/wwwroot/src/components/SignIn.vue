@@ -27,6 +27,9 @@
           <a class="btn btn-block btn-social btn-facebook" style="color: white" onclick="facebookLogin()">
               <span class="fab fa-facebook"></span> Facebook
           </a>
+          <a class="btn btn-block btn-social btn-microsoft" style="color: white" onclick="microsoftLogin()">
+              <span class="fab fa-microsoft"></span> Microsoft
+          </a>
           <label>
               Nincs fiókod?
               <a href="index#/registration">Regisztrálj</a>

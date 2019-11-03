@@ -58,6 +58,11 @@ namespace Himzo.Web
                 {
                     options.AppId = "410791969831854";
                     options.AppSecret = "f571eca2aac43741a3729af44fd886d9";
+                })
+                .AddMicrosoftAccount(options =>
+                {
+                    options.ClientId = "d3af55e4-b922-475b-abb5-9a71c9c2cee6";
+                    options.ClientSecret = "-lJJ0_pQ/-mIC6sqXQOB6B0Ibv.:n-6/";
                 });
             services.AddScoped<IUserSeedService, UserSeedService>();
 

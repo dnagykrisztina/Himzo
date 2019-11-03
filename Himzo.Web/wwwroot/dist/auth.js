@@ -33,6 +33,10 @@ function facebookLogin() {
     this.window.location.href = "/api/Auth/FacebookLogin"
 }
 
+function microsoftLogin() {
+    this.window.location.href = "/api/Auth/MicrosoftLogin"
+}
+
 function whoAmi() {
     var username = "";
     $.ajax({
