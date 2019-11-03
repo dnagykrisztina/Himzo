@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Himzo.DAL\Himzo.Dal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\dist\css\" />
+  </ItemGroup>
+
 </Project>
