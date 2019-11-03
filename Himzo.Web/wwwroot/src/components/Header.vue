@@ -42,20 +42,43 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Header",
   props: {},
   data() {
     return {
-      titleHimzo: "Hímző",
-      order: "Rendelés",
-      myOrders: "Rendeléseim",
-      aboutUs: "Rólunk",
+      titleHimzo: null,
+      order: null,
+      myOrders: null,
+      aboutUs: null,
       username: "Önnönmagam",
-      profile: "Profilom",
-      signOut: "Kilépés",
-      signIn: "Bejelentkezés"
+      profile: null,
+      signOut: null,
+      signIn: null
     };
+  },
+  async mounted() {
+    try {
+      const res = await axios.get(
+        "http://localhost:52140/api/Contents?path=header"
+      );
+      this.titleHimzo = res.data[0].title;
+      this.order = res.data[1].title;
+      this.myOrders = res.data[2].title;
+      this.aboutUs = res.data[3].title;
+      this.profile = res.data[4].title;
+      this.signOut = res.data[5].title;
+      this.signIn = res.data[6].title;
+      /* var i;
+      this.allcontents = res.data;
+      for (i = 0; i < this.allcontents.length; i++) {
+        this.contents[i].title = this.allcontents[i].title;
+        this.contents[i].description = this.allcontents[i].contentString;*/
+      // }
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
 </script>

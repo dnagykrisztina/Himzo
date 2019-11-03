@@ -3,11 +3,16 @@
   <main role="main">
     <div class="container marketing">
       <!-- START THE FEATURETTES -->
-      <p>{{info}}</p>
+
+      <!--
+      <ul>
+        <li v-for="content in contents" :key="content.key">{{content.value}}</li>
+      </ul>
 
       <ul>
-        <li v-for="todo in todos" :key="todo.commentId">{{todo.content}}</li>
+        <li v-for="content in allcontents" :key="content.contentId">{{content.contentString}}</li>
       </ul>
+      -->
 
       <hr class="featurette-divider" />
 
@@ -16,7 +21,6 @@
           <h2 class="featurette-heading">{{ patchTitle }}</h2>
           <p class="lead">{{ patchDescription }}</p>
           <a href="index.html#/patchform" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
-            <div>halika</div>
         </div>
 
         <div class="col-md-5">
@@ -71,15 +75,19 @@ export default {
   props: {},
   data() {
     return {
+      //allcontents: [],
       patchTitle: null,
-      info: null,
-      patchTitles: [],
-
       patchDescription: null,
       embroideredPatternTitle: null,
       embroideredPatternDescription: null,
-      sweaterTitle: null,
+      sewaterTitle: null,
       sweaterDescription: null,
+
+      /*contents: [
+        { key: "patch", title: null, description: null },
+        { key: "embroideredPattern", title: null, description: null },
+        { key: "sweater", title: null, description: null }
+      ],*/
       photo: "../images/picture.jpg"
     };
   },
@@ -113,12 +121,26 @@ export default {
   //.then(response => (this.info = response));
   async mounted() {
     try {
-      const res = await axios.get("http://localhost:52140/api/Comments");
-      this.todos = res.data;
+      const res = await axios.get(
+        "http://localhost:52140/api/Contents?path=welcome"
+      );
+      this.patchTitle = res.data[0].title;
+      this.patchDescription = res.data[0].contentString;
+      this.embroideredPatternTitle = res.data[1].title;
+      this.embroideredPatternDescription = res.data[1].contentString;
+      this.sewaterTitle = res.data[2].title;
+      this.sweaterDescription = res.data[2].contentString;
+      /* var i;
+      this.allcontents = res.data;
+      for (i = 0; i < this.allcontents.length; i++) {
+        this.contents[i].title = this.allcontents[i].title;
+        this.contents[i].description = this.allcontents[i].contentString;*/
+      // }
     } catch (e) {
       console.log(e);
     }
   },
+  methods: {},
   components: {
     Coverflow
   }
