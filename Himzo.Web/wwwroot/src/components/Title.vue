@@ -18,17 +18,36 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Title",
   props: {},
   components: {},
   data() {
     return {
-      title: "Pulcsi és FoltMéKör",
-      titleDescription:
-        "Mi, a Pulcsi és FoltMékör, tevékenységünkkel próbáljuk elősegíteni, hogy a Schönherzes rendezvények rendezői, résztvevői és a körök tagjai egy több 10 év múlva is megmaradó emlékekkel gazdagodhassanak.",
-      moreButton: "Tudj meg többet"
+      //allcontents: [],
+      title: null,
+      titleDescription: null,
+      moreButton: null,
+      contents: [{ key: "title", title: null, description: null }]
     };
+  },
+  async mounted() {
+    try {
+      const res = await axios.get(
+        "http://localhost:52140/api/Contents?path=title"
+      );
+      //var i;
+      // this.allcontents = res.data;
+      this.title = res.data[0].title;
+      this.titleDescription = res.data[0].contentString;
+      this.moreButton = res.data[1].title;
+      /* for (i = 0; i < this.allcontents.length; i++) {
+        this.contents[i].title = this.allcontents[i].title;
+        this.contents[i].description = this.allcontents[i].contentString;*/
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
 </script>
