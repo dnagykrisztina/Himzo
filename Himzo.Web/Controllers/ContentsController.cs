@@ -130,6 +130,7 @@ namespace Himzo.Web.Controllers
             return _context.Contents.Any(e => e.Path == path);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private ContentDTO ConvertToContentDTO(Content content)
         {
             return new ContentDTO()
@@ -140,6 +141,7 @@ namespace Himzo.Web.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private Content MapToContent(ContentDTO contentDTO, Content content) 
         {
             content.ContentString = contentDTO.ContentString;
