@@ -269,6 +269,7 @@ namespace Himzo.Web.Controllers
             }
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Produces("application/json")]
         [Route("api/[controller]/MicrosoftLogin")]
         public IActionResult MicrosoftLogin()
@@ -278,6 +279,7 @@ namespace Himzo.Web.Controllers
             return new ChallengeResult("Microsoft", properties);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Produces("application/json")]
         [Route("api/[controller]/FacebookLogin")]
         public IActionResult FacebookLogin()
@@ -287,6 +289,7 @@ namespace Himzo.Web.Controllers
             return new ChallengeResult("Facebook", properties);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Produces("application/json")]
         [Route("api/[controller]/GoogleLogin")]
         public IActionResult GoogleLogin()
@@ -296,6 +299,7 @@ namespace Himzo.Web.Controllers
             return new ChallengeResult("Google", properties);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Produces("application/json")]
         [Route("api/[controller]/ExternalLoginResponse")]
         public async Task<IActionResult> ExternalLoginResponse()

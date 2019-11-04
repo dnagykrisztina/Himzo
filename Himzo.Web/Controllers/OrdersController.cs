@@ -293,6 +293,7 @@ namespace Himzo.Web.Controllers
             return _context.Orders.Any(e => e.OrderId == id);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private OrderDetailsDTO ConvertToOrderDetailsDTO (Order order)
         {
             return new OrderDetailsDTO()
@@ -313,6 +314,7 @@ namespace Himzo.Web.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private OrderPatchDetailsDTO ConvertToPatchDetailsDTO(Order order)
         {
             return new OrderPatchDetailsDTO()
@@ -329,6 +331,7 @@ namespace Himzo.Web.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private OrderPatchDTO ConvertToPatchDTO(Order order)
         {
             return new OrderPatchDTO()
@@ -339,6 +342,7 @@ namespace Himzo.Web.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private async Task<Order> MapToOrderAsync(OrderPatchDetailsDTO orderDTO, Order order)
         {
             order.Size = orderDTO.Size;
@@ -354,6 +358,7 @@ namespace Himzo.Web.Controllers
             return order;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private Order MapToOrder(OrderPatchDTO orderDTO, Order order)
         {
             order.Comment.UpdateTime = DateTime.Now;
