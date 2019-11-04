@@ -170,6 +170,7 @@ namespace Himzo.Web.Controllers
             return _context.Images.Any(e => e.ImageId == id);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private ImageDTO ConvertToImageDTO(Image image)
         {
             return new ImageDTO()
@@ -179,6 +180,7 @@ namespace Himzo.Web.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private ImagePatchDTO ConvertToImagePatchDTO(Image image)
         {
             return new ImagePatchDTO()
@@ -189,6 +191,7 @@ namespace Himzo.Web.Controllers
             };
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         private Image MapToImage(ImagePatchDTO imageDTO, Image image)
         {
             image.Active = imageDTO.Active;
