@@ -29,7 +29,9 @@ export default {
       title: null,
       titleDescription: null,
       moreButton: null,
-      contents: [{ key: "title", title: null, description: null }]
+      contents: [{ key: "title", title: null, description: null }],
+      postBody: "",
+      errors: []
     };
   },
   async mounted() {
@@ -47,6 +49,18 @@ export default {
         this.contents[i].description = this.allcontents[i].contentString;*/
     } catch (e) {
       console.log(e);
+    }
+  },
+  methods: {
+    postPost() {
+      axios
+        .post(`http://jsonplaceholder.typicode.com/posts`, {
+          body: this.postBody
+        })
+        .then(response => {})
+        .catch(e => {
+          this.errors.push(e);
+        });
     }
   }
 };

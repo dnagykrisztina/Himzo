@@ -23,6 +23,9 @@
               <a class="nav-link" href="index.html#/userorder">{{ myOrders }}</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="index.html#/allorder">{{ allOrder }}</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="index.html#/aboutus">{{ aboutUs }}</a>
             </li>
             <li class="dropdown nav-item">
@@ -55,7 +58,8 @@ export default {
       username: "Önnönmagam",
       profile: null,
       signOut: null,
-      signIn: null
+      signIn: null,
+      allOrder: null
     };
   },
   async mounted() {
@@ -70,12 +74,7 @@ export default {
       this.profile = res.data[4].title;
       this.signOut = res.data[5].title;
       this.signIn = res.data[6].title;
-      /* var i;
-      this.allcontents = res.data;
-      for (i = 0; i < this.allcontents.length; i++) {
-        this.contents[i].title = this.allcontents[i].title;
-        this.contents[i].description = this.allcontents[i].contentString;*/
-      // }
+      this.allOrder = res.data[7].title;
     } catch (e) {
       console.log(e);
     }
