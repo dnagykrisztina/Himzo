@@ -37,6 +37,10 @@ function microsoftLogin() {
     this.window.location.href = "/api/Auth/MicrosoftLogin"
 }
 
+function schLogin() {
+	this.window.location.href = "/api/Auth/SchLogin"
+}
+
 function whoAmi() {
     var username = "";
     $.ajax({

@@ -17,6 +17,13 @@ using Himzo.Dal.SeedService;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text.Json;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Himzo.Web
 {
@@ -51,19 +58,53 @@ namespace Himzo.Web
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    options.ClientId = "955067358940-useatbvb53ek23cora7tcrufngvf14mc.apps.googleusercontent.com";
-                    options.ClientSecret = "0t-axPW-a08nwuxJep5xtCF3";
+                    options.ClientId = Configuration["Google:ClientId"];
+                    options.ClientSecret = Configuration["Google:ClientSecret"];
                 })
                 .AddFacebook(options =>
                 {
-                    options.AppId = "410791969831854";
-                    options.AppSecret = "f571eca2aac43741a3729af44fd886d9";
+                    options.AppId = Configuration["Facebook:AppId"];
+                    options.AppSecret = Configuration["Facebook:AppSecret"];
                 })
                 .AddMicrosoftAccount(options =>
                 {
-                    options.ClientId = "d3af55e4-b922-475b-abb5-9a71c9c2cee6";
-                    options.ClientSecret = "-lJJ0_pQ/-mIC6sqXQOB6B0Ibv.:n-6/";
-                });
+                    options.ClientId = Configuration["Microsoft:ClientId"];
+                    options.ClientSecret = Configuration["Microsoft:ClientSecret"];
+                })
+				.AddOAuth("AuthSch", options =>
+				{
+					options.ClientId = Configuration["AuthSch:ClientId"];
+					options.ClientSecret = Configuration["AuthSch:ClientSecret"];
+					options.CallbackPath = new PathString("/signin-authsch");
+
+					options.AuthorizationEndpoint = "https://auth.sch.bme.hu/site/login";
+					options.TokenEndpoint = "https://auth.sch.bme.hu/oauth2/token";
+					options.UserInformationEndpoint = "https://auth.sch.bme.hu/api/profile";
+
+					options.SaveTokens = true;
+					options.Scope.Add("displayName");
+					options.Scope.Add("mail");
+
+					options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "mail");
+					options.ClaimActions.MapJsonKey(ClaimTypes.Name, "displayName");
+					options.ClaimActions.MapJsonKey(ClaimTypes.Email, "mail");
+
+					options.Events = new OAuthEvents
+					{
+						OnCreatingTicket = async context =>
+						{
+							var request = new HttpRequestMessage(HttpMethod.Get, context.Options.UserInformationEndpoint + "/?access_token=" + context.AccessToken);
+							request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+							System.Console.WriteLine(context.AccessToken);
+
+							var response = await context.Backchannel.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, context.HttpContext.RequestAborted);
+							response.EnsureSuccessStatusCode();
+
+							var user = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+							context.RunClaimActions(user.RootElement);
+						}
+					};
+				});
             services.AddScoped<IUserSeedService, UserSeedService>();
 
             services.AddSwaggerGen(c =>

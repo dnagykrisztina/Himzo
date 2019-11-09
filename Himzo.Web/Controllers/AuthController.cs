@@ -269,7 +269,17 @@ namespace Himzo.Web.Controllers
             }
         }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
+		[ApiExplorerSettings(IgnoreApi = true)]
+		[Produces("application/json")]
+		[Route("api/[controller]/SchLogin")]
+		public IActionResult SchLogin()
+		{
+			string redirectUrl = Url.Action("ExternalLoginResponse", "Auth", "api");
+			var properties = _SignInManager.ConfigureExternalAuthenticationProperties("AuthSch", redirectUrl);
+			return new ChallengeResult("AuthSch", properties);
+		}
+
+		[ApiExplorerSettings(IgnoreApi = true)]
         [Produces("application/json")]
         [Route("api/[controller]/MicrosoftLogin")]
         public IActionResult MicrosoftLogin()
@@ -310,6 +320,7 @@ namespace Himzo.Web.Controllers
 
             var result = await _SignInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
             string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };
+			System.Console.WriteLine(info.Principal.FindFirst(ClaimTypes.Email).Value);
             if (result.Succeeded)
                 return Redirect("/dist/index.html");
             else
@@ -324,7 +335,9 @@ namespace Himzo.Web.Controllers
                 };
 
                 IdentityResult identResult = await _UserManager.CreateAsync(user);
-                if (identResult.Succeeded)
+				var addToRoleResult = await _UserManager.AddToRoleAsync(user, Role.User);
+				await _context.SaveChangesAsync();
+				if (identResult.Succeeded)
                 {
                     identResult = await _UserManager.AddLoginAsync(user, info);
                     if (identResult.Succeeded)

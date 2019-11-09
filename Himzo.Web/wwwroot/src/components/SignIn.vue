@@ -11,11 +11,11 @@
           <h1 class="h3 mb-3 font-weight-normal">Bejelentkezés</h1>
           <label for="Email" class="sr-only">E-mail cím</label>
           <input type="email"
-                 id="Email"
-                 class="form-control"
-                 placeholder="E-mail cím"
-                 required
-                 autofocus />
+               id="Email"
+               class="form-control"
+               placeholder="E-mail cím"
+               required
+               autofocus />
           <label for="Password" class="sr-only">Jelszó</label>
           <input type="password" id="Password" class="form-control" placeholder="Jelszó" required />
           <br />Maradj bejelentkezve
@@ -30,6 +30,9 @@
           <a class="btn btn-block btn-social btn-microsoft" style="color: white" onclick="microsoftLogin()">
               <span class="fab fa-microsoft"></span> Microsoft
           </a>
+        <a class="btn btn-block btn-social btn-so" style="color: white" onclick="schLogin()">
+            <span class="far fa-building"></span> AuthSCH
+        </a>
           <label>
               Nincs fiókod?
               <a href="index#/registration">Regisztrálj</a>
