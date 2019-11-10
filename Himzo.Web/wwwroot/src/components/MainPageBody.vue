@@ -15,8 +15,10 @@
         </div>
 
         <div class="col-md-5">
-          <!-- <coverflow :coverList="coverList" :coverWidth="100" :index="2" @change="handleChange"></coverflow> -->
-          <Coverflow v-bind:coverList="coverList"></Coverflow>
+          <div class="demo">
+            <!-- <coverflow :coverList="coverList" :coverWidth="100" :index="2" @change="handleChange"></coverflow> -->
+            <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="2"></coverflow>
+          </div>
         </div>
       </div>
 
@@ -32,7 +34,7 @@
           >Rendelés</a>
         </div>
         <div class="col-md-5 order-md-1">
-          <Coverflow></Coverflow>
+          <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="2"></coverflow>
         </div>
       </div>
 
@@ -40,11 +42,11 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">{{ sweaterTitle }}</h2>
+          <h2 class="featurette-heading">{{ sewaterTitle }}</h2>
           <p class="lead">{{ sweaterDescription }}</p>
         </div>
         <div class="col-md-5">
-          <Coverflow></Coverflow>
+          <coverflow :coverList="coverList" :width="400" :coverWidth="300" :index="2"></coverflow>
         </div>
       </div>
 
@@ -58,7 +60,7 @@
 </template>
 
 <script>
-import Coverflow from "./Coverflow";
+import coverflow from "vue-coverflow";
 import axios from "axios";
 
 export default {
@@ -76,11 +78,11 @@ export default {
       image: null,
       coverList: [
         {
-          cover: require("../assets/images/react.png"),
+          cover: require("./pic/team.jpg"),
           title: "React"
         },
         {
-          cover: require("../assets/images/angular.png"),
+          cover: require("./pic/hatter.jpg"),
           title: "Angular"
         },
         {
@@ -158,7 +160,7 @@ export default {
     }
   },
   components: {
-    Coverflow
+    coverflow
   },
 
   postPost() {
