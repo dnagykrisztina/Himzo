@@ -38,14 +38,28 @@ namespace Himzo.Web.Controllers
         public async Task<ActionResult<IEnumerable<ImageDTO>>> GetImages()
         {
             string path = HttpContext.Request.Query["path"].ToString();
+            string type = HttpContext.Request.Query["type"].ToString();
       
             if (path != "")
             {
-                return await _context.Images.Where(x => x.ImageId.ToString().Equals(path) && x.Active)
-                    .Select(x => new ImageDTO() { 
-                        ImageId = x.ImageId,
-                        ByteImage = x.ByteImage
-                    }).ToListAsync<ImageDTO>();
+                if (type == "")
+                {
+                    return await _context.Images.Where(x => x.ImageId.ToString().Equals(path) && x.Active)
+                                        .Select(x => new ImageDTO() { 
+                                            ImageId = x.ImageId,
+                                            ByteImage = x.ByteImage
+                                        }).ToListAsync<ImageDTO>();
+                } else
+                {
+                    return await _context.Images.Where(x => x.ImageId.ToString().Equals(path) && x.Active &&
+                                                        x.Type.ToString().Equals(type))
+                                                .Select(x => new ImageDTO()
+                                                {
+                                                    ImageId = x.ImageId,
+                                                    ByteImage = x.ByteImage
+                                                }).ToListAsync<ImageDTO>();
+                }
+                
             }
 
             return new EmptyResult();
@@ -100,7 +114,7 @@ namespace Himzo.Web.Controllers
 
                 _context.Images.Update(image);
                 await _context.SaveChangesAsync();
-                return new ObjectResult(image);
+                return new ObjectResult(ConvertToImageDTO(image));
 
             }
             catch (Exception e)
@@ -132,7 +146,7 @@ namespace Himzo.Web.Controllers
             _context.Images.Add(image);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetImage", new { id = image.ImageId }, image);
+            return CreatedAtAction("GetImage", new { id = image.ImageId }, ConvertToImageDTO(image));
         }
 
         // DELETE: api/Images/5
@@ -187,7 +201,8 @@ namespace Himzo.Web.Controllers
             {
                 Active = image.Active,
                 ByteImage = image.ByteImage,
-                Path = image.Path
+                Path = image.Path,
+                Type = image.Type
             };
         }
 
@@ -197,6 +212,7 @@ namespace Himzo.Web.Controllers
             image.Active = imageDTO.Active;
             image.ByteImage = imageDTO.ByteImage;
             image.Path = imageDTO.Path;
+            image.Type = imageDTO.Type;
             return image;
         }
 
