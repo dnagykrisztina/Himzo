@@ -23,6 +23,12 @@ namespace Himzo.Web.Controllers
         private const string POST_AUTHORITY_LEVEL = "Admin";
         private const string DELETE_AUTHORITY_LEVEL = "Admin";
 
+        private readonly string[] pathAllUsers = { "header", "footer", "title", "welcome", "aboutus", 
+                                                    "registration", "signin"};
+        private readonly string[] pathRegisteredUsers = { "profile", "patchform", "patternform", "userorder"};
+        private readonly string[] pathMembers = { "header_member", "allorder" };
+        private readonly string[] pathAdmins = { "members", "header_admin", "title_admin", "welcome_admin", "aboutus_admin" };
+
         public ContentsController(HimzoDbContext context, UserManager<User> userManager = null)
         {
             _context = context;
@@ -39,14 +45,24 @@ namespace Himzo.Web.Controllers
         {
             string path = HttpContext.Request.Query["path"].ToString();
 
-            if (path != "")
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user != null)
             {
-                return await _context.Contents.Where(x => x.Path == (path)).Select(x => new ContentDTO()
+                if (await _userManager.IsInRoleAsync(user, "User"))
                 {
-                    ContentId = x.ContentId,
-                    Title = x.Title,
-                    ContentString = x.ContentString
-                }).ToListAsync<ContentDTO>();
+                    return await GetContentByPath(path, pathRegisteredUsers);
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Kortag"))
+                {
+                    return await GetContentByPath(path, pathMembers);
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return await GetContentByPath(path, pathAdmins);
+                }
+            } else {
+                return await GetContentByPath(path, pathAllUsers);
             }
 
             return new EmptyResult();
@@ -148,6 +164,23 @@ namespace Himzo.Web.Controllers
             content.Title = contentDTO.Title;
             content.UpdateTime = DateTime.Now;
             return content;
+        }
+        
+        [ApiExplorerSettings(IgnoreApi = true)]
+        private async Task<ActionResult<IEnumerable<ContentDTO>>> GetContentByPath(string currentPath, string[] authPaths)
+        {
+            if (authPaths.Contains(currentPath) && currentPath != "")
+            {
+                return await _context.Contents.Where(x => x.Path == (currentPath)).Select(x => new ContentDTO()
+                {
+                    ContentId = x.ContentId,
+                    Title = x.Title,
+                    ContentString = x.ContentString
+                }).ToListAsync<ContentDTO>();
+            }
+
+            return new EmptyResult();
+            
         }
     }
 }
