@@ -121,7 +121,9 @@ namespace Himzo.Web.Controllers
                 return Unauthorized("Error accessing orders because of incorrect authority level!");
             }
             
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _context.Orders.Include(x => x.User)
+                                             .Include(x => x.Comment)
+                                             .Where(x => x.OrderId == id).FirstOrDefaultAsync<Order>();
             if (order == null)
             {
                 return NotFound();
@@ -299,8 +301,8 @@ namespace Himzo.Web.Controllers
             return new OrderDetailsDTO()
             {
                 OrderId = order.OrderId,
-                CommentUpdateTime = order.Comment.UpdateTime,
-                CommentContent = order.Comment.Content,
+                CommentUpdateTime = order.Comment != null ? order.Comment.UpdateTime : DateTime.MinValue,
+                CommentContent = order.Comment != null ? order.Comment.Content : "-",
                 OrderState = order.OrderState,
                 Size = order.Size,
                 Amount = order.Amount,
