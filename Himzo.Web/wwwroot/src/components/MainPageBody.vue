@@ -280,7 +280,7 @@ export default {
       image: null,
       postBody: [
         {
-          contentId: 20,
+          contentId: 1,
           title: "proba",
           contentString:
             "Proba igy meg igy kell rendelni. Nem csak rendezvényekre készítjük őket, hanem egyéni megrendeléseket is fogadunk!"
