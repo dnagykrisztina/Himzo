@@ -82,7 +82,7 @@ namespace Himzo.Web.Controllers
 
                 _context.Contents.Update(content);
                 await _context.SaveChangesAsync();
-                return new ObjectResult(content);
+                return new ObjectResult(ConvertToContentDTO(content));
 
             }
             catch (Exception e)
