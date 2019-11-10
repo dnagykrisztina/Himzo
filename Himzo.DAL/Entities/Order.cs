@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Himzo.Dal.Entities
 {
+    [Table("Orders")]
     public class Order
     {
         public enum State
@@ -17,7 +20,9 @@ namespace Himzo.Dal.Entities
         {
             FOLT, PULCSI, MINTA
         }
+        [Key]
         public int OrderId { get; set; }
+        [ForeignKey("CommentId")]
         public Comment Comment { get; set; }
         public State OrderState { get; set; }
         public string Size { get; set; }
@@ -29,6 +34,7 @@ namespace Himzo.Dal.Entities
         public string Fonts { get; set; }
         public ProductType Type { get; set; }
         public string PatternPlace { get; set; }
+        [ForeignKey("UserId")]
         public User User { get; set; }
     }
 }
