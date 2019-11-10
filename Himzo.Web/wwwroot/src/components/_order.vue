@@ -2,8 +2,9 @@
   <div class="order">
     <div class="jumbotron">
       <div>
-        <h1>{{ order.name }}</h1>
-        <h2>{{ order.amount }} db {{ order.productType }}</h2>
+        <h1>{{ order.orderId }}</h1>
+        <h2 v-if="order.type === 1">{{ order.amount }} db hímzés</h2>
+        <h2 v-else-if="order.type === 0">{{ order.amount }} db folt</h2>
       </div>
 
       <select name="sample" id="sample" class="fa">
@@ -15,7 +16,14 @@
 
       <div>
         <div class="form-group shadow-textarea">
-          <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3"></textarea>
+          <textarea
+            class="form-control z-depth-1"
+            id="exampleFormControlTextarea6"
+            rows="3"
+            v-model="order.commentContent"
+            placeholder="Írj kommentet!"
+          ></textarea>
+          <p>Message is: {{ order.commentContent }}</p>
         </div>
         <p class="lead">{{ order.orderTime }}</p>
       </div>
