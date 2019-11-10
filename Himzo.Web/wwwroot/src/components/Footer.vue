@@ -10,32 +10,47 @@
 
     <!-- Footer Elements -->
     <div class="container logo">
-      <!-- Social buttons -->
-
-      <!-- E-mail -->
-      <a>
-        <a data-tooltip title="himzo@sch.bme.hu">
-          <i class="fas fa-envelope mx-3 fa-2x"></i>
+        <!-- Social buttons -->
+        <!--tooltipes verzió
+    <a>
+        <a data-html="true"
+           data-tooltip
+           title="<b>Schönherz Kollégium</b><p>819. szoba</p><p> Irinyi József utca 42.</p>">
+            <i class="fas fa-home mx-3 fa-2x"></i>
         </a>
-      </a>
-
-      <!-- Cím -->
-      <a>
-        <a
-          data-html="true"
-          data-tooltip
-          title="<b>Schönherz Kollégium</b><p>819. szoba</p><p> Irinyi József utca 42.</p>"
-        >
-          <i class="fas fa-home mx-3 fa-2x"></i>
+    </a>-->
+        <!-- E-mail -->
+        <a>
+            <a tabindex="0"
+               class="footer_icon"
+               role="button"
+               data-placement="top"
+               data-container="body"
+               data-toggle="popover" data-trigger="focus"
+               data-content="himzo@sch.bme.hu">
+                <i class="fas fa-envelope mx-3 fa-2x"></i>
+            </a>
         </a>
-      </a>
 
-      <!-- Facebook -->
-      <a href="https://www.facebook.com/pulcsi.es.foltmekor/">
-        <i class="fab fa-facebook-f mx-3 fa-2x"></i>
-      </a>
+        <!-- Cím -->
+        <a>
+            <a tabindex="0"
+               class="footer_icon"
+               role="button"
+               data-html="true"
+               data-placement="top"
+               data-container="body"
+               data-toggle="popover" data-trigger="focus"
+               data-content="Schönherz Kollégium <br />819. szoba <br /> Irinyi József utca 42.">
+                <i class="fas fa-home mx-3 fa-2x"></i>
+            </a>
+        </a>
 
-      <!-- Social buttons -->
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/pulcsi.es.foltmekor/">
+            <i class="fab fa-facebook-f mx-3 fa-2x"></i>
+        </a>
+        <!-- Social buttons -->
     </div>
     <!-- Footer Elements -->
 

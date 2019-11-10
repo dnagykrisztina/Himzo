@@ -50,18 +50,6 @@ export default {
     } catch (e) {
       console.log(e);
     }
-  },
-  methods: {
-    postPost() {
-      axios
-        .post(`http://jsonplaceholder.typicode.com/posts`, {
-          body: this.postBody
-        })
-        .then(response => {})
-        .catch(e => {
-          this.errors.push(e);
-        });
-    }
   }
 };
 </script>

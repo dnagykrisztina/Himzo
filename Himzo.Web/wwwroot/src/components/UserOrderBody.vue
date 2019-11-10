@@ -7,22 +7,14 @@
         <h1 class="display-3">{{ title }}</h1>
 
         <p>{{ titleDescription }}</p>
-        <p>{{ valami }}</p>
-        <p>{{ valami2 }}</p>
-        <p>{{ valami3 }}</p>
-        <p>{{ valami4 }}</p>
       </div>
     </div>
   </main>
 
   <main role="main" class="container">
-    <p>{{ valami }}</p>
-    <p>{{ valami2 }}</p>
-    <p>{{ valami3 }}</p>
-    <p>{{ valami4 }}</p>
     <hr class="featurette-divider" />
     <!--<userorder v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></userorder> -->
-    <userorder v-for="order in orders2" v-bind:key="order.id" v-bind:order="order"></userorder>
+    <userorder v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></userorder>
 
     <hr class="featurette-divider" />
   </main>
@@ -43,11 +35,7 @@ export default {
     return {
       title: "Rendeléseim",
       titleDescription: "Így állnak a megrendeléseim",
-      allorders: [],
-      valami: null,
-      valami2: null,
-      valami3: null,
-      valami4: null,
+      orders: [],
 
       orders2: [
         {
@@ -89,29 +77,13 @@ export default {
       ]
     };
   },
-  /*async mounted() {
-    try {
-      const res = await axios.get("http://localhost:52140/api/Orders");
-      this.allorders = res.data;
-      this.valami = res.data[0].OrderComment;
-      this.valami2 = res.data[1].amount;
-      const res2 = await axios.get(
-        "http://localhost:52140/api/Contents?path=title"
-      );
-      this.valami3 = res2.data[0].title;
-      this.valami4 = res2.data[1].title;
-    } catch (e) {
-      console.log(e);
-    }
-  }*/
+
   async mounted() {
     try {
-      const res = await axios.get("http://localhost:52140/api/Order");
-      this.valami = res.data[0].amount;
-      this.valami2 = res.data[0].orderComment;
-      /*const ress = await axios.get("http://localhost:52140/api/Orders");
-      this.valami3 = ress.data[0].orderComment;
-      this.valami4 = ress.data[1].size;*/
+      const res = await axios.get(
+        "http://localhost:52140/api/Orders/?all=true" //ide /userid kell!!
+      );
+      this.orders = res.data;
     } catch (e) {
       console.log(e);
     }

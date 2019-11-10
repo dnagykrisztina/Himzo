@@ -23,15 +23,36 @@
             <div class="row">
               <div class="col-md-3 mb-3">
                 <label for="cc-name">{{size}}</label>
-                <input type="number" class="form-control" id="size" placeholder required />
+                <input
+                  v-model="inputSize"
+                  type="number"
+                  class="form-control"
+                  id="size"
+                  placeholder
+                  required
+                />
               </div>
               <div class="col-md-3 mb-3">
                 <label for="cc-name">{{amount}}</label>
-                <input type="number" class="form-control" id="amount" placeholder required />
+                <input
+                  v-model="inputAmount"
+                  type="number"
+                  class="form-control"
+                  id="amount"
+                  placeholder
+                  required
+                />
               </div>
               <div class="col-md-4 mb-3">
                 <label for="cc-number">{{deadline}}</label>
-                <input type="date" class="form-control" id="deadline" placeholder required />
+                <input
+                  v-model="inputDeadline"
+                  type="date"
+                  class="form-control"
+                  id="deadline"
+                  placeholder
+                  required
+                />
               </div>
             </div>
 
@@ -39,6 +60,7 @@
               <div class="col-md-6 mb-3">
                 <label for="firstName">{{patternLocation}}</label>
                 <input
+                  v-model="inputPatternLocation"
                   type="text"
                   class="form-control"
                   id="patternLocation"
@@ -53,7 +75,15 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="font">{{fonts}}</label>
-                <input type="text" class="form-control" id="font" placeholder value required />
+                <input
+                  v-model="inputFonts"
+                  type="text"
+                  class="form-control"
+                  id="font"
+                  placeholder
+                  value
+                  required
+                />
                 <div class="invalid-feedback">Kérlek add meg a mintában használt fontot!</div>
               </div>
             </div>
@@ -61,7 +91,14 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">{{comment}}</label>
-                <input type="text" class="form-control" id="patternLocation" placeholder value />
+                <input
+                  v-model="inputComment"
+                  type="text"
+                  class="form-control"
+                  id="patternLocation"
+                  placeholder
+                  value
+                />
               </div>
             </div>
 
@@ -92,13 +129,47 @@ export default {
       chooseFile: "Válaszd ki a fájlt",
       pattern: "Minta",
       size: "Méret (cm)",
+      inputSize: null,
       amount: "Mennyiség",
+      inputAmount: null,
       deadline: "Határidő",
+      inputDeadline: null,
       fonts: "Mintában használt fontok",
+      inputFonts: null,
       comment: "Megjegyzés",
+      inputComment: null,
       cancelButton: "Mégse",
-      orderButton: "Megrendelem"
+      orderButton: "Megrendelem",
+      patternLocation: "Minta helye,",
+      inputPatternLocation: null
     };
+  },
+  methods: {
+    formSubmit(e) {
+      e.preventDefault();
+
+      let currentObj = this;
+
+      this.axios
+        .post("http://localhost:52140/api/Orders/?all=true", {
+          userId: 1,
+          orderstate: 0,
+          size: this.inputSize,
+          amount: this.inputAmount,
+          deadline: this.inputDeadline,
+          orderComment: this.inputComment,
+          fonts: this.inputFonts,
+          type: 1
+        })
+
+        .then(function(response) {
+          currentObj.output = response.data;
+        })
+
+        .catch(function(error) {
+          currentObj.output = error;
+        });
+    }
   }
 };
 </script>
