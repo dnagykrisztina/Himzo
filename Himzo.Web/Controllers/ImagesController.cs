@@ -25,10 +25,12 @@ namespace Himzo.Web.Controllers
 
         private readonly string[] pathAllUsers = { "header", "footer", "title", "welcome", "aboutus",
                                                     "registration", "signin"};
-        private readonly string[] pathRegisteredUsers = { "profile", "patchform", "patternform", "userorder" };
-        private readonly string[] pathMembers = { "header_member", "allorder" };
-        private readonly string[] pathAdmins = { "members", "header_admin", "title_admin", "welcome_admin", "aboutus_admin" };
-
+        private readonly string[] pathRegisteredUsers = { "profile", "patchform", "patternform", "userorder", "header", "footer", "title", "welcome", "aboutus",
+                                                    "registration", "signin"};
+        private readonly string[] pathMembers = { "header_member", "allorder", "header", "footer", "title", "welcome", "aboutus",
+                                                    "registration", "signin", "profile", "patchform", "patternform", "userorder" };
+        private readonly string[] pathAdmins = { "members", "header_admin", "title_admin", "welcome_admin", "aboutus_admin", "header", "footer", "title", "welcome", "aboutus",
+                                                    "registration", "signin", "profile", "patchform", "patternform", "userorder", "header_member", "allorder"};
 
         public ImagesController(HimzoDbContext context, UserManager<User> userManager = null)
         {

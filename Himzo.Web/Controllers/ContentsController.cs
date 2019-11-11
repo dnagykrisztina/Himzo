@@ -25,9 +25,12 @@ namespace Himzo.Web.Controllers
 
         private readonly string[] pathAllUsers = { "header", "footer", "title", "welcome", "aboutus", 
                                                     "registration", "signin"};
-        private readonly string[] pathRegisteredUsers = { "profile", "patchform", "patternform", "userorder"};
-        private readonly string[] pathMembers = { "header_member", "allorder" };
-        private readonly string[] pathAdmins = { "members", "header_admin", "title_admin", "welcome_admin", "aboutus_admin" };
+        private readonly string[] pathRegisteredUsers = { "profile", "patchform", "patternform", "userorder", "header", "footer", "title", "welcome", "aboutus",
+                                                    "registration", "signin"};
+        private readonly string[] pathMembers = { "header_member", "allorder", "header", "footer", "title", "welcome", "aboutus",
+                                                    "registration", "signin", "profile", "patchform", "patternform", "userorder" };
+        private readonly string[] pathAdmins = { "members", "header_admin", "title_admin", "welcome_admin", "aboutus_admin", "header", "footer", "title", "welcome", "aboutus",
+                                                    "registration", "signin", "profile", "patchform", "patternform", "userorder", "header_member", "allorder"};
 
         public ContentsController(HimzoDbContext context, UserManager<User> userManager = null)
         {
@@ -44,6 +47,7 @@ namespace Himzo.Web.Controllers
         public async Task<ActionResult<IEnumerable<ContentDTO>>> GetContents()
         {
             string path = HttpContext.Request.Query["path"].ToString();
+            
 
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -60,12 +64,15 @@ namespace Himzo.Web.Controllers
                 else if (await _userManager.IsInRoleAsync(user, "Admin"))
                 {
                     return await GetContentByPath(path, pathAdmins);
+                } else
+                {
+                    return await GetContentByPath(path, pathAllUsers);
                 }
             } else {
                 return await GetContentByPath(path, pathAllUsers);
             }
 
-            return new EmptyResult();
+            //return new EmptyResult();
         }
 
         /*
@@ -171,16 +178,17 @@ namespace Himzo.Web.Controllers
         {
             if (authPaths.Contains(currentPath) && currentPath != "")
             {
-                return await _context.Contents.Where(x => x.Path == (currentPath)).Select(x => new ContentDTO()
+                return await _context.Contents.Where(x => x.Path.Equals(currentPath)).Select(x => new ContentDTO()
                 {
                     ContentId = x.ContentId,
                     Title = x.Title,
                     ContentString = x.ContentString
                 }).ToListAsync<ContentDTO>();
+            } else
+            {
+                return new EmptyResult();
             }
 
-            return new EmptyResult();
-            
         }
     }
 }

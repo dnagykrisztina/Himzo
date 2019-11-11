@@ -3,7 +3,9 @@ using Himzo.Dal.SeedInterfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Himzo.Dal.SeedService
@@ -85,7 +87,8 @@ namespace Himzo.Dal.SeedService
                     throw new ApplicationException($"Test user cannot be created!");
             }
 
-            if (_context.Orders.Find(1) == null)
+            var orderCount = _context.Orders.Count();
+            if (orderCount == 0)
             {
                 byte[] FoltImage = System.IO.File.ReadAllBytes("../Himzo.DAL/Pictures/folt.png");
                 byte[] MintaImage = System.IO.File.ReadAllBytes("../Himzo.DAL/Pictures/minta.jpg");
@@ -276,7 +279,8 @@ namespace Himzo.Dal.SeedService
                 _context.SaveChanges();
             }
 
-            if (_context.Contents.Find(1) == null)
+            var contentCount = _context.Contents.Count();
+            if (contentCount == 0)
             {
                 Content content1 = new Content()
                 {
