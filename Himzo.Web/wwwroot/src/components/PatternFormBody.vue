@@ -167,9 +167,18 @@ export default {
           type: 0,
           patternPlace: this.inputPatternLocation
         })
-        // .then(response => {})
-        .catch(e => {
-          this.errors.push(e);
+
+        .then(
+            function (response) {
+            currentObj.output = response.data;
+            },
+            //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
+            console.log("patternForm submit"),
+            this.$router.push("/userorder")
+        )
+
+        .catch(function(error) {
+          currentObj.output = error;
         });
     }
   }

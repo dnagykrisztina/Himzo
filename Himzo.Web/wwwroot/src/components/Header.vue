@@ -15,29 +15,31 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">{{ order }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" @click ="userorder">{{ myOrders }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" @click ="allorder">{{ allOrder }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" @click ="aboutus">{{ aboutUs }}</a>
-            </li>
-            <li class="dropdown nav-item">
-              <a href="#" class="dropbtn nav-link">{{ username }}</a>
-              <div class="dropdown-content">
-                <a @click ="profileroute">{{ profile }}</a>
-                <a onclick="logout()">{{ signOut }}</a>
-              </div>
-            </li>
-            <a class="nav-link" @click ="signin">{{ signIn }}</a>
-            <li class="nav-item"></li>
-          </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">{{ order }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" @click="userorder">{{ myOrders }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" @click="allorder">{{ allOrder }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
+                </li>
+                <li class="nav-item"></li>
+            </ul>
+            <!--<a class="nav-link btn btn-success" @click="signin">{{ signIn }}</a>-->
+            <a class="dropdown nav-item my-2 my-sm-0">
+                <a href="#" class="dropbtn nav-link">{{ username }}</a>
+                <div class="dropdown-content">
+                    <a @click="profileroute">{{ profile }}</a>
+                    <a onclick="logout()">{{ signOut }}</a>
+                </div>
+            </a>
+            <button class="btn btn-outline-success my-2 my-sm-0" @click="signin">{{ signIn }}</button>
+
         </div>
       </nav>
     </div>

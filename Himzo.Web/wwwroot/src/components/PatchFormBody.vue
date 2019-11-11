@@ -69,7 +69,6 @@
               <a
                 class="btn btn-primary"
                 type="submit"
-                href="index.html#/userorder"
                 @mouseup="postPost()"
               >{{orderButton}}</a>
             </div>
@@ -83,7 +82,7 @@
 
  
  <script>
-//import axios from "axios";
+import axios from "axios";
 export default {
   name: "PatchFormBody",
   props: {},
@@ -130,7 +129,11 @@ export default {
           type: 0,
           patternPlace: this.inputPatternLocation
         })
-        // .then(response => {})
+        .then(
+            //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
+            console.log("patchForm submit"),
+            this.$router.push("/userorder")
+        )
         .catch(e => {
           this.errors.push(e);
         });
