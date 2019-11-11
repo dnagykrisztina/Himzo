@@ -165,9 +165,14 @@ export default {
           type: 1
         })
 
-        .then(function(response) {
-          currentObj.output = response.data;
-        })
+        .then(
+            function (response) {
+            currentObj.output = response.data;
+            },
+            //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
+            console.log("patternForm submit"),
+            this.$router.push("/userorder")
+        )
 
         .catch(function(error) {
           currentObj.output = error;
