@@ -1,5 +1,5 @@
 <template>
-<body class="bg-light">
+<body>
   <main role="main">
     <!-- Main jumbotron for a primary marketing message or call to action -->
 
@@ -13,7 +13,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 order-md-1">
-          <form class="needs-validation" novalidate @submit="postPost()">
+          <form class="needs-validation" novalidate>
             <div class="row"></div>
 
             <div class="col-md-6 mb-3">
@@ -23,26 +23,32 @@
 
             <div class="row">
               <div class="col-md-3 mb-3">
-                <label for="cc-name">{{size}}</label>
-                <input type="text" class="form-control" id="size" required />
+                <label for="size">{{size}}</label>
+                <input type="text" class="form-control" id="size" required v-model="inputSize" />
               </div>
               <div class="col-md-3 mb-3">
-                <label for="cc-name">{{amount}}</label>
-                <input type="number" class="form-control" id="amount" required />
+                <label for="amount">{{amount}}</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="amount"
+                  required
+                  v-model="inputAmount"
+                />
               </div>
               <div class="col-md-4 mb-3">
-                <label for="cc-number">{{deadline}}</label>
+                <label for="deadline">{{deadline}}</label>
                 <input type="date" class="form-control" id="deadline" required />
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="firstName">{{fonts}}</label>
+                <label for="fonts">{{fonts}}</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="patternLocation"
+                  id="fonts"
                   value
                   required
                   v-model="inputFonts"
@@ -52,8 +58,8 @@
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="firstName">{{comment}}</label>
-                <input type="text" class="form-control" id="patternLocation" placeholder value />
+                <label for="comment">{{comment}}</label>
+                <input type="text" class="form-control" id="comment" value v-model="inputComment" />
               </div>
             </div>
 
@@ -64,7 +70,7 @@
                 class="btn btn-primary"
                 type="submit"
                 href="index.html#/userorder"
-                @mouseup="postForm()"
+                @mouseup="postPost()"
               >{{orderButton}}</a>
             </div>
           </form>
@@ -130,7 +136,7 @@ export default {
           res.output = error;
         });
     },*/
-    formSubmit(e) {
+    /* formSubmit(e) {
       e.preventDefault();
 
       let currentObj = this;
@@ -154,24 +160,35 @@ export default {
         .catch(function(error) {
           currentObj.output = error;
         });
-    }
-    /*postPost() {
+    }*/
+    postPost() {
       axios
         .post(`http://localhost:52140/api/Orders`, {
-          size: this.inputSize,
+          /*size: this.inputSize,
           amount: this.inputAmount,
           deadline: this.inputDeadline,
           orderComment: this.inputComment,
           orderTime: this.orderTime,
           fonts: this.inputFonts,
           type: 0,
-          patternPlace: this.inputPatternLocation
+          patternPlace: this.inputPatternLocation,
+          p*/
+
+          size: "meret",
+          amount: 2,
+          deadline: "2019-12-11T12:08:52.339Z",
+          pattern: null,
+          orderComment: "comment",
+          orderTime: "2019-11-12T12:08:52.339Z",
+          fonts: "fontok",
+          type: 0,
+          patternPlace: "ott ahol"
         })
         // .then(response => {})
         .catch(e => {
           this.errors.push(e);
         });
-    }*/
+    }
   }
 };
 </script>
