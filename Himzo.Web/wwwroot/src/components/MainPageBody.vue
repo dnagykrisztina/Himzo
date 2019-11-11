@@ -115,27 +115,6 @@ export default {
           cover: require("../assets/images/node.png"),
           title: "Node"
         }
-      ],
-
-      postBody: [
-        {
-          contentId: 1,
-          title: "proba",
-          contentString:
-            "Proba igy meg igy kell rendelni. Nem csak rendezvényekre készítjük őket, hanem egyéni megrendeléseket is fogadunk!"
-        },
-        {
-          contentId: 70,
-          title: "Hímzett minták",
-          contentString:
-            "Hozott anyagokra tudunk neked hímeztetni, ez meg ez kell hozzá, tök jó lesz."
-        },
-        {
-          contentId: 101,
-          title: "VIK-es pulcsik",
-          contentString:
-            "Több féle színben elérhetőek a VIK-es pulóverek. Ha megtetszett valamelyik, a himzo.sch.bme.hu email címen kaphatsz több információt róla."
-        }
       ]
     };
   },

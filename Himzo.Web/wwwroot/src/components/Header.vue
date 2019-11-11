@@ -45,24 +45,24 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "Header",
   props: {},
   data() {
     return {
-      titleHimzo: null,
-      order: null,
-      myOrders: null,
-      aboutUs: null,
+      titleHimzo: "Hímző",
+      order: "Rendelés",
+      myOrders: "Rendeléseim",
+      aboutUs: "Rólunk",
       username: "Önnönmagam",
-      profile: null,
-      signOut: null,
-      signIn: null,
-      allOrder: null
+      profile: "Profilom",
+      signOut: "Kilépés",
+      signIn: "Bejelentkezés",
+      allOrder: "Rendelések"
     };
-  },
+  } /*,
   async mounted() {
+    //Username
     try {
       const res = await axios.get(
         "http://localhost:52140/api/Contents?path=header"
@@ -78,7 +78,7 @@ export default {
     } catch (e) {
       console.log(e);
     }
-  }
+  }*/
 };
 </script>
 

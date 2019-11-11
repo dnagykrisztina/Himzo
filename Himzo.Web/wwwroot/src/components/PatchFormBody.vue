@@ -77,8 +77,6 @@
         </div>
       </div>
     </div>
-    <strong>Output:</strong>
-    <pre>{{output}}</pre>
   </main>
 </body>
 </template>
@@ -96,23 +94,22 @@ export default {
         "Foltot így meg így tudsz rendelni, ezt meg ezt kell tudni róla.",
       chooseFile: "Válaszd ki a fájlt",
       pattern: "Minta",
-      inputPattern: "valami",
+      inputPattern: null,
       patternLocation: "Minta helye",
-      inputPatternLocation: "valami",
+      inputPatternLocation: null,
       size: "Méret (cm)",
-      inputSize: "méret",
+      inputSize: null,
       amount: "Mennyiség",
-      inputAmount: 3,
+      inputAmount: null,
       deadline: "Határidő",
       inputDeadline: "2019-12-15T08:58:18.176Z",
       fonts: "Mintában használt fontok",
-      inputFonts: "font",
+      inputFonts: null,
       comment: "Megjegyzés",
-      inputComment: "comment",
+      inputComment: null,
       cancelButton: "Mégse",
       orderButton: "Megrendelem",
-      orderTime: "2019-12-11T08:58:18.176Z",
-      output: ""
+      orderTime: "2019-12-11T08:58:18.176Z"
     };
   },
   methods: {
