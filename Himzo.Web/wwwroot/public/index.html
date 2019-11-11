@@ -40,19 +40,35 @@
     <script>
 
         $(function () {
-          $('[data-toggle="popover"]').popover()
+            $('[data-toggle="popover"]').popover()
         })
     </script>
     <!-- POPOVER vege-->
 
-    <!--   atcopyzott head vége-->
+    <!--smooth scrolling back to top-->
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                $('#scroll').fadeIn();
+            });
+            $('#scroll').click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600);
+                return false;
+            });
+        });
 
-</head>
-  <body>
-    <noscript>
-      <strong>We're sorry but himzo doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
-</html>
+    </script>
+
+    <!--atcopyzott head vége-->
+
+
+
+</head >
+            <body>
+                <noscript>
+                    <strong>We're sorry but himzo doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+                </noscript>
+                <div id="app"></div>
+                <!-- built files will be auto injected -->
+      </body>
+</html >

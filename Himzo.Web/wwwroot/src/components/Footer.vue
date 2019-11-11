@@ -2,11 +2,13 @@
   <!-- Footer -->
 
   <footer class="page-footer font-small special-color-dark pt-4">
-    <div class="container">
-      <p class="float-right row">
-        <a href>{{scrollBackToTop}}</a>
-      </p>
-    </div>
+      <div class="container">
+          <p class="float-right row">
+              <!--<a href="#">{{scrollBackToTop}}</a>-->
+              <a href="#" id="scroll" style="display: none;">{{scrollBackToTop}}</a>
+          </p>
+          
+      </div>
 
     <!-- Footer Elements -->
     <div class="container logo">
