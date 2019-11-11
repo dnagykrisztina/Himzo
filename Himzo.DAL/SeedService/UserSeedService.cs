@@ -276,6 +276,192 @@ namespace Himzo.Dal.SeedService
                 _context.SaveChanges();
             }
 
+            if (_context.Contents.Find(1) == null)
+            {
+                Content content1 = new Content()
+                {
+                    Title = "Foltok",
+                    ContentString = "Így tudsz rendelni",
+                    Path = "welcome",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content2 = new Content()
+                {
+                    Title = "Hímzett minták",
+                    ContentString = "Hozott anyagokra stb",
+                    Path = "welcome",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content3 = new Content()
+                {
+                    Title = "VIKes pulcsik",
+                    ContentString = "Többféle színben",
+                    Path = "welcome",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content4 = new Content()
+                {
+                    Title = "Pulcsi és FoltMéKör",
+                    ContentString = "Mi vagyunk, ls ezt csináljuk",
+                    Path = "title",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content5 = new Content()
+                {
+                    Title = "Tudj meg többet",
+                    ContentString = null,
+                    Path = "title",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content6 = new Content()
+                {
+                    Title = "Hímző",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content7 = new Content()
+                {
+                    Title = "Rendelés",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content8 = new Content()
+                {
+                    Title = "Rendeléseim",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content9 = new Content()
+                {
+                    Title = "Rólunk",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content10 = new Content()
+                {
+                    Title = "Profilom",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content11 = new Content()
+                {
+                    Title = "Kilépés",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content12 = new Content()
+                {
+                    Title = "Bejelentkezés",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content13 = new Content()
+                {
+                    Title = "Amivel foglalkozunk",
+                    ContentString = "balblablabla",
+                    Path = "aboutus",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content14 = new Content()
+                {
+                    Title = "A kör története",
+                    ContentString = "így alakultunk",
+                    Path = "aboutus",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content15 = new Content()
+                {
+                    Title = "Csatlakozási lehetőség",
+                    ContentString = "Így csatlakozhatsz",
+                    Path = "aboutus",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content16 = new Content()
+                {
+                    Title = "Tagok",
+                    ContentString = "valami szép leírás",
+                    Path = "aboutus",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content17 = new Content()
+                {
+                    Title = "Vissza a tetejére",
+                    ContentString = null,
+                    Path = "footer",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content18 = new Content()
+                {
+                    Title = "©Pulcsi és FoltMéKör",
+                    ContentString = null,
+                    Path = "footer",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content19 = new Content()
+                {
+                    Title = "himzo@sch.bme.hu",
+                    ContentString = null,
+                    Path = "footer",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                Content content20 = new Content()
+                {
+                    Title = "Megrendelések",
+                    ContentString = null,
+                    Path = "welcome",
+                    UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
+                };
+
+                _context.Contents.Add(content1);
+                _context.Contents.Add(content2);
+                _context.Contents.Add(content3);
+                _context.Contents.Add(content4);
+                _context.Contents.Add(content5);
+                _context.Contents.Add(content6);
+                _context.Contents.Add(content7);
+                _context.Contents.Add(content8);
+                _context.Contents.Add(content9);
+                _context.Contents.Add(content10);
+                _context.Contents.Add(content11);
+                _context.Contents.Add(content12);
+                _context.Contents.Add(content13);
+                _context.Contents.Add(content14);
+                _context.Contents.Add(content15);
+                _context.Contents.Add(content16);
+                _context.Contents.Add(content17);
+                _context.Contents.Add(content18);
+                _context.Contents.Add(content19);
+                _context.Contents.Add(content20);
+
+                _context.SaveChanges();
+
+            }
         }
     }
 }
