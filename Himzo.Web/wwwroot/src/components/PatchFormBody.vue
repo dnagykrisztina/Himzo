@@ -65,7 +65,7 @@
 
             <div class="row">
               <hr class="mb-4" />
-              <a class="btn btn-primary" type="reset" href="index.html">{{cancelButton}}</a>
+              <a class="btn btn-primary" @click ="reset" type="reset" >{{cancelButton}}</a>
               <a
                 class="btn btn-primary"
                 type="submit"
@@ -83,7 +83,7 @@
 
  
  <script>
-import axios from "axios";
+//import axios from "axios";
 export default {
   name: "PatchFormBody",
   props: {},
@@ -113,6 +113,10 @@ export default {
     };
   },
   methods: {
+      reset() {
+          console.log("patchform reset")
+          this.$router.push('/')
+      },
     /* async postForm() {
       const res = await axios
         .post("http://localhost:52140/api/Orders", {

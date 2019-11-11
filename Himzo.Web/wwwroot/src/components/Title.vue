@@ -8,7 +8,7 @@
         <p>
           <a
             class="btn btn-primary btn-lg"
-            href="aboutUsUser.html"
+            @click="aboutus"
             role="button"
           >{{ moreButton }}&raquo;</a>
         </p>
@@ -23,6 +23,12 @@ export default {
   name: "Title",
   props: {},
   components: {},
+  methods: {
+    aboutus() {
+        console.log("aboutus")
+        this.$router.push('/aboutus')
+    }
+  },
   data() {
     return {
       //allcontents: [],

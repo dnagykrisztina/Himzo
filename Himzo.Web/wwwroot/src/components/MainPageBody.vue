@@ -11,7 +11,7 @@
         <div class="col-md-7">
           <h2 class="featurette-heading">{{ patchTitle }}</h2>
           <p class="lead">{{ patchDescription }}</p>
-          <a href="index.html#/patchform" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
+          <a @click ="patchForm" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
         </div>
 
         <div class="col-md-5">
@@ -29,7 +29,7 @@
           <h2 class="featurette-heading">{{ embroideredPatternTitle }}</h2>
           <p class="lead">{{ embroideredPatternDescription }}</p>
           <a
-            href="index.html#/patternform"
+            @click ="patternForm"
             class="btn btn-lg btn-block btn-outline-primary"
           >Rendelés</a>
         </div>
@@ -66,6 +66,16 @@ import axios from "axios";
 export default {
   name: "MainPageBody",
   props: {},
+  methods: {
+    patchForm() {
+        console.log("valami")
+        this.$router.push('/patchform')
+      },
+      patternForm() {
+        console.log("valami")
+        this.$router.push('/patternform')
+    }
+  },
   data() {
     return {
       //allcontents: [],
