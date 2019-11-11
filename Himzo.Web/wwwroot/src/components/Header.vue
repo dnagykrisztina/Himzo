@@ -32,7 +32,7 @@
               <a href="#" class="dropbtn nav-link">{{ username }}</a>
               <div class="dropdown-content">
                 <a href="index.html#/profile">{{ profile }}</a>
-                <a href="index.html">{{ signOut }}</a>
+                <a onclick="logout()">{{ signOut }}</a>
               </div>
             </li>
             <a class="nav-link" href="index.html#/signin">{{ signIn }}</a>

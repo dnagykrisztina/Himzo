@@ -23,6 +23,13 @@ namespace Himzo.Web.Controllers
         private const string POST_AUTHORITY_LEVEL = "Admin";
         private const string DELETE_AUTHORITY_LEVEL = "Admin";
 
+        private readonly string[] pathAllUsers = { "header", "footer", "title", "welcome", "aboutus",
+                                                    "registration", "signin"};
+        private readonly string[] pathRegisteredUsers = { "profile", "patchform", "patternform", "userorder" };
+        private readonly string[] pathMembers = { "header_member", "allorder" };
+        private readonly string[] pathAdmins = { "members", "header_admin", "title_admin", "welcome_admin", "aboutus_admin" };
+
+
         public ImagesController(HimzoDbContext context, UserManager<User> userManager = null)
         {
             _context = context;
@@ -38,14 +45,27 @@ namespace Himzo.Web.Controllers
         public async Task<ActionResult<IEnumerable<ImageDTO>>> GetImages()
         {
             string path = HttpContext.Request.Query["path"].ToString();
-      
-            if (path != "")
+            string type = HttpContext.Request.Query["type"].ToString();
+
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user != null)
             {
-                return await _context.Images.Where(x => x.ImageId.ToString().Equals(path) && x.Active)
-                    .Select(x => new ImageDTO() { 
-                        ImageId = x.ImageId,
-                        ByteImage = x.ByteImage
-                    }).ToListAsync<ImageDTO>();
+                if (await _userManager.IsInRoleAsync(user, "User"))
+                {
+                    return await GetImageByPath(type, path, pathRegisteredUsers);
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Kortag"))
+                {
+                    return await GetImageByPath(type, path, pathMembers);
+                }
+                else if (await _userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    return await GetImageByPath(type, path, pathAdmins);
+                }
+            }
+            else
+            {
+                return await GetImageByPath(type, path, pathAllUsers);
             }
 
             return new EmptyResult();
@@ -100,7 +120,7 @@ namespace Himzo.Web.Controllers
 
                 _context.Images.Update(image);
                 await _context.SaveChangesAsync();
-                return new ObjectResult(image);
+                return new ObjectResult(ConvertToImageDTO(image));
 
             }
             catch (Exception e)
@@ -132,7 +152,7 @@ namespace Himzo.Web.Controllers
             _context.Images.Add(image);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetImage", new { id = image.ImageId }, image);
+            return CreatedAtAction("GetImage", new { id = image.ImageId }, ConvertToImageDTO(image));
         }
 
         // DELETE: api/Images/5
@@ -176,7 +196,7 @@ namespace Himzo.Web.Controllers
             return new ImageDTO()
             {
                 ImageId = image.ImageId,
-                ByteImage = image.ByteImage
+                ByteImage = Convert.ToBase64String(image.ByteImage)
             };
         }
 
@@ -186,8 +206,9 @@ namespace Himzo.Web.Controllers
             return new ImagePatchDTO()
             {
                 Active = image.Active,
-                ByteImage = image.ByteImage,
-                Path = image.Path
+                ByteImage = Convert.ToBase64String(image.ByteImage),
+                Path = image.Path,
+                Type = image.Type
             };
         }
 
@@ -195,9 +216,37 @@ namespace Himzo.Web.Controllers
         private Image MapToImage(ImagePatchDTO imageDTO, Image image)
         {
             image.Active = imageDTO.Active;
-            image.ByteImage = imageDTO.ByteImage;
+            image.ByteImage = Convert.FromBase64String(imageDTO.ByteImage);
             image.Path = imageDTO.Path;
+            image.Type = imageDTO.Type;
             return image;
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        private async Task<ActionResult<IEnumerable<ImageDTO>>> GetImageByPath(string type, string currentPath, string[] authPaths)
+        {
+            if (authPaths.Contains(currentPath) && currentPath != "")
+            {
+                if (type != "")
+                {
+                    return await _context.Images.Where(x => x.Path == currentPath && x.Type.ToString() == type).Select(x => new ImageDTO()
+                    {
+                        ImageId = x.ImageId,
+                        ByteImage = Convert.ToBase64String(x.ByteImage)
+                    }).ToListAsync<ImageDTO>();
+                } else
+                {
+                    return await _context.Images.Where(x => x.Path == currentPath).Select(x => new ImageDTO()
+                    {
+                        ImageId = x.ImageId,
+                        ByteImage = Convert.ToBase64String(x.ByteImage)
+                    }).ToListAsync<ImageDTO>();
+                }
+                
+            }
+
+            return new EmptyResult();
+
         }
 
     }

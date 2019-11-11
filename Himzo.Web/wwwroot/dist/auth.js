@@ -25,6 +25,39 @@
     });
 }
 
+function signup() {
+	var jsonData = {
+		"Name": $('#Name')[0].value.trim(),
+		"Email": $('#Email')[0].value.trim(),
+		"University": $('#University')[0].value.trim(),
+		"Password": $('#Password')[0].value.trim()
+	};
+
+	if ($('#Password')[0].value.trim() != $('#Password2')[0].value.trim()) {
+		alert("Nem egyforma a két password!");
+		return;
+	}
+
+	$.ajax({
+		url: "/api/Auth/SignUp",
+		method: "PUT",
+		data: JSON.stringify(jsonData),
+		contentType: "application/json; charset=utf-8",
+		cache: false,
+		dataType: 'json',
+		success: function (data) {
+			if (data.success == true) {
+				window.location = "/dist/index.html";
+			} else {
+				alert(data.message);
+			}
+		},
+		error: function (data) {
+			console.log(data);
+		}
+	});
+}
+
 function googleLogin() {
     this.window.location.href = "/api/Auth/GoogleLogin"
 }
@@ -55,4 +88,20 @@ function whoAmi() {
         }
     });
     return username;
+}
+
+function logout() {
+	$.ajax({
+		url: "/api/Auth/Logout",
+		method: "POST",
+		async: false,
+		success: function (data) {
+			console.log(data.message);
+			document.cookie = "";
+			window.location.href = "/dist/index.html";
+		},
+		error: function (data) {
+			console.log(data.message);
+		}
+	});
 }
