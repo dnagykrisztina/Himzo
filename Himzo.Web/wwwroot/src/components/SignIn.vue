@@ -48,7 +48,7 @@
       </a>
       <label>
         Nincs fiókod?
-        <a href="index.html#/registration">Regisztrálj</a>
+        <a @click="register" >Regisztrálj</a>
       </label>
       <p class="mt-5 mb-3 text-muted">&copy; Pulcsi és FoltMéKör</p>
     </form>
@@ -59,6 +59,12 @@
 <script>
 export default {
   name: "SignIn",
-  props: {}
+  props: {},
+  methods: {
+    register() {
+        console.log("register")
+        this.$router.push('/register')
+    }
+  }
 };
 </script>

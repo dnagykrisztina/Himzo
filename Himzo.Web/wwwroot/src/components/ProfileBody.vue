@@ -52,7 +52,7 @@
         </div>
         <div class="row">
           <hr class="mb-4" />
-          <button class="btn btn-primary" type="reset">{{ cancelButton }}</button>
+          <button class="btn btn-primary" @click="reset" type="reset">{{ cancelButton }}</button>
           <button class="btn btn-primary" type="submit">{{ saveButton }}</button>
         </div>
       </div>
@@ -64,20 +64,26 @@
  
  <script>
 export default {
-  name: "ProfileBody",
-  props: {},
-  data() {
-    return {
-      username: "Önnönmagam",
-      email: "E-mail cím",
-      university: "Egyetem",
-      newPassword: "Új jelszó",
-      newPasswordAgain: "Új jelszó mégegyszer",
-      oldPassword: "Régi jelszó",
-      cancelButton: "Mégse",
-      saveButton: "Adatok mentése"
-    };
-  }
+    name: "ProfileBody",
+    props: {},
+    methods: {
+        reset() {
+            console.log("profile reset")
+            this.$router.push('/')
+        }
+    },
+    data() {
+        return {
+            username: "Önnönmagam",
+            email: "E-mail cím",
+            university: "Egyetem",
+            newPassword: "Új jelszó",
+            newPasswordAgain: "Új jelszó mégegyszer",
+            oldPassword: "Régi jelszó",
+            cancelButton: "Mégse",
+            saveButton: "Adatok mentése"
+        };
+    }
 };
 </script>
 

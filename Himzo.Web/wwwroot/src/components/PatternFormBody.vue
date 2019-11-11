@@ -104,7 +104,7 @@
 
             <div class="row">
               <hr class="mb-4" />
-              <a class="btn btn-primary" type="reset" href="index.html">{{cancelButton}}</a>
+              <a class="btn btn-primary" @click="reset" type="reset" href="index.html">{{cancelButton}}</a>
               <a class="btn btn-primary" type="submit" href="index.html#/userorder">{{orderButton}}</a>
             </div>
           </form>
@@ -145,6 +145,10 @@ export default {
     };
   },
   methods: {
+      reset() {
+          console.log("patternform reset")
+          this.$router.push('/')
+      },
     formSubmit(e) {
       e.preventDefault();
 

@@ -42,7 +42,7 @@
       <button class="btn btn-lg btn-primary btn-block" type="button" onclick="signup()">Regisztrálás</button>
       <label>
         Már van fiókod?
-        <a href="index.html#/signin">Jelenkezz be</a>
+        <a @click="signin">Jelenkezz be</a>
       </label>
       <p class="mt-5 mb-3 text-muted">&copy; Pulcsi és FoltMéKör</p>
     </form>
@@ -53,6 +53,12 @@
 <script>
 export default {
   name: "Registration",
-  props: {}
+  props: {},
+  methods: {
+    signin() {
+        console.log("signin")
+        this.$router.push('/signin')
+    }
+  }
 };
 </script>
