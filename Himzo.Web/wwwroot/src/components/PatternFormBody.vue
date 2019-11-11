@@ -151,8 +151,7 @@ export default {
       let currentObj = this;
 
       this.axios
-        .post("http://localhost:52140/api/Orders/?all=true", {
-          userId: 1,
+        .post("http://localhost:52140/api/Orders", {
           orderstate: 0,
           size: this.inputSize,
           amount: this.inputAmount,
