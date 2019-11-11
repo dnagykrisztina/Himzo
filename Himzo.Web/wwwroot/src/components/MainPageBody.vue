@@ -151,27 +151,23 @@ export default {
       this.embroideredPatternDescription = res.data[1].contentString;
       this.sewaterTitle = res.data[2].title;
       this.sweaterDescription = res.data[2].contentString;
-
-      axios.post(`http://localhost:52140/api/Contents?path=welcome`, {
-        body: this.postBody
-      });
     } catch (e) {
       console.log(e);
     }
   },
   components: {
     coverflow
-  },
+  }
 
-  postPost() {
+  /*postPost() {
     axios.post(`http://localhost:52140/api/Contents?path=welcome`, {
       body: this.postBody
-    });
-    //.then(response => {})
-    //.catch(e => {
-    //  this.errors.push(e);
-    //});
-  }
+    });*/
+  //.then(response => {})
+  //.catch(e => {
+  //  this.errors.push(e);
+  //});
+  //}
 };
 var img = document.createElement("img");
 img.src = "data:image/jpeg;base64," + btoa("your-binary-data");
