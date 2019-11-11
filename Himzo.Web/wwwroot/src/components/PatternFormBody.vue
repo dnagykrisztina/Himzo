@@ -12,7 +12,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 order-md-1">
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" validate>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <input type="file" class="custom-file-input" id="customFile" />

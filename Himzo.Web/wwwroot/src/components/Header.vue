@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Header",
   props: {},
@@ -60,25 +61,16 @@ export default {
       signIn: "Bejelentkezés",
       allOrder: "Rendelések"
     };
-  } /*,
+  },
   async mounted() {
     //Username
     try {
-      const res = await axios.get(
-        "http://localhost:52140/api/Contents?path=header"
-      );
-      this.titleHimzo = res.data[0].title;
-      this.order = res.data[1].title;
-      this.myOrders = res.data[2].title;
-      this.aboutUs = res.data[3].title;
-      this.profile = res.data[4].title;
-      this.signOut = res.data[5].title;
-      this.signIn = res.data[6].title;
-      this.allOrder = res.data[7].title;
+      const res = await axios.get("http://localhost:52140/api/User");
+      this.username = res.data.userName;
     } catch (e) {
       console.log(e);
     }
-  }*/
+  }
 };
 </script>
 
