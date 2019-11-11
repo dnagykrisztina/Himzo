@@ -117,73 +117,18 @@ export default {
           console.log("patchform reset")
           this.$router.push('/')
       },
-    /* async postForm() {
-      const res = await axios
-        .post("http://localhost:52140/api/Orders", {
-          size: this.inputSize,
-          amount: this.inputAmount,
-          deadline: this.inputDeadline,
-          orderComment: this.inputComment,
-          orderTime: this.orderTime,
-          fonts: this.inputFonts,
-          type: 0,
-          patternPlace: this.inputPatternLocation
-        })
-        .then(function(response) {
-          res.output = response.data;
-        })
-
-        .catch(function(error) {
-          res.output = error;
-        });
-    },*/
-    /* formSubmit(e) {
-      e.preventDefault();
-
-      let currentObj = this;
-
-      this.axios
-        .post("http://localhost:52140/api/Orders", {
-          size: this.inputSize,
-          amount: this.inputAmount,
-          deadline: this.inputDeadline,
-          orderComment: this.inputComment,
-          orderTime: this.orderTime,
-          fonts: this.inputFonts,
-          type: 0,
-          patternPlace: this.inputPatternLocation
-        })
-
-        .then(function(response) {
-          currentObj.output = response.data;
-        })
-
-        .catch(function(error) {
-          currentObj.output = error;
-        });
-    }*/
     postPost() {
       axios
         .post(`http://localhost:52140/api/Orders`, {
-          /*size: this.inputSize,
+          size: this.inputSize,
           amount: this.inputAmount,
           deadline: this.inputDeadline,
+          pattern: null,
           orderComment: this.inputComment,
           orderTime: this.orderTime,
           fonts: this.inputFonts,
           type: 0,
-          patternPlace: this.inputPatternLocation,
-          p*/
-
-          size: "meret",
-          amount: 2,
-          deadline: "2019-12-11T12:08:52.339Z",
-          pattern: null,
-          orderComment: "comment",
-          orderTime: "2019-11-12T12:08:52.339Z",
-          fonts: "fontok",
-          type: 0,
-          patternPlace: "ott ahol"
+          patternPlace: this.inputPatternLocation
         })
         // .then(response => {})
         .catch(e => {

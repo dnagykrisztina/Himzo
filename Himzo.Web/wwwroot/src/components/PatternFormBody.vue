@@ -22,7 +22,7 @@
 
             <div class="row">
               <div class="col-md-3 mb-3">
-                <label for="cc-name">{{size}}</label>
+                <label for="size">{{size}}</label>
                 <input
                   v-model="inputSize"
                   type="number"
@@ -33,7 +33,7 @@
                 />
               </div>
               <div class="col-md-3 mb-3">
-                <label for="cc-name">{{amount}}</label>
+                <label for="amount">{{amount}}</label>
                 <input
                   v-model="inputAmount"
                   type="number"
@@ -44,7 +44,7 @@
                 />
               </div>
               <div class="col-md-4 mb-3">
-                <label for="cc-number">{{deadline}}</label>
+                <label for="deadline">{{deadline}}</label>
                 <input
                   v-model="inputDeadline"
                   type="date"
@@ -58,7 +58,7 @@
 
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="firstName">{{patternLocation}}</label>
+                <label for="patternLocation">{{patternLocation}}</label>
                 <input
                   v-model="inputPatternLocation"
                   type="text"
@@ -90,12 +90,12 @@
 
             <div class="row">
               <div class="col-md-6 mb-3">
-                <label for="firstName">{{comment}}</label>
+                <label for="comment">{{comment}}</label>
                 <input
                   v-model="inputComment"
                   type="text"
                   class="form-control"
-                  id="patternLocation"
+                  id="comment"
                   placeholder
                   value
                 />
@@ -104,7 +104,8 @@
 
             <div class="row">
               <hr class="mb-4" />
-              <a class="btn btn-primary" @click="reset" type="reset" href="index.html">{{cancelButton}}</a>
+                
+              <a class="btn btn-primary" @click="reset" type="reset"  @mouseup="postPost()" href="index.html">{{cancelButton}}</a>
               <a class="btn btn-primary" type="submit" href="index.html#/userorder">{{orderButton}}</a>
             </div>
           </form>
@@ -117,6 +118,7 @@
 
  
  <script>
+import axios from "axios";
 export default {
   name: "PatternFormBody",
   props: {},
@@ -128,27 +130,25 @@ export default {
 
       chooseFile: "Válaszd ki a fájlt",
       pattern: "Minta",
+      inputPattern: null,
+      patternLocation: "Minta helye",
+      inputPatternLocation: null,
       size: "Méret (cm)",
       inputSize: null,
       amount: "Mennyiség",
       inputAmount: null,
       deadline: "Határidő",
-      inputDeadline: null,
+      inputDeadline: "2019-12-15T08:58:18.176Z",
       fonts: "Mintában használt fontok",
       inputFonts: null,
       comment: "Megjegyzés",
       inputComment: null,
       cancelButton: "Mégse",
       orderButton: "Megrendelem",
-      patternLocation: "Minta helye,",
-      inputPatternLocation: null
+      orderTime: "2019-12-11T08:58:18.176Z"
     };
   },
   methods: {
-      reset() {
-          console.log("patternform reset")
-          this.$router.push('/')
-      },
     formSubmit(e) {
       e.preventDefault();
 
@@ -160,17 +160,16 @@ export default {
           size: this.inputSize,
           amount: this.inputAmount,
           deadline: this.inputDeadline,
+          pattern: null,
           orderComment: this.inputComment,
+          orderTime: this.orderTime,
           fonts: this.inputFonts,
-          type: 1
+          type: 0,
+          patternPlace: this.inputPatternLocation
         })
-
-        .then(function(response) {
-          currentObj.output = response.data;
-        })
-
-        .catch(function(error) {
-          currentObj.output = error;
+        // .then(response => {})
+        .catch(e => {
+          this.errors.push(e);
         });
     }
   }
