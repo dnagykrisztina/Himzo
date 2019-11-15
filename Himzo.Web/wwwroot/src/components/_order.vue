@@ -28,19 +28,75 @@
         <p class="lead">{{ order.orderTime }}</p>
       </div>
 
-      <a
+      <!--<a
         class="btn btn-lg btn-primary"
         href="/docs/4.3/components/navbar/"
         role="button"
-      >Rendelés adatai &raquo;</a>
+      >Rendelés adatai &raquo;</a>-->
+      <div>
+          <b-button id="show-btn" @click="showModal">Rendelés adatai &raquo;</b-button>
+
+          <b-modal ref="my-modal" centered hide-backdrop content-class="shadow" hide-footer title="Rendelés adatai">
+
+              <div class="d-block ">
+                  <div class="container marketing">
+                      <div class="row featurette">
+                          <div class="col-md-12">
+                              <h2 class="featurette-heading" >Mézga Géza</h2>
+                              <p class="lead">mezga.geza@gmail.com</p>
+                          </div>
+                      </div>
+                  </div>
+                  <table class="table">
+                      <tr>
+                          <th scope="row">Méret:</th>
+                          <td>00x00</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Mennyiség:</th>
+                          <td>{{ order.amount }}</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Használt fontok:</th>
+                          <td>valami font fájl</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Határidő</th>
+                          <td>0000.00.00</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Megjegyzés:</th>
+                          <td>Uuuu de sokat irt ide valaki, biztos nagyon fontos ez a megrendeles, most mi fog törtennim, csunya lesz a tablazat? remelem nem. huhaa de izgi, mindjart kiderül.</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Rendelés ideje:</th>
+                          <td>0000.00.00</td>
+                      </tr>
+                  </table>
+              </div>
+          </b-modal>
+      </div>
       <a class="btn btn-lg btn-primary" href="/docs/4.3/components/navbar/" role="button">Mentés</a>
     </div>
   </div>
 </template>
 
 <script>
+import { BModal, VBModal } from 'bootstrap-vue'
 export default {
-  name: "order",
-  props: ["order"]
+    name: "order",
+    props: ["order"],
+    methods: {
+        showModal() {
+            this.$refs['my-modal'].show()
+        }
+    },
+    components: {
+        'b-modal': BModal
+    },
+    directives: {
+        // Note that Vue automatically prefixes directive names with `v-`
+        'b-modal': VBModal
+    }
 };
 </script>

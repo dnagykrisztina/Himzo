@@ -10,7 +10,9 @@ import PatchForm from '@/components/PatchForm'
 import PatternForm from '@/components/PatternForm'
 import AllOrder from '@/components/AllOrder'
 import UserOrder from '@/components/UserOrder'
+//import { ModalPlugin } from 'bootstrap-vue'
 
+//Vue.use(ModalPlugin)
 Vue.use(Router)
 
 export default new Router({
