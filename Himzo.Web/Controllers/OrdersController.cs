@@ -237,8 +237,13 @@ namespace Himzo.Web.Controllers
             {
                 return Unauthorized("Error accessing orders because of incorrect authority level!");
             }
-
+            
             Order order = new Order();
+            orderDTO.OrderTime = DateTime.Now;
+            if (!IsValidPOST(orderDTO))
+            {
+                return BadRequest("Error processing new order due to unprocessable input!");
+            }
             order = await MapPatchDetailsToOrderAsync(orderDTO, order);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -390,6 +395,23 @@ namespace Himzo.Web.Controllers
             order.OrderState = orderDTO.OrderState;
 
             return order;
+        }
+
+        private Boolean IsValidPOST(OrderPatchDetailsDTO orderDTO)
+        {
+            if ((orderDTO.Amount < 0 || orderDTO.Amount > 5000) ||
+                orderDTO.Deadline < DateTime.Now || orderDTO.Deadline == null ||
+                orderDTO.Fonts == null ||
+                orderDTO.Pattern == null ||
+                orderDTO.PatternPlace == null || orderDTO.PatternPlace == "" ||
+                orderDTO.Size == null || orderDTO.Size == "" ||
+                (orderDTO.Type != Order.ProductType.FOLT && orderDTO.Type != Order.ProductType.MINTA &&
+                orderDTO.Type != Order.ProductType.PULCSI)) 
+            {
+                return false;
+            }
+            
+            return true;
         }
     }
 }
