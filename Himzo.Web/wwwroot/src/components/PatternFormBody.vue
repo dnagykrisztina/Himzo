@@ -149,14 +149,9 @@ export default {
     };
   },
   methods: {
-    formSubmit(e) {
-      e.preventDefault();
-
-      let currentObj = this;
-
-      this.axios
-        .post("http://localhost:52140/api/Orders", {
-          orderstate: 0,
+    postPost() {
+      axios
+        .post(`http://localhost:52140/api/Orders`, {
           size: this.inputSize,
           amount: this.inputAmount,
           deadline: this.inputDeadline,
@@ -167,18 +162,9 @@ export default {
           type: 0,
           patternPlace: this.inputPatternLocation
         })
-
-        .then(
-            function (response) {
-            currentObj.output = response.data;
-            },
-            //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
-            console.log("patternForm submit"),
-            this.$router.push("/userorder")
-        )
-
-        .catch(function(error) {
-          currentObj.output = error;
+        // .then(response => {})
+        .catch(e => {
+          this.errors.push(e);
         });
     }
   }
