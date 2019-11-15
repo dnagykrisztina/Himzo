@@ -1,6 +1,47 @@
 <template>
   <div>
-    <div>
+    <div v-if="role=== Admin">
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="index.html">{{ titleHimzo }}</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">{{ order }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#/userorder">{{ myOrders }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#/allorder">{{ allOrder }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#/aboutus">{{ aboutUs }}</a>
+            </li>
+            <li class="dropdown nav-item">
+              <a href="#" class="dropbtn nav-link">{{ username }}</a>
+              <div class="dropdown-content">
+                <a href="index.html#/profile">{{ profile }}</a>
+                <a onclick="logout()">{{ signOut }}</a>
+              </div>
+            </li>
+            <a class="nav-link" href="index.html#/signin">{{ signIn }}</a>
+            <li class="nav-item"></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div v-if="role=== Kortag">
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="index.html">{{ titleHimzo }}</a>
         <button
@@ -55,11 +96,12 @@ export default {
       order: "Rendelés",
       myOrders: "Rendeléseim",
       aboutUs: "Rólunk",
-      username: "Önnönmagam",
+      username: "",
       profile: "Profilom",
       signOut: "Kilépés",
       signIn: "Bejelentkezés",
-      allOrder: "Rendelések"
+      allOrder: "Rendelések",
+      role: null
     };
   },
   async mounted() {
@@ -67,6 +109,7 @@ export default {
     try {
       const res = await axios.get("http://localhost:52140/api/User");
       this.username = res.data.userName;
+      this.role = res.data.role;
     } catch (e) {
       console.log(e);
     }
