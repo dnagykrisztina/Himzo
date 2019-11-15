@@ -104,8 +104,14 @@
 
             <div class="row">
               <hr class="mb-4" />
-                
-              <a class="btn btn-primary" @click="reset" type="reset"  @mouseup="postPost()" href="index.html">{{cancelButton}}</a>
+
+              <a
+                class="btn btn-primary"
+                @click="reset"
+                type="reset"
+                @mouseup="postPost()"
+                href="index.html"
+              >{{cancelButton}}</a>
               <a class="btn btn-primary" type="submit" href="index.html#/userorder">{{orderButton}}</a>
             </div>
           </form>
