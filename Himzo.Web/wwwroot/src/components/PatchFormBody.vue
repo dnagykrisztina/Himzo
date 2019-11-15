@@ -63,11 +63,10 @@
 
             <div class="row">
               <hr class="mb-4" />
-              <a class="btn btn-primary" type="reset" href="index.html">{{cancelButton}}</a>
+              <a class="btn btn-primary" @click ="reset" type="reset" >{{cancelButton}}</a>
               <a
                 class="btn btn-primary"
                 type="submit"
-                href="index.html#/userorder"
                 @mouseup="postPost()"
               >{{orderButton}}</a>
             </div>
@@ -111,6 +110,10 @@ export default {
     };
   },
   methods: {
+      reset() {
+          console.log("patchform reset")
+          this.$router.push('/')
+      },
     postPost() {
       axios
         .post(`http://localhost:52140/api/Orders`, {
@@ -124,7 +127,11 @@ export default {
           type: 0,
           patternPlace: this.inputPatternLocation
         })
-        // .then(response => {})
+        .then(
+            //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
+            console.log("patchForm submit"),
+            this.$router.push("/userorder")
+        )
         .catch(e => {
           this.errors.push(e);
         });

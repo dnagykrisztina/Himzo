@@ -77,7 +77,7 @@
         </div>
         <div class="row">
           <hr class="mb-4" />
-          <button class="btn btn-primary" type="reset">{{ cancelButton }}</button>
+          <button class="btn btn-primary" @click="reset" type="reset">{{ cancelButton }}</button>
           <button class="btn btn-primary" type="submit">{{ saveButton }}</button>
         </div>
       </div>

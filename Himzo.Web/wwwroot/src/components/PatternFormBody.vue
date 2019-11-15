@@ -104,13 +104,9 @@
 
             <div class="row">
               <hr class="mb-4" />
-              <a class="btn btn-primary" type="reset" href="index.html">{{cancelButton}}</a>
-              <a
-                class="btn btn-primary"
-                type="submit"
-                href="index.html#/userorder"
-                @mouseup="postPost()"
-              >{{orderButton}}</a>
+                
+              <a class="btn btn-primary" @click="reset" type="reset"  @mouseup="postPost()" href="index.html">{{cancelButton}}</a>
+              <a class="btn btn-primary" type="submit" href="index.html#/userorder">{{orderButton}}</a>
             </div>
           </form>
         </div>
@@ -153,9 +149,14 @@ export default {
     };
   },
   methods: {
-    postPost() {
-      axios
-        .post(`http://localhost:52140/api/Orders`, {
+    formSubmit(e) {
+      e.preventDefault();
+
+      let currentObj = this;
+
+      this.axios
+        .post("http://localhost:52140/api/Orders", {
+          orderstate: 0,
           size: this.inputSize,
           amount: this.inputAmount,
           deadline: this.inputDeadline,
@@ -166,9 +167,18 @@ export default {
           type: 0,
           patternPlace: this.inputPatternLocation
         })
-        // .then(response => {})
-        .catch(e => {
-          this.errors.push(e);
+
+        .then(
+            function (response) {
+            currentObj.output = response.data;
+            },
+            //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
+            console.log("patternForm submit"),
+            this.$router.push("/userorder")
+        )
+
+        .catch(function(error) {
+          currentObj.output = error;
         });
     }
   }
