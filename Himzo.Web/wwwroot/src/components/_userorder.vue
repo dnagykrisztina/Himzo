@@ -74,7 +74,7 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import { BModal, VBModal } from 'bootstrap-vue'
     export default {
         name: "userorder",
@@ -91,16 +91,16 @@ import { BModal, VBModal } from 'bootstrap-vue'
             // Note that Vue automatically prefixes directive names with `v-`
             'b-modal': VBModal
         }
-        //,
-        //async mounted() {
-        //    try {
-        //    const res = await axios.get(
-        //    "http://localhost:52140/api/Orders/4"
-        //    );
-        //    this.orders = res.data;
-        //    } catch (e) {
-        //        console.log(e);
-        //    }
-        //}
+        ,
+        async mounted() {
+            try {
+            const res = await axios.get(
+                "http://localhost:52140/api/Orders/4"
+                );
+                this.orders = res.data;
+                } catch (e) {
+                    console.log(e);
+                }
+        }
 };
 </script>
