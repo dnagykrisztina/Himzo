@@ -46,12 +46,12 @@
               <div class="col-md-4 mb-3">
                 <label for="deadline">{{deadline}}</label>
                 <input
-                  v-model="inputDeadline"
                   type="date"
                   class="form-control"
                   id="deadline"
                   placeholder
                   required
+                  v-model="inputDeadline"
                 />
               </div>
             </div>
@@ -109,10 +109,14 @@
                 class="btn btn-primary"
                 @click="reset"
                 type="reset"
-                @mouseup="postPost()"
                 href="index.html"
               >{{cancelButton}}</a>
-              <a class="btn btn-primary" type="submit" href="index.html#/userorder">{{orderButton}}</a>
+              <a
+                class="btn btn-primary"
+                type="submit"
+                href="index.html#/userorder"
+                @click="postPost()"
+              >{{orderButton}}</a>
             </div>
           </form>
         </div>
@@ -124,6 +128,7 @@
 
  
  <script>
+import axios from "axios";
 export default {
   name: "PatternFormBody",
   props: {},
@@ -135,7 +140,7 @@ export default {
 
       chooseFile: "Válaszd ki a fájlt",
       pattern: "Minta",
-      inputPattern: null,
+      inputPattern: "null",
       patternLocation: "Minta helye",
       inputPatternLocation: null,
       size: "Méret (cm)",
@@ -143,14 +148,13 @@ export default {
       amount: "Mennyiség",
       inputAmount: null,
       deadline: "Határidő",
-      inputDeadline: "2019-12-15T08:58:18.176Z",
+      inputDeadline: null,
       fonts: "Mintában használt fontok",
       inputFonts: null,
       comment: "Megjegyzés",
-      inputComment: null,
+      inputComment: " ",
       cancelButton: "Mégse",
-      orderButton: "Megrendelem",
-      orderTime: "2019-12-11T08:58:18.176Z"
+      orderButton: "Megrendelem"
     };
   },
   methods: {
@@ -160,14 +164,17 @@ export default {
           size: this.inputSize,
           amount: this.inputAmount,
           deadline: this.inputDeadline,
-          pattern: null,
+          pattern: this.inputPattern,
           orderComment: this.inputComment,
-          orderTime: this.orderTime,
           fonts: this.inputFonts,
           type: 0,
           patternPlace: this.inputPatternLocation
         })
-        // .then(response => {})
+        .then(
+          //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
+          console.log("patternForm submit"),
+          this.$router.push("/userorder")
+        )
         .catch(e => {
           this.errors.push(e);
         });
