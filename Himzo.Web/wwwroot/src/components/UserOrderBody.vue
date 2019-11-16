@@ -83,7 +83,7 @@ export default {
   async mounted() {
     try {
       const res = await axios.get(
-        "http://localhost:52140/api/Orders/?all=true" //ide /userid kell!!
+        "http://localhost:52140/api/Orders" //ide /userid kell!!
       );
       this.orders = res.data;
     } catch (e) {

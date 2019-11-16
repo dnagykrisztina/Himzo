@@ -34,7 +34,7 @@
         role="button"
       >Rendelés adatai &raquo;</a>-->
       <div>
-          <b-button id="show-btn" @click="showModal">Rendelés adatai &raquo;</b-button>
+          <b-button  class="btn btn-primary" typeof=" button" id="show-btn" @click="showModal">Rendelés adatai &raquo;</b-button>
 
           <b-modal ref="my-modal" centered hide-backdrop content-class="shadow" hide-footer title="Rendelés adatai">
 
