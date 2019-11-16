@@ -62,8 +62,15 @@ namespace Himzo.Web.Controllers
                                                 CommentUpdateTime = x.Comment.UpdateTime,
                                                 CommentContent = x.Comment.Content,
                                                 OrderState = x.OrderState,
+                                                Size = x.Size,
                                                 Amount = x.Amount,
-                                                Type = x.Type
+                                                Type = x.Type,
+                                                Deadline = x.Deadline,
+                                                Fonts = x.Fonts,
+                                                OrderComment = x.OrderComment,
+                                                OrderTime = x.OrderTime,
+                                                Pattern = x.Pattern,
+                                                PatternPlace = x.PatternPlace
                                             }).ToListAsync<OrderDTO>();
 
             } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
@@ -81,8 +88,15 @@ namespace Himzo.Web.Controllers
                                             CommentUpdateTime = x.Comment.UpdateTime,
                                             CommentContent = x.Comment.Content,
                                             OrderState = x.OrderState,
+                                            Size = x.Size,
                                             Amount = x.Amount,
-                                            Type = x.Type
+                                            Type = x.Type,
+                                            Deadline = x.Deadline,
+                                            Fonts = x.Fonts,
+                                            OrderComment = x.OrderComment,
+                                            OrderTime = x.OrderTime,
+                                            Pattern = x.Pattern,
+                                            PatternPlace = x.PatternPlace
                                         })
                                         .ToListAsync<OrderDTO>();
                 } else
@@ -95,8 +109,15 @@ namespace Himzo.Web.Controllers
                                                     CommentUpdateTime = x.Comment.UpdateTime,
                                                     CommentContent = x.Comment.Content,
                                                     OrderState = x.OrderState,
+                                                    Size = x.Size,
                                                     Amount = x.Amount,
-                                                    Type = x.Type
+                                                    Type = x.Type,
+                                                    Deadline = x.Deadline,
+                                                    Fonts = x.Fonts,
+                                                    OrderComment = x.OrderComment,
+                                                    OrderTime = x.OrderTime,
+                                                    Pattern = x.Pattern,
+                                                    PatternPlace = x.PatternPlace
                                                 })
                                                 .ToListAsync<OrderDTO>();
                 }
@@ -112,7 +133,7 @@ namespace Himzo.Web.Controllers
          */
         // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderDetailsDTO>> GetOrder(int id)
+        public async Task<ActionResult<OrderDTO>> GetOrder(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             
@@ -258,7 +279,7 @@ namespace Himzo.Web.Controllers
          */
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<OrderDetailsDTO>> DeleteOrder(int id)
+        public async Task<ActionResult<OrderDTO>> DeleteOrder(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -303,9 +324,9 @@ namespace Himzo.Web.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        private OrderDetailsDTO ConvertToOrderDetailsDTO (Order order)
+        private OrderDTO ConvertToOrderDetailsDTO (Order order)
         {
-            return new OrderDetailsDTO()
+            return new OrderDTO()
             {
                 OrderId = order.OrderId,
                 CommentUpdateTime = order.Comment != null ? order.Comment.UpdateTime : DateTime.MinValue,
