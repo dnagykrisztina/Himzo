@@ -19,10 +19,6 @@ namespace Himzo.Web.Controllers
         private readonly HimzoDbContext _context;
         private readonly UserManager<User> _userManager;
 
-        private const string PATCH_AUTHORITY_LEVEL = "Admin";
-        private const string POST_AUTHORITY_LEVEL = "Admin";
-        private const string DELETE_AUTHORITY_LEVEL = "Admin";
-
         private readonly string[] pathAllUsers = { "header", "footer", "title", "welcome", "aboutus", 
                                                     "registration", "signin"};
         private readonly string[] pathRegisteredUsers = { "profile", "patchform", "patternform", "userorder", "header", "footer", "title", "welcome", "aboutus",
@@ -53,15 +49,15 @@ namespace Himzo.Web.Controllers
 
             if (user != null)
             {
-                if (await _userManager.IsInRoleAsync(user, "User"))
+                if (await _userManager.IsInRoleAsync(user, Role.User))
                 {
                     return await GetContentByPath(path, pathRegisteredUsers);
                 }
-                else if (await _userManager.IsInRoleAsync(user, "Kortag"))
+                else if (await _userManager.IsInRoleAsync(user, Role.Kortag))
                 {
                     return await GetContentByPath(path, pathMembers);
                 }
-                else if (await _userManager.IsInRoleAsync(user, "Admin"))
+                else if (await _userManager.IsInRoleAsync(user, Role.Admin))
                 {
                     return await GetContentByPath(path, pathAdmins);
                 } else
@@ -86,7 +82,7 @@ namespace Himzo.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            if (user == null || await _userManager.IsInRoleAsync(user, PATCH_AUTHORITY_LEVEL) == false)
+            if (user == null || (await _userManager.IsInRoleAsync(user, Role.Admin) == false))
             {
                 return Unauthorized("Error updating content because of incorrect authority level.");
             }
