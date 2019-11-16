@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "e3a5356d-d843-431f-8fd6-44ded8c4fa50",
+		"name": "Tests",
+		"description": "Tests that are ready to go on azure.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserViewsAnOrder",
+			"item": [
+				{
+					"name": "UserSignIn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "50752c70-41e6-4297-a274-566cf373503e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Email check\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.email).to.eql(\"testuser@himzo.hu\");",
+									"});",
+									"pm.test(\"Success\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.success).to.eql(true);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"Email\": \"testuser@himzo.hu\",\n\t\"Password\": \"$TestUser123\",\n\t\"KeepMeSignedIn\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/Auth/Login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Auth",
+								"Login"
+							]
+						},
+						"description": "A user signs in."
+					},
+					"response": []
+				},
+				{
+					"name": "UserViewsAnOrder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dbb3a590-b963-443e-a711-ec14e96f7bd1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Data is valid\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.orderState).to.eql(0);",
+									"    pm.expect(jsonData.type).to.eql(0);",
+									"    pm.expect(jsonData.amount).to.eql(10);",
+									"    pm.expect(jsonData.size).to.eql(\"20x30mm\");",
+									"    pm.expect(jsonData.fonts).to.eql(null);",
+									"    pm.expect(jsonData.patternPlace).to.eql(null);",
+									"    pm.expect(jsonData.orderTime).to.eql(new Date(2019, 9, 25, 10, 20));",
+									"    pm.expect(jsonData.deadline).to.eql(new Date(2019, 10, 25, 12));",
+									"    pm.expect(jsonData.orderId).to.eql(1);",
+									"    pm.expect(jsonData.orderComment).to.eql(null);",
+									"    pm.expect(jsonData.commentUpdateTime).to.eql(new Date(\"0001-01-01T00:00:00\"));",
+									"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
+									"    pm.expect(jsonData.userName).to.eql(\"TestUser\");",
+									"    pm.expect(jsonData.userEmail).to.eql(\"testuser@himzo.hu\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/Orders/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"Orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e3b78763-d073-4cc7-8a69-cf8e5cf7b641",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5402f805-69c0-426d-9997-f4cacea7f23b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -196,7 +196,7 @@ namespace Himzo.Web.Controllers
                 var order = await _context.Orders.Include(x => x.User)
                                              .Include(x => x.Comment)
                                              .Where(x => x.OrderId == orderId).FirstOrDefaultAsync<Order>();
-                var tempOrder = new OrderPatchDTOUnion();
+                var tempOrder = ConvertToOrderPatchUnionDTO(order);
 
                 if (order == null) {
 
@@ -425,7 +425,7 @@ namespace Himzo.Web.Controllers
 
             return order;
         }
-
+        [ApiExplorerSettings(IgnoreApi = true)]
         private Boolean IsValidPOST(OrderPatchDetailsDTO orderDTO)
         {
             if ((orderDTO.Amount < 0 || orderDTO.Amount > 5000) ||
@@ -441,6 +441,26 @@ namespace Himzo.Web.Controllers
             }
             
             return true;
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        private OrderPatchDTOUnion ConvertToOrderPatchUnionDTO(Order order)
+        {
+            return new OrderPatchDTOUnion
+            {
+                Amount = order.Amount,
+                CommentUpdateTime = order.Comment != null ? order.Comment.UpdateTime : DateTime.MinValue,
+                CommentContent = order.Comment != null ? order.Comment.Content : "-",
+                Deadline = order.Deadline,
+                Fonts = order.Fonts,
+                OrderComment = order.OrderComment,
+                OrderState = order.OrderState,
+                OrderTime = order.OrderTime,
+                Pattern = order.Pattern,
+                PatternPlace = order.PatternPlace,
+                Size = order.Size,
+                Type = order.Type
+            };
         }
     }
 }
