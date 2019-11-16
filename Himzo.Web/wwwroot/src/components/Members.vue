@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header></Header>
-    <Title></Title>
     <MembersBody></MembersBody>
     <Footer></Footer>
   </div>
@@ -9,16 +8,16 @@
 
 <script>
 import Header from "./Header.vue";
-import Title from "./Title.vue";
+//import Title from "./Title.vue";
 import MembersBody from "./MembersBody.vue";
 import Footer from "./Footer.vue";
 
 export default {
-  name: "MembersBody",
+  name: "Members",
   props: {},
   components: {
     Header,
-    Title,
+    //Title,
     MembersBody,
     Footer
   }
