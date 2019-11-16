@@ -19,6 +19,8 @@ namespace Himzo.Dal.Entities
         public DateTime OrderTime { get; set; }
         public string Fonts { get; set; }
         public string PatternPlace { get; set; }
+        public string UserName { get; set; }
+        public string UserEmail { get; set; }
 
     }
 
