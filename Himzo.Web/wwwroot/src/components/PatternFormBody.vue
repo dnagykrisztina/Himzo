@@ -15,7 +15,7 @@
           <form class="needs-validation" validate>
             <div class="row">
               <div class="col-md-6 mb-3">
-                <input type="file" class="custom-file-input" id="customFile" />
+                <input type="file" class="custom-file-input" id="customFile" @change="setImage" />
                 <label class="custom-file-label" for="customFile">{{chooseFile}}</label>
               </div>
             </div>
@@ -178,6 +178,29 @@ export default {
         .catch(e => {
           this.errors.push(e);
         });
+    },
+    setImage: function(e) {
+      const file = e.target.files[0];
+      console.log(file);
+
+      if (!file.type.includes("image/")) {
+        alert("Please select an image file");
+        return;
+      }
+
+      if (typeof FileReader === "function") {
+        const reader = new FileReader();
+
+        reader.onload = event => {
+          this.inputPattern = event.target.result.slice(23);
+          console.log(this.inputPattern);
+          // rebuild cropperjs with the updated source
+          this.$refs.cropper.replace(event.target.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert("Sorry, FileReader API not supported");
+      }
     }
   }
 };

@@ -137,25 +137,6 @@ export default {
         });
     },
 
-    /*onFileChange(e) {
-    var files = e.target.files || e.dataTransfer.files;
-    if (!files.length)
-    return;
-    this.createImage(files[0]);
-    },
-
-    //Set Image
-    createImage(file) {
-    var image = new Image();
-    var reader = new FileReader();
-    var vm = this;
-
-      reader.onload = (e) => {
-        vm.staff.pic = e.target.result;
-      };
-      reader.readAsDataURL(file);
-
-    },*/
     setImage: function(e) {
       const file = e.target.files[0];
       console.log(file);
@@ -169,8 +150,8 @@ export default {
         const reader = new FileReader();
 
         reader.onload = event => {
-          this.imgSrc = event.target.result;
-          console.log(this.imgSrc);
+          this.inputPattern = event.target.result.slice(23);
+          console.log(this.inputPattern);
           // rebuild cropperjs with the updated source
           this.$refs.cropper.replace(event.target.result);
         };
