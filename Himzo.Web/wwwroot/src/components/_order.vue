@@ -49,8 +49,12 @@
                   </div>
                   <table class="table">
                       <tr>
+                          <th scope="row">Pattern:</th>
+                          <td>{{ order.pattern }}</td>
+                      </tr>
+                      <tr>
                           <th scope="row">Méret:</th>
-                          <td>00x00</td>
+                          <td>{{ order.size }}</td>
                       </tr>
                       <tr>
                           <th scope="row">Mennyiség:</th>
@@ -58,19 +62,19 @@
                       </tr>
                       <tr>
                           <th scope="row">Használt fontok:</th>
-                          <td>valami font fájl</td>
+                          <td>{{ order.fonts }}</td>
                       </tr>
                       <tr>
                           <th scope="row">Határidő</th>
-                          <td>0000.00.00</td>
+                          <td>{{ order.deadline }}</td>
                       </tr>
                       <tr>
                           <th scope="row">Megjegyzés:</th>
-                          <td>Uuuu de sokat irt ide valaki, biztos nagyon fontos ez a megrendeles, most mi fog törtennim, csunya lesz a tablazat? remelem nem. huhaa de izgi, mindjart kiderül.</td>
+                          <td>{{ order.orderComment }}
                       </tr>
                       <tr>
                           <th scope="row">Rendelés ideje:</th>
-                          <td>0000.00.00</td>
+                          <td>{{ order.orderTime }}</td>
                       </tr>
                   </table>
               </div>
@@ -80,7 +84,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { BModal, VBModal } from 'bootstrap-vue'
 export default {
