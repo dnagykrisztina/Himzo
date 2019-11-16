@@ -1,13 +1,13 @@
 <template>
 <div>
-  <head>
-    <link href="./signin_reg.css" rel="stylesheet" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://kit.fontawesome.com/cd3ec43ff2.js" crossorigin="anonymous"></script>
-  </head>
+    <head>
+        <link href="./signin_reg.css" rel="stylesheet" />
+        
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css"
+              rel="stylesheet" />
+        <script src="https://kit.fontawesome.com/cd3ec43ff2.js" crossorigin="anonymous"></script>
+    </head>
+
   <body class="text-center">
     <form>
       <img class="rounded-circle" src="./pic/logo.png" alt width="100" height="100" />
@@ -53,6 +53,7 @@
       <p class="mt-5 mb-3 text-muted">&copy; Pulcsi és FoltMéKör</p>
     </form>
   </body>
+
 </div>
 </template>
 
