@@ -25,7 +25,7 @@
           ></textarea>
           <p>Message is: {{ order.commentContent }}</p>
         </div>
-        <p class="lead">{{ order.orderTime }}</p>
+        <p class="lead">{{ order.orderTime | format }}</p>
       </div>
 
       <!--<a
@@ -40,18 +40,19 @@
 
               <div class="d-block ">
                   <div class="container marketing">
-                      <div class="row featurette">
-                          <div class="col-md-12">
-                              <h2 class="featurette-heading" >Mézga Géza</h2>
-                              <p class="lead">mezga.geza@gmail.com</p>
+                      <div class="row featurette headContainer">
+                          <div class="col-md-4">
+                              <img class="imageorder" :src="`data:image/png;base64,${  order.pattern  }`" />
                           </div>
+                          <div class="col-md-8 modal-head" >
+                              <h2 class="featurette-heading">{{ order.userName }}</h2>
+                              <p class="lead">{{ order.userEmail }}</p>
+                          </div>
+
                       </div>
                   </div>
+
                   <table class="table">
-                      <tr>
-                          <th scope="row">Pattern:</th>
-                          <td>{{ order.pattern }}</td>
-                      </tr>
                       <tr>
                           <th scope="row">Méret:</th>
                           <td>{{ order.size }}</td>
@@ -66,7 +67,7 @@
                       </tr>
                       <tr>
                           <th scope="row">Határidő</th>
-                          <td>{{ order.deadline }}</td>
+                          <td>{{ order.deadline | format }}</td>
                       </tr>
                       <tr>
                           <th scope="row">Megjegyzés:</th>
@@ -74,7 +75,7 @@
                       </tr>
                       <tr>
                           <th scope="row">Rendelés ideje:</th>
-                          <td>{{ order.orderTime }}</td>
+                          <td>{{ order.orderTime | format }}</td>
                       </tr>
                   </table>
               </div>
@@ -85,7 +86,7 @@
   </div>
 </template>
 <script>
-import { BModal, VBModal } from 'bootstrap-vue'
+    import { BModal, VBModal } from 'bootstrap-vue'
 export default {
     name: "order",
     props: ["order"],
@@ -100,6 +101,28 @@ export default {
     directives: {
         // Note that Vue automatically prefixes directive names with `v-`
         'b-modal': VBModal
+    },
+    filters: {
+      format: function (str) {
+        return str.substring(0, str.length - 9);
+      }
     }
 };
 </script>
+
+<style>
+    .imageorder{
+         border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 5px;
+          width: 150px;
+          margin-bottom: 5%;
+          vertical-align: central;
+    }
+    .modal-head{
+        vertical-align: bottom;
+        text-align: center;
+        padding-top: 10%
+    }
+
+</style>
