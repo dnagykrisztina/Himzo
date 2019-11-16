@@ -31,7 +31,6 @@
             <li class="nav-item" v-if="role=== Admin">
               <a class="nav-link" @click="members">{{ memberss }}</a>
             </li>
-            <li class="nav-item"></li>
           </ul>
           <!--<a class="nav-link btn btn-success" @click="signin">{{ signIn }}</a>-->
           <a
