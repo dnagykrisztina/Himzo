@@ -70,7 +70,9 @@ namespace Himzo.Web.Controllers
                                                 OrderComment = x.OrderComment,
                                                 OrderTime = x.OrderTime,
                                                 Pattern = x.Pattern,
-                                                PatternPlace = x.PatternPlace
+                                                PatternPlace = x.PatternPlace,
+                                                UserName = x.User.Name,
+                                                UserEmail = x.User.Email
                                             }).ToListAsync<OrderDTO>();
 
             } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
@@ -96,7 +98,9 @@ namespace Himzo.Web.Controllers
                                             OrderComment = x.OrderComment,
                                             OrderTime = x.OrderTime,
                                             Pattern = x.Pattern,
-                                            PatternPlace = x.PatternPlace
+                                            PatternPlace = x.PatternPlace,
+                                            UserName = x.User.Name,
+                                            UserEmail = x.User.Email
                                         })
                                         .ToListAsync<OrderDTO>();
                 } else
@@ -117,7 +121,9 @@ namespace Himzo.Web.Controllers
                                                     OrderComment = x.OrderComment,
                                                     OrderTime = x.OrderTime,
                                                     Pattern = x.Pattern,
-                                                    PatternPlace = x.PatternPlace
+                                                    PatternPlace = x.PatternPlace,
+                                                    UserName = x.User.Name,
+                                                    UserEmail = x.User.Email
                                                 })
                                                 .ToListAsync<OrderDTO>();
                 }
@@ -340,7 +346,9 @@ namespace Himzo.Web.Controllers
                 OrderTime = order.OrderTime,
                 Fonts = order.Fonts,
                 Type = order.Type,
-                PatternPlace = order.PatternPlace
+                PatternPlace = order.PatternPlace,
+                UserName = order.User.Name,
+                UserEmail = order.User.Email
             };
         }
 
