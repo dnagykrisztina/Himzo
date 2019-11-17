@@ -385,10 +385,10 @@ namespace Himzo.Web.Controllers
         {
             order.Size = orderDTO.Size;
             order.Amount = orderDTO.Amount;
-            order.Deadline = orderDTO.Deadline;
+            order.Deadline = orderDTO.Deadline <= DateTime.Now ? DateTime.Now : orderDTO.Deadline;
             order.Pattern = orderDTO.Pattern;
             order.OrderComment = orderDTO.OrderComment;
-            order.OrderTime = orderDTO.OrderTime;
+            order.OrderTime = orderDTO.OrderTime <= DateTime.Now ? DateTime.Now : orderDTO.OrderTime;
             order.Fonts = orderDTO.Fonts;
             order.Type = orderDTO.Type;
             order.PatternPlace = orderDTO.PatternPlace;
