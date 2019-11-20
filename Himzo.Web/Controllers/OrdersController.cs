@@ -52,7 +52,7 @@ namespace Himzo.Web.Controllers
                 return Unauthorized("Error accessing orders because of incorrect authority level!");
             }
 
-            if (await _userManager.IsInRoleAsync(user, "User"))
+            if (await _userManager.IsInRoleAsync(user, Role.User))
             {
 
                 return await _context.Orders.Where(x => x.User.Id == user.Id)
@@ -75,7 +75,7 @@ namespace Himzo.Web.Controllers
                                                 UserEmail = x.User.Email
                                             }).ToListAsync<OrderDTO>();
 
-            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            } else if (await _userManager.IsInRoleAsync(user, Role.Kortag) || await _userManager.IsInRoleAsync(user, Role.Admin))
             {
                 if (all != null && all.Equals("true"))
                 {
@@ -156,7 +156,7 @@ namespace Himzo.Web.Controllers
                 return NotFound();
             }
 
-            if (await _userManager.IsInRoleAsync(user, "User"))
+            if (await _userManager.IsInRoleAsync(user, Role.User))
             {
                 if (user.Id != order.User.Id)
                 {
@@ -166,7 +166,7 @@ namespace Himzo.Web.Controllers
                     return ConvertToOrderDetailsDTO(order);
                                                 
                 }
-            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            } else if (await _userManager.IsInRoleAsync(user, Role.Kortag) || await _userManager.IsInRoleAsync(user, Role.Admin))
             {
                 return ConvertToOrderDetailsDTO(order);
             }
@@ -203,7 +203,7 @@ namespace Himzo.Web.Controllers
                     return NotFound();
                 }
 
-                if (await _userManager.IsInRoleAsync(user, "User")) {
+                if (await _userManager.IsInRoleAsync(user, Role.User)) {
                     if (user.Id != order.User.Id)
                     {
                         return Unauthorized("Error patching order. A user can only patch their own orders.");
@@ -219,7 +219,7 @@ namespace Himzo.Web.Controllers
                         await _context.SaveChangesAsync();
                         return new ObjectResult(ConvertToOrderDetailsDTO(order));
                     }
-                } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+                } else if (await _userManager.IsInRoleAsync(user, Role.Kortag) || await _userManager.IsInRoleAsync(user, Role.Admin))
                 {
                     patchModel.ApplyTo(tempOrder);
                     if (user.Id != order.User.Id)
@@ -303,7 +303,7 @@ namespace Himzo.Web.Controllers
                 return NotFound();
             }
 
-            if (await _userManager.IsInRoleAsync(user, "User"))
+            if (await _userManager.IsInRoleAsync(user, Role.User))
             {
                 if (user.Id != userOfOrder.Id)
                 {
@@ -314,8 +314,9 @@ namespace Himzo.Web.Controllers
                     await _context.SaveChangesAsync();
                     return ConvertToOrderDetailsDTO(order);
                 }
-            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            } else if (await _userManager.IsInRoleAsync(user, Role.Kortag) || await _userManager.IsInRoleAsync(user, Role.Admin))
             {
+                
                 _context.Orders.Remove(order);
                 await _context.SaveChangesAsync();
                 return ConvertToOrderDetailsDTO(order);
