@@ -165,7 +165,7 @@ namespace Himzo.Web.Controllers
 
             if (user == null || (await _userManager.IsInRoleAsync(user, Role.Admin) == false))
             {
-                return Unauthorized("Error updating image because of incorrect authority level.");
+                return Unauthorized("Error deleting image because of incorrect authority level.");
             }
 
             var image = await _context.Images.FindAsync(id);
@@ -194,7 +194,7 @@ namespace Himzo.Web.Controllers
             return new ImageDTO()
             {
                 ImageId = image.ImageId,
-                ByteImage = Convert.ToBase64String(image.ByteImage)
+                ByteImage = image.ByteImage != null ? Convert.ToBase64String(image.ByteImage) : null
             };
         }
 
@@ -204,7 +204,7 @@ namespace Himzo.Web.Controllers
             return new ImagePatchDTO()
             {
                 Active = image.Active,
-                ByteImage = Convert.ToBase64String(image.ByteImage),
+                ByteImage = image.ByteImage != null ? Convert.ToBase64String(image.ByteImage) : null,
                 Path = image.Path,
                 Type = image.Type
             };
@@ -214,7 +214,7 @@ namespace Himzo.Web.Controllers
         private Image MapToImage(ImagePatchDTO imageDTO, Image image)
         {
             image.Active = imageDTO.Active;
-            image.ByteImage = Convert.FromBase64String(imageDTO.ByteImage);
+            image.ByteImage = imageDTO.ByteImage != null ? Convert.FromBase64String(imageDTO.ByteImage) : null;
             image.Path = imageDTO.Path;
             image.Type = imageDTO.Type;
             return image;
@@ -227,17 +227,18 @@ namespace Himzo.Web.Controllers
             {
                 if (type != "")
                 {
-                    return await _context.Images.Where(x => x.Path == currentPath && x.Type.ToString() == type).Select(x => new ImageDTO()
+                    return await _context.Images.Where(x => x.Path == currentPath && x.Type.ToString() == type &&
+                                                       x.Active).Select(x => new ImageDTO()
                     {
                         ImageId = x.ImageId,
-                        ByteImage = Convert.ToBase64String(x.ByteImage)
+                        ByteImage = x.ByteImage != null ? Convert.ToBase64String(x.ByteImage) : null
                     }).ToListAsync<ImageDTO>();
                 } else
                 {
-                    return await _context.Images.Where(x => x.Path == currentPath).Select(x => new ImageDTO()
+                    return await _context.Images.Where(x => x.Path == currentPath && x.Active).Select(x => new ImageDTO()
                     {
                         ImageId = x.ImageId,
-                        ByteImage = Convert.ToBase64String(x.ByteImage)
+                        ByteImage = x.ByteImage != null ? Convert.ToBase64String(x.ByteImage) : null,
                     }).ToListAsync<ImageDTO>();
                 }
                 
