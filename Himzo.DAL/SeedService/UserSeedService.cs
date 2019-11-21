@@ -248,7 +248,7 @@ namespace Himzo.Dal.SeedService
 
                 Order Order8 = new Order
                 {
-                    User = TestUser, // User object
+                    User = AdminUser, // User object
                     OrderState = Order.State.WAITING_FOR_ANSWER, // OrderState enum
                     Type = Order.ProductType.PULCSI, // Type enum
                     Amount = 1, // Integer
