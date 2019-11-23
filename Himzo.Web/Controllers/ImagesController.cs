@@ -227,7 +227,7 @@ namespace Himzo.Web.Controllers
             {
                 if (type != "")
                 {
-                    return await _context.Images.Where(x => x.Path == currentPath && x.Type.ToString() == type &&
+                    return await _context.Images.Where(x => x.Path == currentPath && x.Type == ToProductType(type) &&
                                                        x.Active).Select(x => new ImageDTO()
                     {
                         ImageId = x.ImageId,
@@ -246,6 +246,22 @@ namespace Himzo.Web.Controllers
 
             return new EmptyResult();
 
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        private Order.ProductType? ToProductType(string productType)
+        {
+            if (productType == "0" || productType.ToUpper() == "FOLT") 
+            {
+                return Order.ProductType.FOLT;
+            } else if (productType == "1" || productType.ToUpper() == "PULCSI")
+            {
+                return Order.ProductType.PULCSI;
+            } else if (productType == "2" || productType.ToUpper() == "MINTA")
+            {
+                return Order.ProductType.MINTA;
+            }
+            return null;
         }
 
     }
