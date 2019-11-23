@@ -52,7 +52,7 @@ namespace Himzo.Web.Controllers
                 return Unauthorized("Error accessing orders because of incorrect authority level!");
             }
 
-            if (await _userManager.IsInRoleAsync(user, "User"))
+            if (await _userManager.IsInRoleAsync(user, Role.User))
             {
 
                 return await _context.Orders.Where(x => x.User.Id == user.Id)
@@ -62,11 +62,20 @@ namespace Himzo.Web.Controllers
                                                 CommentUpdateTime = x.Comment.UpdateTime,
                                                 CommentContent = x.Comment.Content,
                                                 OrderState = x.OrderState,
+                                                Size = x.Size,
                                                 Amount = x.Amount,
-                                                Type = x.Type
+                                                Type = x.Type,
+                                                Deadline = x.Deadline,
+                                                Fonts = x.Fonts,
+                                                OrderComment = x.OrderComment,
+                                                OrderTime = x.OrderTime,
+                                                Pattern = x.Pattern,
+                                                PatternPlace = x.PatternPlace,
+                                                UserName = x.User.Name,
+                                                UserEmail = x.User.Email
                                             }).ToListAsync<OrderDTO>();
 
-            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            } else if (await _userManager.IsInRoleAsync(user, Role.Kortag) || await _userManager.IsInRoleAsync(user, Role.Admin))
             {
                 if (all != null && all.Equals("true"))
                 {
@@ -82,8 +91,17 @@ namespace Himzo.Web.Controllers
                                             CommentUpdateTime = x.Comment.UpdateTime,
                                             CommentContent = x.Comment.Content,
                                             OrderState = x.OrderState,
+                                            Size = x.Size,
                                             Amount = x.Amount,
-                                            Type = x.Type
+                                            Type = x.Type,
+                                            Deadline = x.Deadline,
+                                            Fonts = x.Fonts,
+                                            OrderComment = x.OrderComment,
+                                            OrderTime = x.OrderTime,
+                                            Pattern = x.Pattern,
+                                            PatternPlace = x.PatternPlace,
+                                            UserName = x.User.Name,
+                                            UserEmail = x.User.Email
                                         })
                                         .ToListAsync<OrderDTO>();
                 } else
@@ -97,8 +115,17 @@ namespace Himzo.Web.Controllers
                                                     CommentUpdateTime = x.Comment.UpdateTime,
                                                     CommentContent = x.Comment.Content,
                                                     OrderState = x.OrderState,
+                                                    Size = x.Size,
                                                     Amount = x.Amount,
-                                                    Type = x.Type
+                                                    Type = x.Type,
+                                                    Deadline = x.Deadline,
+                                                    Fonts = x.Fonts,
+                                                    OrderComment = x.OrderComment,
+                                                    OrderTime = x.OrderTime,
+                                                    Pattern = x.Pattern,
+                                                    PatternPlace = x.PatternPlace,
+                                                    UserName = x.User.Name,
+                                                    UserEmail = x.User.Email
                                                 })
                                                 .ToListAsync<OrderDTO>();
                 }
@@ -114,7 +141,7 @@ namespace Himzo.Web.Controllers
          */
         // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderDetailsDTO>> GetOrder(int id)
+        public async Task<ActionResult<OrderDTO>> GetOrder(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             
@@ -131,7 +158,7 @@ namespace Himzo.Web.Controllers
                 return NotFound();
             }
 
-            if (await _userManager.IsInRoleAsync(user, "User"))
+            if (await _userManager.IsInRoleAsync(user, Role.User))
             {
                 if (user.Id != order.User.Id)
                 {
@@ -141,7 +168,7 @@ namespace Himzo.Web.Controllers
                     return ConvertToOrderDetailsDTO(order);
                                                 
                 }
-            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            } else if (await _userManager.IsInRoleAsync(user, Role.Kortag) || await _userManager.IsInRoleAsync(user, Role.Admin))
             {
                 return ConvertToOrderDetailsDTO(order);
             }
@@ -171,14 +198,14 @@ namespace Himzo.Web.Controllers
                 var order = await _context.Orders.Include(x => x.User)
                                              .Include(x => x.Comment)
                                              .Where(x => x.OrderId == orderId).FirstOrDefaultAsync<Order>();
-                var tempOrder = new OrderPatchDTOUnion();
+                var tempOrder = ConvertToOrderPatchUnionDTO(order);
 
                 if (order == null) {
 
                     return NotFound();
                 }
 
-                if (await _userManager.IsInRoleAsync(user, "User")) {
+                if (await _userManager.IsInRoleAsync(user, Role.User)) {
                     if (user.Id != order.User.Id)
                     {
                         return Unauthorized("Error patching order. A user can only patch their own orders.");
@@ -194,7 +221,7 @@ namespace Himzo.Web.Controllers
                         await _context.SaveChangesAsync();
                         return new ObjectResult(ConvertToOrderDetailsDTO(order));
                     }
-                } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+                } else if (await _userManager.IsInRoleAsync(user, Role.Kortag) || await _userManager.IsInRoleAsync(user, Role.Admin))
                 {
                     patchModel.ApplyTo(tempOrder);
                     if (user.Id != order.User.Id)
@@ -239,8 +266,13 @@ namespace Himzo.Web.Controllers
             {
                 return Unauthorized("Error accessing orders because of incorrect authority level!");
             }
-
+            
             Order order = new Order();
+            orderDTO.OrderTime = DateTime.Now;
+            if (!IsValidPOST(orderDTO))
+            {
+                return BadRequest("Error processing new order due to unprocessable input!");
+            }
             order = await MapPatchDetailsToOrderAsync(orderDTO, order);
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
@@ -255,7 +287,7 @@ namespace Himzo.Web.Controllers
          */
         // DELETE: api/Orders/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<OrderDetailsDTO>> DeleteOrder(int id)
+        public async Task<ActionResult<OrderDTO>> DeleteOrder(int id)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
@@ -273,7 +305,7 @@ namespace Himzo.Web.Controllers
                 return NotFound();
             }
 
-            if (await _userManager.IsInRoleAsync(user, "User"))
+            if (await _userManager.IsInRoleAsync(user, Role.User))
             {
                 if (user.Id != userOfOrder.Id)
                 {
@@ -284,8 +316,9 @@ namespace Himzo.Web.Controllers
                     await _context.SaveChangesAsync();
                     return ConvertToOrderDetailsDTO(order);
                 }
-            } else if (await _userManager.IsInRoleAsync(user, "Kortag") || await _userManager.IsInRoleAsync(user, "Admin"))
+            } else if (await _userManager.IsInRoleAsync(user, Role.Kortag) || await _userManager.IsInRoleAsync(user, Role.Admin))
             {
+                
                 _context.Orders.Remove(order);
                 await _context.SaveChangesAsync();
                 return ConvertToOrderDetailsDTO(order);
@@ -300,9 +333,9 @@ namespace Himzo.Web.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        private OrderDetailsDTO ConvertToOrderDetailsDTO (Order order)
+        private OrderDTO ConvertToOrderDetailsDTO (Order order)
         {
-            return new OrderDetailsDTO()
+            return new OrderDTO()
             {
                 OrderId = order.OrderId,
                 CommentUpdateTime = order.Comment != null ? order.Comment.UpdateTime : DateTime.MinValue,
@@ -316,7 +349,9 @@ namespace Himzo.Web.Controllers
                 OrderTime = order.OrderTime,
                 Fonts = order.Fonts,
                 Type = order.Type,
-                PatternPlace = order.PatternPlace
+                PatternPlace = order.PatternPlace,
+                UserName = order.User.Name,
+                UserEmail = order.User.Email
             };
         }
 
@@ -353,10 +388,10 @@ namespace Himzo.Web.Controllers
         {
             order.Size = orderDTO.Size;
             order.Amount = orderDTO.Amount;
-            order.Deadline = orderDTO.Deadline;
+            order.Deadline = orderDTO.Deadline <= DateTime.Now ? DateTime.Now : orderDTO.Deadline;
             order.Pattern = orderDTO.Pattern;
             order.OrderComment = orderDTO.OrderComment;
-            order.OrderTime = orderDTO.OrderTime;
+            order.OrderTime = orderDTO.OrderTime <= DateTime.Now ? DateTime.Now : orderDTO.OrderTime;
             order.Fonts = orderDTO.Fonts;
             order.Type = orderDTO.Type;
             order.PatternPlace = orderDTO.PatternPlace;
@@ -392,6 +427,43 @@ namespace Himzo.Web.Controllers
             order.OrderState = orderDTO.OrderState;
 
             return order;
+        }
+        [ApiExplorerSettings(IgnoreApi = true)]
+        private Boolean IsValidPOST(OrderPatchDetailsDTO orderDTO)
+        {
+            if ((orderDTO.Amount < 0 || orderDTO.Amount > 5000) ||
+                orderDTO.Deadline < DateTime.Now || orderDTO.Deadline == null ||
+                orderDTO.Fonts == null ||
+                orderDTO.Pattern == null ||
+                orderDTO.PatternPlace == null || orderDTO.PatternPlace == "" ||
+                orderDTO.Size == null || orderDTO.Size == "" ||
+                (orderDTO.Type != Order.ProductType.FOLT && orderDTO.Type != Order.ProductType.MINTA &&
+                orderDTO.Type != Order.ProductType.PULCSI)) 
+            {
+                return false;
+            }
+            
+            return true;
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        private OrderPatchDTOUnion ConvertToOrderPatchUnionDTO(Order order)
+        {
+            return new OrderPatchDTOUnion
+            {
+                Amount = order.Amount,
+                CommentUpdateTime = order.Comment != null ? order.Comment.UpdateTime : DateTime.MinValue,
+                CommentContent = order.Comment != null ? order.Comment.Content : "-",
+                Deadline = order.Deadline,
+                Fonts = order.Fonts,
+                OrderComment = order.OrderComment,
+                OrderState = order.OrderState,
+                OrderTime = order.OrderTime,
+                Pattern = order.Pattern,
+                PatternPlace = order.PatternPlace,
+                Size = order.Size,
+                Type = order.Type
+            };
         }
     }
 }

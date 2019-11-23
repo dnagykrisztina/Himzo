@@ -19,10 +19,6 @@ namespace Himzo.Web.Controllers
         private readonly HimzoDbContext _context;
         private readonly UserManager<User> _userManager;
 
-        private const string PATCH_AUTHORITY_LEVEL = "Admin";
-        private const string POST_AUTHORITY_LEVEL = "Admin";
-        private const string DELETE_AUTHORITY_LEVEL = "Admin";
-
         private readonly string[] pathAllUsers = { "header", "footer", "title", "welcome", "aboutus",
                                                     "registration", "signin"};
         private readonly string[] pathRegisteredUsers = { "profile", "patchform", "patternform", "userorder", "header", "footer", "title", "welcome", "aboutus",
@@ -52,15 +48,15 @@ namespace Himzo.Web.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user != null)
             {
-                if (await _userManager.IsInRoleAsync(user, "User"))
+                if (await _userManager.IsInRoleAsync(user, Role.User))
                 {
                     return await GetImageByPath(type, path, pathRegisteredUsers);
                 }
-                else if (await _userManager.IsInRoleAsync(user, "Kortag"))
+                else if (await _userManager.IsInRoleAsync(user, Role.Kortag))
                 {
                     return await GetImageByPath(type, path, pathMembers);
                 }
-                else if (await _userManager.IsInRoleAsync(user, "Admin"))
+                else if (await _userManager.IsInRoleAsync(user, Role.Admin))
                 {
                     return await GetImageByPath(type, path, pathAdmins);
                 }
@@ -103,7 +99,7 @@ namespace Himzo.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            if (user == null || await _userManager.IsInRoleAsync(user, PATCH_AUTHORITY_LEVEL) == false)
+            if (user == null || (await _userManager.IsInRoleAsync(user, Role.Admin) == false))
             {
                 return Unauthorized("Error updating image because of incorrect authority level.");
             }
@@ -143,7 +139,7 @@ namespace Himzo.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            if (user == null || await _userManager.IsInRoleAsync(user, POST_AUTHORITY_LEVEL) == false)
+            if (user == null || (await _userManager.IsInRoleAsync(user, Role.Admin) == false))
             {
                 return Unauthorized("Error posting image because of incorrect authority level.");
             }
@@ -167,9 +163,9 @@ namespace Himzo.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            if (user == null || await _userManager.IsInRoleAsync(user, DELETE_AUTHORITY_LEVEL) == false)
+            if (user == null || (await _userManager.IsInRoleAsync(user, Role.Admin) == false))
             {
-                return Unauthorized("Error updating image because of incorrect authority level.");
+                return Unauthorized("Error deleting image because of incorrect authority level.");
             }
 
             var image = await _context.Images.FindAsync(id);
@@ -198,7 +194,7 @@ namespace Himzo.Web.Controllers
             return new ImageDTO()
             {
                 ImageId = image.ImageId,
-                ByteImage = Convert.ToBase64String(image.ByteImage)
+                ByteImage = image.ByteImage != null ? Convert.ToBase64String(image.ByteImage) : null
             };
         }
 
@@ -208,7 +204,7 @@ namespace Himzo.Web.Controllers
             return new ImagePatchDTO()
             {
                 Active = image.Active,
-                ByteImage = Convert.ToBase64String(image.ByteImage),
+                ByteImage = image.ByteImage != null ? Convert.ToBase64String(image.ByteImage) : null,
                 Path = image.Path,
                 Type = image.Type
             };
@@ -218,7 +214,7 @@ namespace Himzo.Web.Controllers
         private Image MapToImage(ImagePatchDTO imageDTO, Image image)
         {
             image.Active = imageDTO.Active;
-            image.ByteImage = Convert.FromBase64String(imageDTO.ByteImage);
+            image.ByteImage = imageDTO.ByteImage != null ? Convert.FromBase64String(imageDTO.ByteImage) : null;
             image.Path = imageDTO.Path;
             image.Type = imageDTO.Type;
             return image;
@@ -231,17 +227,18 @@ namespace Himzo.Web.Controllers
             {
                 if (type != "")
                 {
-                    return await _context.Images.Where(x => x.Path == currentPath && x.Type.ToString() == type).Select(x => new ImageDTO()
+                    return await _context.Images.Where(x => x.Path == currentPath && x.Type.ToString() == type &&
+                                                       x.Active).Select(x => new ImageDTO()
                     {
                         ImageId = x.ImageId,
-                        ByteImage = Convert.ToBase64String(x.ByteImage)
+                        ByteImage = x.ByteImage != null ? Convert.ToBase64String(x.ByteImage) : null
                     }).ToListAsync<ImageDTO>();
                 } else
                 {
-                    return await _context.Images.Where(x => x.Path == currentPath).Select(x => new ImageDTO()
+                    return await _context.Images.Where(x => x.Path == currentPath && x.Active).Select(x => new ImageDTO()
                     {
                         ImageId = x.ImageId,
-                        ByteImage = Convert.ToBase64String(x.ByteImage)
+                        ByteImage = x.ByteImage != null ? Convert.ToBase64String(x.ByteImage) : null,
                     }).ToListAsync<ImageDTO>();
                 }
                 

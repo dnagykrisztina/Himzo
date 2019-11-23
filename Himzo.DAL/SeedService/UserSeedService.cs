@@ -122,8 +122,8 @@ namespace Himzo.Dal.SeedService
                     Type = Order.ProductType.FOLT, // Type enum
                     Amount = 10, // Integer
                     Size = "20x30mm", // String
-                    Fonts = null, // String
-                    PatternPlace = null, // String
+                    Fonts = "Arial", // String
+                    PatternPlace = "-", // String
                     OrderTime = new DateTime(2019, 9, 25, 10, 20, 00), // DateTime
                     Deadline = new DateTime(2019, 10, 25, 12, 00, 00), // DateTime
                     OrderComment = "Amilyen gyorsan csak lehet!", // String
@@ -138,8 +138,8 @@ namespace Himzo.Dal.SeedService
                     Type = Order.ProductType.FOLT, // Type enum
                     Amount = 100, // Integer
                     Size = "50x50mm", // String
-                    Fonts = null, // String
-                    PatternPlace = null, // String
+                    Fonts = "London", // String
+                    PatternPlace = "-", // String
                     OrderTime = new DateTime(2019, 9, 30, 14, 12, 00), // DateTime
                     Deadline = new DateTime(2019, 10, 30, 12, 00, 00), // DateTime
                     OrderComment = "Legyenek szépek :)", // String
@@ -154,7 +154,7 @@ namespace Himzo.Dal.SeedService
                     Type = Order.ProductType.MINTA, // Type enum
                     Amount = 1, // Integer
                     Size = "20x30mm", // String
-                    Fonts = null, // String
+                    Fonts = "Lato", // String
                     PatternPlace = "Váll felett", // String
                     OrderTime = new DateTime(2019, 10, 1, 10, 00, 00), // DateTime
                     Deadline = new DateTime(2019, 10, 10, 12, 00, 00), // DateTime
@@ -170,8 +170,8 @@ namespace Himzo.Dal.SeedService
                     Type = Order.ProductType.FOLT, // Type enum
                     Amount = 10, // Integer
                     Size = "20x30mm", // String
-                    Fonts = null, // String
-                    PatternPlace = null, // String
+                    Fonts = "Webdings", // String
+                    PatternPlace = "-", // String
                     OrderTime = new DateTime(2019, 9, 25, 10, 20, 00), // DateTime
                     Deadline = new DateTime(2019, 10, 25, 12, 00, 00), // DateTime
                     OrderComment = "Nem érek rá így megcsinálná nekem valaki?", // String
@@ -186,8 +186,8 @@ namespace Himzo.Dal.SeedService
                     Type = Order.ProductType.PULCSI, // Type enum
                     Amount = 2, // Integer
                     Size = "20x30mm", // String
-                    Fonts = null, // String
-                    PatternPlace = null, // String
+                    Fonts = "Nordlight", // String
+                    PatternPlace = "Hátra", // String
                     OrderTime = new DateTime(2019, 8, 10, 12, 00, 00), // DateTime
                     Deadline = new DateTime(2019, 9, 10, 12, 00, 00), // DateTime
                     OrderComment = "Kéne még pár pulcsi a golyáknak!", // String
@@ -222,7 +222,7 @@ namespace Himzo.Dal.SeedService
                     Amount = 1, // Integer
                     Size = "10x10mm", // String
                     Fonts = "Minta font", // String
-                    PatternPlace = null, // String
+                    PatternPlace = "-", // String
                     OrderTime = new DateTime(2019, 1, 1, 12, 00, 00), // DateTime
                     Deadline = new DateTime(2019, 12, 31, 12, 00, 00), // DateTime
                     OrderComment = "Minta megrendelés (Folt)", // String
@@ -248,13 +248,13 @@ namespace Himzo.Dal.SeedService
 
                 Order Order8 = new Order
                 {
-                    User = TestUser, // User object
+                    User = AdminUser, // User object
                     OrderState = Order.State.WAITING_FOR_ANSWER, // OrderState enum
                     Type = Order.ProductType.PULCSI, // Type enum
                     Amount = 1, // Integer
                     Size = "10x10mm", // String
                     Fonts = "Minta font", // String
-                    PatternPlace = null, // String
+                    PatternPlace = "Szívhez", // String
                     OrderTime = new DateTime(2019, 1, 1, 12, 00, 00), // DateTime
                     Deadline = new DateTime(2019, 12, 31, 12, 00, 00), // DateTime
                     OrderComment = "Minta megrendelés (Pulcsi)", // String

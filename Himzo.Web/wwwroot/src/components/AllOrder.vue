@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header></Header>
-    <Title></Title>
     <AllOrderBody></AllOrderBody>
     <Footer></Footer>
   </div>
@@ -9,7 +8,6 @@
 
 <script>
 import Header from "./Header.vue";
-import Title from "./Title.vue";
 import AllOrderBody from "./AllOrderBody.vue";
 import Footer from "./Footer.vue";
 
@@ -18,7 +16,6 @@ export default {
   props: {},
   components: {
     Header,
-    Title,
     AllOrderBody,
     Footer
   }

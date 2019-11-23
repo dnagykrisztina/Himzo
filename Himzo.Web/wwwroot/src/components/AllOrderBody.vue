@@ -1,4 +1,12 @@
 <template>
+    <div>
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">{{ title }}</h1>
+
+                <p>{{ titleDescription }}</p>
+            </div>
+        </div>
 <body>
   <main role="main" class="container">
     <order v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></order>
@@ -21,7 +29,9 @@ export default {
   },
   data() {
     return {
-      orders: []
+        orders: [],
+        title: "Rendelések",
+        titleDescription: "",
     };
   },
   async mounted() {

@@ -25,7 +25,7 @@
           ></textarea>
           <p>Message is: {{ order.commentContent }}</p>
         </div>
-        <p class="lead">{{ order.orderTime }}</p>
+        <p class="lead">{{ order.orderTime | format }}</p>
       </div>
 
       <!--<a
@@ -34,23 +34,28 @@
         role="button"
       >Rendelés adatai &raquo;</a>-->
       <div>
-          <b-button id="show-btn" @click="showModal">Rendelés adatai &raquo;</b-button>
+          <b-button  class="btn btn-primary" typeof=" button" id="show-btn" @click="showModal">Rendelés adatai &raquo;</b-button>
 
           <b-modal ref="my-modal" centered hide-backdrop content-class="shadow" hide-footer title="Rendelés adatai">
 
               <div class="d-block ">
                   <div class="container marketing">
-                      <div class="row featurette">
-                          <div class="col-md-12">
-                              <h2 class="featurette-heading" >Mézga Géza</h2>
-                              <p class="lead">mezga.geza@gmail.com</p>
+                      <div class="row featurette headContainer">
+                          <div class="col-md-4">
+                              <img class="imageorder" :src="`data:image/png;base64,${  order.pattern  }`" />
                           </div>
+                          <div class="col-md-8 modal-head" >
+                              <h2 class="featurette-heading">{{ order.userName }}</h2>
+                              <p class="lead">{{ order.userEmail }}</p>
+                          </div>
+
                       </div>
                   </div>
+
                   <table class="table">
                       <tr>
                           <th scope="row">Méret:</th>
-                          <td>00x00</td>
+                          <td>{{ order.size }}</td>
                       </tr>
                       <tr>
                           <th scope="row">Mennyiség:</th>
@@ -58,19 +63,19 @@
                       </tr>
                       <tr>
                           <th scope="row">Használt fontok:</th>
-                          <td>valami font fájl</td>
+                          <td>{{ order.fonts }}</td>
                       </tr>
                       <tr>
                           <th scope="row">Határidő</th>
-                          <td>0000.00.00</td>
+                          <td>{{ order.deadline | format }}</td>
                       </tr>
                       <tr>
                           <th scope="row">Megjegyzés:</th>
-                          <td>Uuuu de sokat irt ide valaki, biztos nagyon fontos ez a megrendeles, most mi fog törtennim, csunya lesz a tablazat? remelem nem. huhaa de izgi, mindjart kiderül.</td>
+                          <td>{{ order.orderComment }}
                       </tr>
                       <tr>
                           <th scope="row">Rendelés ideje:</th>
-                          <td>0000.00.00</td>
+                          <td>{{ order.orderTime | format }}</td>
                       </tr>
                   </table>
               </div>
@@ -80,9 +85,8 @@
     </div>
   </div>
 </template>
-
 <script>
-import { BModal, VBModal } from 'bootstrap-vue'
+    import { BModal, VBModal } from 'bootstrap-vue'
 export default {
     name: "order",
     props: ["order"],
@@ -97,6 +101,28 @@ export default {
     directives: {
         // Note that Vue automatically prefixes directive names with `v-`
         'b-modal': VBModal
+    },
+    filters: {
+      format: function (str) {
+        return str.substring(0, str.length - 9);
+      }
     }
 };
 </script>
+
+<style>
+    .imageorder{
+         border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 5px;
+          width: 150px;
+          margin-bottom: 5%;
+          vertical-align: central;
+    }
+    .modal-head{
+        vertical-align: bottom;
+        text-align: center;
+        padding-top: 10%
+    }
+
+</style>

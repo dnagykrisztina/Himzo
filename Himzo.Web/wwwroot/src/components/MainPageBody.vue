@@ -11,13 +11,13 @@
         <div class="col-md-7">
           <h2 class="featurette-heading">{{ patchTitle }}</h2>
           <p class="lead">{{ patchDescription }}</p>
-          <a @click ="patchForm" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
+          <a @click="patchForm" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
         </div>
 
         <div class="col-md-5">
           <div class="demo">
             <!-- <coverflow :coverList="coverList" :coverWidth="100" :index="2" @change="handleChange"></coverflow> -->
-            <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="2"></coverflow>
+            <coverflow :coverList="coverflow" :width="400" :coverWidth="300" :index="2"></coverflow>
           </div>
         </div>
       </div>
@@ -28,10 +28,7 @@
         <div class="col-md-7 order-md-2">
           <h2 class="featurette-heading">{{ embroideredPatternTitle }}</h2>
           <p class="lead">{{ embroideredPatternDescription }}</p>
-          <a
-            @click ="patternForm"
-            class="btn btn-lg btn-block btn-outline-primary"
-          >Rendelés</a>
+          <a @click="patternForm" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
         </div>
         <div class="col-md-5 order-md-1">
           <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="2"></coverflow>
@@ -68,12 +65,12 @@ export default {
   props: {},
   methods: {
     patchForm() {
-        console.log("valami")
-        this.$router.push('/patchform')
-      },
-      patternForm() {
-        console.log("valami")
-        this.$router.push('/patternform')
+      console.log("valami");
+      this.$router.push("/patchform");
+    },
+    patternForm() {
+      console.log("valami");
+      this.$router.push("/patternform");
     }
   },
   data() {
@@ -86,14 +83,13 @@ export default {
       sewaterTitle: null,
       sweaterDescription: null,
       image: null,
+      coverflow: [],
       coverList: [
         {
-          cover: require("./pic/team.jpg"),
-          title: "React"
+          cover: require("./pic/team.jpg")
         },
         {
-          cover: require("./pic/hatter.jpg"),
-          title: "Angular"
+          cover: require("./pic/hatter.jpg")
         },
         {
           cover: require("../assets/images/vue.png"),
@@ -140,6 +136,10 @@ export default {
       this.embroideredPatternDescription = res.data[1].contentString;
       this.sewaterTitle = res.data[2].title;
       this.sweaterDescription = res.data[2].contentString;
+      const img = await axios.get(
+        'http://localhost:52140/api/Images//?path="welcome"&type=0'
+      );
+      this.coverflow = img.data;
     } catch (e) {
       console.log(e);
     }
