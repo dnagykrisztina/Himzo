@@ -70,6 +70,7 @@ namespace Himzo.Web.Controllers
             {
                 if (all != null && all.Equals("true"))
                 {
+					
                     return await _context.Orders.Where(x => x.OrderComment.Contains(search))
                                         .Where(x => x.User.Name.Contains(name))
                                         .Where(x => x.User.Email.Contains(email))
@@ -87,6 +88,7 @@ namespace Himzo.Web.Controllers
                                         .ToListAsync<OrderDTO>();
                 } else
                 {
+					
                     return await _context.Orders.Where(x => x.User.Id == user.Id)
                                                 .OrderBy(x => x.OrderTime)
                                                 .Select(x => new OrderDTO()
@@ -102,7 +104,7 @@ namespace Himzo.Web.Controllers
                 }
             }
 
-            return new EmptyResult();
+			return new EmptyResult();
 
         }
 
