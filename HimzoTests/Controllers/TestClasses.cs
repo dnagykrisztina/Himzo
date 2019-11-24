@@ -12,7 +12,7 @@ namespace HimzoTests.Controllers
 	class TestClasses
 	{
 		// Async query provider for unit testing
-		internal class TestAsyncQueryProvider<TEntity> : IAsyncQueryProvider
+		internal class TestAsyncQueryProvider<TEntity> : IAsyncQueryProvider, IQueryProvider
 		{
 			private readonly IQueryProvider _inner;
 

@@ -242,7 +242,7 @@ namespace HimzoTests.Controllers
 			MockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<User, string>((x, y) => UserMockList.Add(x));
 			MockUserManager.Setup(x => x.UpdateAsync(It.IsAny<User>())).ReturnsAsync(IdentityResult.Success);
 			MockUserManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(UserMockList[0]);
-
+			
 			// ================================================================
 			// Setup SignInManager
 			MockSignInManager = new Mock<SignInManager<User>>();

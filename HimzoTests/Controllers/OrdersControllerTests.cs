@@ -42,7 +42,7 @@ namespace Himzo.Web.Controllers.Tests
 		public async Task GetOrdersTest()
 		{
 			var OrdersResult = await OrdersController.GetOrders();
-			var Orders = OrdersResult.Value;
+			var Orders = OrdersResult.Value as List<OrderDTO>;
 
 		    foreach(var Order in Orders) {
 				int i = Orders.ToList().IndexOf(Order);
@@ -59,7 +59,7 @@ namespace Himzo.Web.Controllers.Tests
 		public async Task GetOrderTest()
 		{
 			var OrderResult = await OrdersController.GetOrder(1);
-			var Order = OrderResult.Value as OrderDetailsDTO;
+			var Order = OrderResult.Value as OrderDTO;
 			Assert.IsNotNull(Order);
 			Assert.AreEqual(Order.OrderId, 1);
 			Assert.AreEqual(Order.OrderState, DbContent[0].OrderState);

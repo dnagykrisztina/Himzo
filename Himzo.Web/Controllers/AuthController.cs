@@ -314,6 +314,106 @@ namespace Himzo.Web.Controllers
 			}
 		}
 
+		// PUT: api/Role/<role_name>/<email@address>
+		[HttpPut]
+		[Produces("application/json")]
+		[Route("api/Role/{roleName}/{eMail}")]
+		public async Task<JsonResult> AddToRole(string roleName, string eMail)
+		{
+			var loginUser = (await _UserManager.GetUserAsync(HttpContext.User));
+			if (loginUser != null)
+			{
+				IList<string> roles = await _UserManager.GetRolesAsync(loginUser);
+				if (roles.Contains("Admin"))
+				{
+					User user = (await _UserManager.FindByEmailAsync(eMail));
+					if (user != null)
+					{
+						await _UserManager.AddToRoleAsync(user, roleName);
+						return new JsonResult(new DeleteResult
+						{
+							Message = "User " + user.UserName + " has been deleted from role "+roleName+"!",
+							Success = false
+						});
+					}
+					else
+					{
+						return new JsonResult(new DeleteResult
+						{
+							Message = "The user " + eMail + "does not exist!",
+							Success = false
+						});
+					}
+				}
+				else
+				{
+					return new JsonResult(new DeleteResult
+					{
+						Message = "Permission denied!",
+						Success = false
+					});
+				}
+			}
+			else
+			{
+				return new JsonResult(new DeleteResult
+				{
+					Message = "You have to authenticate before delete a user!",
+					Success = false
+				});
+			}
+		}
+
+		// DELETE: api/Role/<role_name>/<email@address>
+		[HttpDelete]
+		[Produces("application/json")]
+		[Route("api/Role/{roleName}/{eMail}")]
+		public async Task<JsonResult> RemoveFromRole(string roleName, string eMail)
+		{
+			var loginUser = (await _UserManager.GetUserAsync(HttpContext.User));
+			if (loginUser != null)
+			{
+				IList<string> roles = await _UserManager.GetRolesAsync(loginUser);
+				if (roles.Contains("Admin"))
+				{
+					User user = (await _UserManager.FindByEmailAsync(eMail));
+					if (user != null)
+					{
+						await _UserManager.RemoveFromRoleAsync(user, roleName);
+						return new JsonResult(new DeleteResult
+						{
+							Message = "User " + user.UserName + " has been deleted from role " + roleName + "!",
+							Success = false
+						});
+					}
+					else
+					{
+						return new JsonResult(new DeleteResult
+						{
+							Message = "The user " + eMail + "does not exist!",
+							Success = false
+						});
+					}
+				}
+				else
+				{
+					return new JsonResult(new DeleteResult
+					{
+						Message = "Permission denied!",
+						Success = false
+					});
+				}
+			}
+			else
+			{
+				return new JsonResult(new DeleteResult
+				{
+					Message = "You have to authenticate before delete a user!",
+					Success = false
+				});
+			}
+		}
+
 		[ApiExplorerSettings(IgnoreApi = true)]
 		[Produces("application/json")]
 		[Route("api/[controller]/SchLogin")]

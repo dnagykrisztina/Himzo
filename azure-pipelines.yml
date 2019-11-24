@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- master
+- UnitTests
 
 pool:
   vmImage: 'windows-latest'
@@ -32,3 +32,24 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- publish: '$(build.artifactStagingDirectory)/Himzo.zip'
+  artifact: 'Himzo'
+
+- powershell: |
+    Set-ExecutionPolicy Bypass -Scope Process
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServer
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-CommonHttpFeatures
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-HttpErrors
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-HttpRedirect
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-ApplicationDevelopment
+    Enable-WindowsOptionalFeature -online -FeatureName NetFx4Extended-ASPNET45
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-NetFxExtensibility45
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-ASPNET45
+    New-WebAppPool -name "NewWebSiteAppPool"  -force
+    $appPool = Get-Item -name "NewWebSiteAppPool" 
+    $appPool.processModel.identityType = "NetworkService"
+    $appPool.enable32BitAppOnWin64 = 1
+    $appPool | Set-Item
+  displayName: Run the test web server
