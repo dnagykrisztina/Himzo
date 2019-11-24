@@ -15,8 +15,6 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- powershell: "$(System.DefaultWorkingDirectory)"
-
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -35,7 +33,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- publish: '$(System.DefaultWorkingDirectory)/Himzo.Web.zip'
+- publish: 'd:/a/1/a/Himzo.Web.zip'
   artifact: 'Himzo'
 
 - powershell: |
