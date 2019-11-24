@@ -47,9 +47,6 @@ steps:
     Enable-WindowsOptionalFeature -online -FeatureName NetFx4Extended-ASPNET45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-NetFxExtensibility45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-ASPNET45
-    New-WebAppPool -name "NewWebSiteAppPool"  -force
-    $appPool = Get-Item -name "NewWebSiteAppPool" 
-    $appPool.processModel.identityType = "NetworkService"
-    $appPool.enable32BitAppOnWin64 = 1
-    $appPool | Set-Item
+    dotnet run d:/a/1/a/Himzo.Web.zip
+    Start-Sleep -s 30
   displayName: Run the test web server
