@@ -33,7 +33,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- publish: '$(build.artifactStagingDirectory)/Himzo.zip'
+- publish: '$(System.DefaultWorkingDirectory)/bin/Himzo'
   artifact: 'Himzo'
 
 - powershell: |
