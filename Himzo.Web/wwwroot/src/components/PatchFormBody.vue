@@ -1,89 +1,127 @@
 <template>
-<div>
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-3">{{ patchFormTitle }}</h1>
-      <p>{{ patchFormDescription }}</p>
-    </div>
-  </div>
-  <body>
-    <main role="main">
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-
+  <div>
+    <div class="jumbotron">
       <div class="container">
-        <div class="row">
-          <div class="col-md-8 order-md-1">
-            <form class="needs-validation" validate>
-              <div class="col-md-6 mb-3">
-                <input type="file" class="custom-file-input" id="customFile" @change="setImage" />
-                <label class="custom-file-label" for="customFile">{{chooseFile}}</label>
-              </div>
+        <h1 class="display-3">{{ patchFormTitle }}</h1>
+        <p>{{ patchFormDescription }}</p>
+      </div>
+    </div>
+    <body>
+      <main role="main">
+        <!-- Main jumbotron for a primary marketing message or call to action -->
 
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <label for="size">{{size}}</label>
-                  <input type="text" class="form-control" id="size" required v-model="inputSize" />
-                </div>
-                <div class="col-md-3 mb-3">
-                  <label for="amount">{{amount}}</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="amount"
-                    required
-                    v-model="inputAmount"
-                  />
-                </div>
-                <div class="col-md-4 mb-3">
-                  <label for="deadline">{{deadline}}</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="deadline"
-                    required
-                    v-model="inputDeadline"
-                  />
-                </div>
-              </div>
-
-              <div class="row">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 order-md-1">
+              <form class="needs-validation" validate>
                 <div class="col-md-6 mb-3">
-                  <label for="fonts">{{fonts}}</label>
                   <input
-                    type="text"
-                    class="form-control"
-                    id="fonts"
-                    value
-                    required
-                    v-model="inputFonts"
+                    type="file"
+                    class="custom-file-input"
+                    id="customFile"
+                    v-validate="'image'"
+                    data-vv-as="image"
+                    name="image_field"
+                    @change="setImage"
                   />
-                  <div class="invalid-feedback">Kérlek add meg a mintában használt fontot!</div>
+                  <label class="custom-file-label" for="customFile">{{
+                    chooseFile
+                  }}</label>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="comment">{{comment}}</label>
-                  <input type="text" class="form-control" id="comment" value v-model="inputComment" />
-                </div>
-              </div>
 
-              <div class="row">
-                <hr class="mb-4" />
-                <a class="btn btn-primary" @click="reset" type="reset">{{cancelButton}}</a>
-                <a class="btn btn-primary" type="submit" @mouseup="postPost()">{{orderButton}}</a>
-              </div>
-            </form>
+                <div class="row">
+                  <div class="col-md-3 mb-3">
+                    <label for="size">{{ size }}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="size"
+                      required
+                      v-model="inputSize"
+                    />
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="amount">{{ amount }}</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="amount"
+                      required
+                      v-model="inputAmount"
+                    />
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="deadline">{{ deadline }}</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="deadline"
+                      required
+                      v-model="inputDeadline"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="fonts">{{ fonts }}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="fonts"
+                      value
+                      required
+                      v-model="inputFonts"
+                    />
+                    <div class="invalid-feedback">
+                      Kérlek add meg a mintában használt fontot!
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="comment">{{ comment }}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="comment"
+                      value
+                      v-model="inputComment"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <hr class="mb-4" />
+                  <a class="btn btn-primary" @click="reset" type="reset">{{
+                    cancelButton
+                  }}</a>
+                  <a
+                    class="btn btn-primary"
+                    type="submit"
+                    @mouseup="postPost()"
+                    >{{ orderButton }}</a
+                  >
+                </div>
+              </form>
+              <notifications
+                position="top center"
+                width="50%"
+                class="error"
+                group="err"
+                max="3"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-  </body>
-</div>
+      </main>
+    </body>
+  </div>
 </template>
 
- 
- <script>
+<script>
 import axios from "axios";
+import Vue from "vue";
 export default {
   name: "PatchFormBody",
   props: {},
@@ -108,7 +146,8 @@ export default {
       comment: "Megjegyzés",
       inputComment: " ",
       cancelButton: "Mégse",
-      orderButton: "Megrendelem"
+      orderButton: "Megrendelem",
+      redirect: true
     };
   },
   methods: {
@@ -117,6 +156,7 @@ export default {
       this.$router.push("/");
     },
     postPost() {
+      this.redirect = "true";
       axios
         .post(`http://localhost:52140/api/Orders`, {
           size: this.inputSize,
@@ -128,26 +168,32 @@ export default {
           type: 0,
           patternPlace: this.inputPatternLocation
         })
-        .then(
-          //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
+
+        .catch(error => {
+          console.log(error.response + "hiba");
+          Vue.notify({
+            group: "err",
+            title: "HIBA!",
+            text: "Valamelyik adatot nem megfelelően adtad meg!",
+            type: "error",
+            duration: 5000
+          });
+        });
+      /*.finally(
           console.log("patchForm submit"),
           this.$router.push("/userorder")
-        )
-        .catch(e => {
-          this.errors.push(e);
-        });
+
+          //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
+        );*/
     },
 
     setImage: function(e) {
-      const file = e.target.files[0];
-      this.chooseFile = e.target.files[0].name;
-      console.log(file);
-
       if (!file.type.includes("image/")) {
-        alert("Please select an image file");
+        alert("Kérlek egy képet válassz!");
         return;
       }
-
+      const file = e.target.files[0];
+      this.chooseFile = e.target.files[0].name;
       if (typeof FileReader === "function") {
         const reader = new FileReader();
 
@@ -166,5 +212,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

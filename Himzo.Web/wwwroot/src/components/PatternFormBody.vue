@@ -16,7 +16,15 @@
             <form class="needs-validation" validate>
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <input type="file" class="custom-file-input" id="customFile" @change="setImage" />
+                  <input
+                    type="file"
+                    class="custom-file-input"
+                    id="customFile"
+                    v-validate="'image'"
+                    data-vv-as="image"
+                    name="image_field"
+                    @change="setImage"
+                  />
                   <label class="custom-file-label" for="customFile">{{chooseFile}}</label>
                 </div>
               </div>

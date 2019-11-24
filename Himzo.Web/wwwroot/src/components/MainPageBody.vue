@@ -83,7 +83,11 @@ export default {
       sewaterTitle: null,
       sweaterDescription: null,
       image: null,
-      coverflow: [],
+      coverflow: [
+        {
+          cover: null
+        }
+      ],
       coverList: [
         {
           cover: require("./pic/team.jpg")
@@ -136,10 +140,15 @@ export default {
       this.embroideredPatternDescription = res.data[1].contentString;
       this.sewaterTitle = res.data[2].title;
       this.sweaterDescription = res.data[2].contentString;
+    } catch (e) {
+      console.log(e);
+    }
+    try {
       const img = await axios.get(
-        'http://localhost:52140/api/Images//?path="welcome"&type=0'
+        "http://localhost:52140/api/Images/?path=welcome&type=0"
       );
-      this.coverflow = img.data;
+      this.coverflow[0].cover = img.data[0].byteImage;
+      this.coverflow[0].title = "Siker";
     } catch (e) {
       console.log(e);
     }
