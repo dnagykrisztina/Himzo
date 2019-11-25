@@ -1,98 +1,178 @@
 <template>
-  <div class="order">
-    <div class="jumbotron">
-      <div>
-        <h1>{{ order.orderId }}</h1>
-        <h2 v-if="order.type === 1">{{ order.amount }} db hímzés</h2>
-        <h2 v-else-if="order.type === 0">{{ order.amount }} db folt</h2>
-      </div>
+    <div class="order">
+        <div class="jumbotron pl-8">
+                <div class="row pl-4">
 
-      <select name="sample" id="sample" class="fa">
-        <option value="fas fa-cog ">&#xf013; Rendelés feldolgozás alatt</option>
-        <option value="fas fa-clock ">&#xf017; Folyamatban</option>
-        <option value="fas fa-check-circle ">&#xf058; Kész</option>
-        <option value="fas fa-times-circle ">&#xf057; Rendelés elutasítva</option>
-      </select>
+                    <div class="col-lg-9 col-sm-12">
+                        <div class="row">
+                            <div class="col">
+                                <h2> {{ order.userName }}</h2>
+                            </div>
+                        </div>
+                        <div class="row pb-4">
+                            <div class="col">
+                                <h2 v-if="order.type === 1">{{ order.amount }} db hímzés</h2>
+                                <h2 v-else-if="order.type === 0">{{ order.amount }} db folt</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <h2 v-if="stateIcon === 0" class="fas fa-cog"> </h2>
+                                <h2 v-else-if="stateIcon === 1" class="fas fa-clock"></h2>
+                                <h2 v-else-if="stateIcon === 2" class="fas fa-check-circle"></h2>
+                                <h2 v-else-if="stateIcon === 3" class="fas fa-times-circle"></h2>
+                            </div>
+                            <div class="col">
+                                <select v-model="order.orderState" class="mb-3 form-control " @change="updateState()">
+                                    <option value="0"> Rendelés feldolgozás alatt</option>
+                                    <option value="1"> Folyamatban</option>
+                                    <option value="2"> Kész</option>
+                                    <option value="3"> Rendelés elutasítva</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row text-right">
+                            <div class="col-1">
 
-      <div>
-        <div class="form-group shadow-textarea">
-          <textarea
-            class="form-control z-depth-1"
-            id="exampleFormControlTextarea6"
-            rows="3"
-            v-model="order.commentContent"
-            placeholder="Írj kommentet!"
-          ></textarea>
-          <p>Message is: {{ order.commentContent }}</p>
-        </div>
-        <p class="lead">{{ order.orderTime | format }}</p>
-      </div>
+                            </div>
+                            <div class="col-11 ">
+                                <textarea class="form-control"
+                                          id="inputComment"
+                                          rows="3"
+                                          for="inputComment"
+                                          v-model="order.commentContent"
+                                          placeholder="Írj kommentet!"
+                                          @change="updateComment">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="row text-right">
+                            <div class="col">
+                                {{ order.orderTime | format}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 text-center">
+                        <div class="row ">
+                            <div class="col">
+                                <b-button class="btn btn-primary" typeof=" button" id="show-btn" @click="showModal">Rendelés adatai &raquo;</b-button>
 
-      <!--<a
-        class="btn btn-lg btn-primary"
-        href="/docs/4.3/components/navbar/"
-        role="button"
-      >Rendelés adatai &raquo;</a>-->
-      <div>
-          <b-button  class="btn btn-primary" typeof=" button" id="show-btn" @click="showModal">Rendelés adatai &raquo;</b-button>
+                                <b-modal ref="my-modal" centered hide-backdrop content-class="shadow" hide-footer title="Rendelés adatai">
 
-          <b-modal ref="my-modal" centered hide-backdrop content-class="shadow" hide-footer title="Rendelés adatai">
+                                    <div class="d-block ">
+                                        <div class="container marketing">
+                                            <div class="row featurette headContainer">
+                                                <div class="col-md-4">
+                                                    <img class="imageorder" :src="`data:image/png;base64,${  order.pattern  }`" />
+                                                </div>
+                                                <div class="col-md-8 modal-head">
+                                                    <h2 class="featurette-heading">{{ order.userName }}</h2>
+                                                    <p class="lead">{{ order.userEmail }}</p>
+                                                </div>
 
-              <div class="d-block ">
-                  <div class="container marketing">
-                      <div class="row featurette headContainer">
-                          <div class="col-md-4">
-                              <img class="imageorder" :src="`data:image/png;base64,${  order.pattern  }`" />
-                          </div>
-                          <div class="col-md-8 modal-head" >
-                              <h2 class="featurette-heading">{{ order.userName }}</h2>
-                              <p class="lead">{{ order.userEmail }}</p>
-                          </div>
+                                            </div>
+                                        </div>
 
-                      </div>
-                  </div>
+                                        <table class="table">
+                                            <tr>
+                                                <th scope="row">Méret:</th>
+                                                <td>{{ order.size }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Mennyiség:</th>
+                                                <td>{{ order.amount }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Használt fontok:</th>
+                                                <td>{{ order.fonts }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Határidő</th>
+                                                <td>{{ order.deadline | format }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Megjegyzés:</th>
+                                                <td>{{ order.orderComment }}
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Rendelés ideje:</th>
+                                                <td>{{ order.orderTime | format }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </b-modal>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col">
+                                {{order.orderId}}
+                                state:
+                                {{stateIcon}}
+                                .......
+                                <h2 v-if="stateIcon === 0">0 </h2>
+                                <h2 v-else-if="stateIcon === 1">1</h2>
+                                <h2 v-else-if="stateIcon === 2">2</h2>
+                                <h2 v-else-if="stateIcon === 3">3</h2>
+                            </div>
+                        </div>
+                    </div>
 
-                  <table class="table">
-                      <tr>
-                          <th scope="row">Méret:</th>
-                          <td>{{ order.size }}</td>
-                      </tr>
-                      <tr>
-                          <th scope="row">Mennyiség:</th>
-                          <td>{{ order.amount }}</td>
-                      </tr>
-                      <tr>
-                          <th scope="row">Használt fontok:</th>
-                          <td>{{ order.fonts }}</td>
-                      </tr>
-                      <tr>
-                          <th scope="row">Határidő</th>
-                          <td>{{ order.deadline | format }}</td>
-                      </tr>
-                      <tr>
-                          <th scope="row">Megjegyzés:</th>
-                          <td>{{ order.orderComment }}
-                      </tr>
-                      <tr>
-                          <th scope="row">Rendelés ideje:</th>
-                          <td>{{ order.orderTime | format }}</td>
-                      </tr>
-                  </table>
-              </div>
-          </b-modal>
-      </div>
-      <a class="btn btn-lg btn-primary" href="/docs/4.3/components/navbar/" role="button">Mentés</a>
+                </div>
+        </div> 
     </div>
-  </div>
 </template>
 <script>
-    import { BModal, VBModal } from 'bootstrap-vue'
+import axios from "axios";
+import { BModal, VBModal } from 'bootstrap-vue'
 export default {
     name: "order",
-    props: ["order"],
+        props: ["order"],
+        data() {
+            return {
+                stateIcon: this.order.orderState
+        };
+      },
+    filters: {
+      format: function (str) {
+        return str.substring(0, str.length - 9);
+        }
+    },
     methods: {
         showModal() {
             this.$refs['my-modal'].show()
+        },
+        updateComment() {
+            axios.patch('http://localhost:52140/api/Orders/'.concat(this.order.orderId),
+                [{
+                    "op": "replace",
+                    "path": "/CommentContent",
+                    "value": this.order.commentContent
+                    }]) 
+            .then(
+                //res => console.log(res.data),
+                console.log(this.order.commentContent)
+            )
+            .catch(e => {
+                this.errors.push(e);
+            });
+        },
+        updateState() {
+             axios.patch('http://localhost:52140/api/Orders/'.concat(this.order.orderId),
+                [{
+                    "op": "replace",
+                    "path": "/OrderState",
+                    "value": this.order.orderState
+                }]) 
+            .then(
+                //res => console.log(res.data),
+                console.log(this.stateIcon),
+                this.stateIcon = this.order.orderState,
+                console.log(this.order.orderState),
+                console.log(this.stateIcon)
+            )
+            .catch(e => {
+                this.errors.push(e);
+            });
         }
     },
     components: {
@@ -101,11 +181,6 @@ export default {
     directives: {
         // Note that Vue automatically prefixes directive names with `v-`
         'b-modal': VBModal
-    },
-    filters: {
-      format: function (str) {
-        return str.substring(0, str.length - 9);
-      }
     }
 };
 </script>
