@@ -47,6 +47,6 @@ steps:
     Enable-WindowsOptionalFeature -online -FeatureName NetFx4Extended-ASPNET45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-NetFxExtensibility45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-ASPNET45
-    dotnet run --project "$(build.artifactStagingDirectory)/Himzo/Himzo.Web"
+    dotnet run --project "$(build.artifactStagingDirectory)/Himzo.Web"
     Start-Sleep -s 30
   displayName: Run the test web server
