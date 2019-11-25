@@ -109,7 +109,7 @@ export default {
     try {
       const res = await axios.get("http://localhost:52140/api/User");
       this.username = res.data.userName;
-      this.role = res.data.role;
+      this.role = res.data.roles[0];
     } catch (e) {
       console.log(e);
     }
