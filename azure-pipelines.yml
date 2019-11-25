@@ -47,7 +47,7 @@ steps:
     Enable-WindowsOptionalFeature -online -FeatureName NetFx4Extended-ASPNET45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-NetFxExtensibility45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-ASPNET45
-    Copy-Item -Path "$(build.artifactStagingDirectory)/Himzo.Web/wwwroot" -Destination "$(build.artifactStagingDirectory)/Himzo.Web/bin/debug/netcoreapp3.0" -Recurse
-    Start-Process "$(build.artifactStagingDirectory)/Himzo.Web/bin/debug/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
+    Copy-Item -Path "d:/a/1/s/Himzo.Web/wwwroot" -Destination "d:/a/1/s/Himzo.Web/bin/debug/netcoreapp3.0" -Recurse
+    Start-Process "d:/a/1/s/Himzo.Web/bin/debug/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
     Start-Sleep -s 30
   displayName: Run the test web server
