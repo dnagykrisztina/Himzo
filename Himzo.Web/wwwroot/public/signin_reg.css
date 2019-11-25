@@ -3,14 +3,17 @@ body {
   height: 100%;
 }
 
-body {
+body .mystyle {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
+  background-color: #fcf4e0;
+}
+.myform {
+  background-color: #fcf4e0;
 }
 
 .form-signin {

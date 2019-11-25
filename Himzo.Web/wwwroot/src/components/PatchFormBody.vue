@@ -13,7 +13,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8 order-md-1">
-              <form class="needs-validation" validate>
+              <form>
                 <div class="col-md-6 mb-3">
                   <input
                     type="file"
@@ -22,6 +22,7 @@
                     v-validate="'image'"
                     data-vv-as="image"
                     name="image_field"
+                    required
                     @change="setImage"
                   />
                   <label class="custom-file-label" for="customFile">{{
@@ -49,6 +50,9 @@
                       required
                       v-model="inputAmount"
                     />
+                    <div class="invalid-feedback">
+                      Kérlek add meg a mintában használt fontot!
+                    </div>
                   </div>
                   <div class="col-md-4 mb-3">
                     <label for="deadline">{{ deadline }}</label>
@@ -106,7 +110,7 @@
               </form>
               <notifications
                 position="top center"
-                width="50%"
+                width="30%"
                 class="error"
                 group="err"
                 max="3"
@@ -132,9 +136,9 @@ export default {
         "Foltot így meg így tudsz rendelni, ezt meg ezt kell tudni róla.",
       chooseFile: "Válaszd ki a fájlt",
       pattern: "Minta",
-      inputPattern: "null",
+      inputPattern: null,
       patternLocation: "Minta helye",
-      inputPatternLocation: "nincs",
+      inputPatternLocation: null,
       size: "Méret (cm)",
       inputSize: null,
       amount: "Mennyiség",
@@ -144,10 +148,10 @@ export default {
       fonts: "Mintában használt fontok",
       inputFonts: null,
       comment: "Megjegyzés",
-      inputComment: " ",
+      inputComment: "",
       cancelButton: "Mégse",
       orderButton: "Megrendelem",
-      redirect: true
+      valam: 1
     };
   },
   methods: {
@@ -155,8 +159,9 @@ export default {
       console.log("patchform reset");
       this.$router.push("/");
     },
+
     postPost() {
-      this.redirect = "true";
+      var valami = 1;
       axios
         .post(`http://localhost:52140/api/Orders`, {
           size: this.inputSize,
@@ -166,11 +171,12 @@ export default {
           orderComment: this.inputComment,
           fonts: this.inputFonts,
           type: 0,
-          patternPlace: this.inputPatternLocation
+          patternPlace: "-"
         })
 
         .catch(error => {
           console.log(error.response + "hiba");
+          valami = 0;
           Vue.notify({
             group: "err",
             title: "HIBA!",
@@ -178,28 +184,35 @@ export default {
             type: "error",
             duration: 5000
           });
+          return;
         });
-      /*.finally(
-          console.log("patchForm submit"),
-          this.$router.push("/userorder")
+      /*.finally({
 
-          //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
-        );*/
+          if(valami > 0) {
+            console.log("patchForm submit"), this.$router.push("/userorder");
+          }
+        })*/
+
+      //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
     },
 
     setImage: function(e) {
+      const file = e.target.files[0];
+      //console.log(file);
+
       if (!file.type.includes("image/")) {
-        alert("Kérlek egy képet válassz!");
+        alert("Please select an image file");
         return;
       }
-      const file = e.target.files[0];
+
       this.chooseFile = e.target.files[0].name;
+
       if (typeof FileReader === "function") {
         const reader = new FileReader();
 
         reader.onload = event => {
           this.inputPattern = event.target.result.slice(23);
-          console.log(this.inputPattern);
+          //console.log(this.inputPattern);
           // rebuild cropperjs with the updated source
           this.$refs.cropper.replace(event.target.result);
         };
