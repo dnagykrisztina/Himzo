@@ -69,7 +69,7 @@ namespace Himzo.Web.Controllers
                                                 Fonts = x.Fonts,
                                                 OrderComment = x.OrderComment,
                                                 OrderTime = x.OrderTime,
-                                                Pattern = x.Pattern,
+                                                PatternUrl = "/api/Orders/" + x.OrderId + "/image",
                                                 PatternPlace = x.PatternPlace,
                                                 UserName = x.User.Name,
                                                 UserEmail = x.User.Email
@@ -97,7 +97,7 @@ namespace Himzo.Web.Controllers
                                             Fonts = x.Fonts,
                                             OrderComment = x.OrderComment,
                                             OrderTime = x.OrderTime,
-                                            Pattern = x.Pattern,
+                                            PatternUrl = "/api/Orders/" + x.OrderId + "/image",
                                             PatternPlace = x.PatternPlace,
                                             UserName = x.User.Name,
                                             UserEmail = x.User.Email
@@ -120,7 +120,7 @@ namespace Himzo.Web.Controllers
                                                     Fonts = x.Fonts,
                                                     OrderComment = x.OrderComment,
                                                     OrderTime = x.OrderTime,
-                                                    Pattern = x.Pattern,
+                                                    PatternUrl = "/api/Orders/" + x.OrderId + "/image",
                                                     PatternPlace = x.PatternPlace,
                                                     UserName = x.User.Name,
                                                     UserEmail = x.User.Email
@@ -342,7 +342,7 @@ namespace Himzo.Web.Controllers
                 Size = order.Size,
                 Amount = order.Amount,
                 Deadline = order.Deadline,
-                Pattern = order.Pattern,
+                PatternUrl = "/api/Orders/" + order.OrderId + "/image",
                 OrderComment = order.OrderComment,
                 OrderTime = order.OrderTime,
                 Fonts = order.Fonts,

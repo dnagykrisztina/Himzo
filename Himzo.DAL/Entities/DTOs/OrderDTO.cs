@@ -14,7 +14,7 @@ namespace Himzo.Dal.Entities
         public int Amount { get; set; }
         public Order.ProductType Type { get; set; }
         public DateTime Deadline { get; set; }
-        public byte[] Pattern { get; set; }
+        public String PatternUrl { get; set; }
         public string OrderComment { get; set; }
         public DateTime OrderTime { get; set; }
         public string Fonts { get; set; }
