@@ -440,7 +440,7 @@ namespace Himzo.Web.Controllers
             if ((orderDTO.Amount < 0 || orderDTO.Amount > 5000) ||
                 orderDTO.Deadline < DateTime.Now || orderDTO.Deadline == null ||
                 orderDTO.Fonts == null ||
-                orderDTO.Pattern == null ||
+                orderDTO.Pattern == null || orderDTO.Pattern.Length == 0 ||
                 orderDTO.PatternPlace == null || orderDTO.PatternPlace == "" ||
                 orderDTO.Size == null || orderDTO.Size == "" ||
                 (orderDTO.Type != Order.ProductType.FOLT && orderDTO.Type != Order.ProductType.MINTA &&
