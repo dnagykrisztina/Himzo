@@ -213,6 +213,10 @@ namespace Himzo.Web.Controllers
                         patchModel.ApplyTo(tempOrder);
 
                         var orderPatchDTO = ConvertToPatchDetailsDTO(tempOrder);
+                        if (!IsValidPOST(orderPatchDTO))
+                        {
+                            return BadRequest("Error processing new order due to unprocessable input!");
+                        }
                         order = await MapPatchDetailsToOrderAsync(orderPatchDTO, order);
 
                         _context.Orders.Update(order);
@@ -231,6 +235,10 @@ namespace Himzo.Web.Controllers
                     } else
                     {
                         var orderPatchDetailsDTO = ConvertToPatchDetailsDTO(tempOrder);
+                        if (!IsValidPOST(orderPatchDetailsDTO))
+                        {
+                            return BadRequest("Error processing new order due to unprocessable input!");
+                        }
                         var orderPatchDTO = ConvertToPatchDTO(tempOrder);
                         order = await MapPatchDetailsToOrderAsync(orderPatchDetailsDTO, order);
                         order = await MapPatchToOrderAsync(orderPatchDTO, order);
