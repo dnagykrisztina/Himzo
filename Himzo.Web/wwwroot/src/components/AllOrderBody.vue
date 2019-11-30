@@ -1,19 +1,20 @@
 <template>
-    <div>
-        <div class="jumbotron">
-            <div class="container">
-                <h1 class="display-3">{{ title }}</h1>
+<div>
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3"> Rendel&eacute;sek</h1>
 
-                <p>{{ titleDescription }}</p>
-            </div>
+            <p>{{ titleDescription }}</p>
         </div>
-<body>
-  <main role="main" class="container">
-    <order v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></order>
+    </div>
+    <body>
+      <main role="main" class="container">
+        <order v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></order>
 
-    <hr class="featurette-divider" />
-  </main>
-</body>
+        <hr class="featurette-divider" />
+      </main>
+    </body>
+ </div>
 </template>
 
  
@@ -30,8 +31,8 @@ export default {
   data() {
     return {
         orders: [],
-        title: "Rendelések",
-        titleDescription: "",
+        //title: "Rendelések",
+        titleDescription: ""
     };
   },
   async mounted() {

@@ -184,7 +184,7 @@ export default {
           pattern: this.inputPattern,
           orderComment: this.inputComment,
           fonts: this.inputFonts,
-          type: 0,
+          type: 1,
           patternPlace: this.inputPatternLocation
         })
         .then(

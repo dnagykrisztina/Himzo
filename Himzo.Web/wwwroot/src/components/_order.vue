@@ -17,10 +17,10 @@
                         </div>
                         <div class="row">
                             <div class="col-1 text-center">
-                                <h2 v-if="stateIcon === 0" class="fas fa-cog"> </h2>
-                                <h2 v-else-if="stateIcon === 1" class="fas fa-clock"></h2>
-                                <h2 v-else-if="stateIcon === 2" class="fas fa-check-circle"></h2>
-                                <h2 v-else-if="stateIcon === 3" class="fas fa-times-circle"></h2>
+                                <h2 v-show="stateIcon == 0" class="fas fa-cog"> </h2>
+                                <h2 v-show="stateIcon == 1" class="fas fa-clock"></h2>
+                                <h2 v-show="stateIcon == 2" class="fas fa-check-circle"></h2>
+                                <h2 v-show="stateIcon == 3" class="fas fa-times-circle"></h2>
                             </div>
                             <div class="col">
                                 <select v-model="order.orderState" class="mb-3 form-control " @change="updateState()">
@@ -94,6 +94,10 @@
                                                 <th scope="row">Megjegyzés:</th>
                                                 <td>{{ order.orderComment }}
                                             </tr>
+                                            <tr v-if="order.type === 1">
+                                                <th scope="row">Minta helye:</th>
+                                                <td>{{ order.patternPlace }}</td>
+                                            </tr>
                                             <tr>
                                                 <th scope="row">Rendelés ideje:</th>
                                                 <td>{{ order.orderTime | format }}</td>
@@ -105,14 +109,7 @@
                         </div>
                         <div class="row ">
                             <div class="col">
-                                {{order.orderId}}
-                                state:
-                                {{stateIcon}}
-                                .......
-                                <h2 v-if="stateIcon === 0">0 </h2>
-                                <h2 v-else-if="stateIcon === 1">1</h2>
-                                <h2 v-else-if="stateIcon === 2">2</h2>
-                                <h2 v-else-if="stateIcon === 3">3</h2>
+                                id: {{order.orderId}}
                             </div>
                         </div>
                     </div>
@@ -134,7 +131,7 @@ export default {
       },
     filters: {
       format: function (str) {
-        return str.substring(0, str.length - 9);
+        return str.substring(0, 10);
         }
     },
     methods: {

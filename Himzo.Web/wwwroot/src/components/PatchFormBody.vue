@@ -125,7 +125,6 @@
 
 <script>
 import axios from "axios";
-import Vue from "vue";
 export default {
   name: "PatchFormBody",
   props: {},
@@ -161,7 +160,6 @@ export default {
     },
 
     postPost() {
-      var valami = 1;
       axios
         .post(`http://localhost:52140/api/Orders`, {
           size: this.inputSize,
@@ -176,16 +174,8 @@ export default {
 
         .catch(error => {
           console.log(error.response + "hiba");
-          valami = 0;
-          Vue.notify({
-            group: "err",
-            title: "HIBA!",
-            text: "Valamelyik adatot nem megfelelően adtad meg!",
-            type: "error",
-            duration: 5000
           });
-          return;
-        });
+        
       /*.finally({
 
           if(valami > 0) {
