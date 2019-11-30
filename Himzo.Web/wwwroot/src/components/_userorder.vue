@@ -51,7 +51,7 @@
                                     <div class="container marketing">
                                         <div class="row featurette">
                                             <div class="col-md-6">
-                                                <img class="imageorder" :src="`data:image/png;base64,${  order.pattern  }`" />
+                                                <img class="imageorder" :src="'http://localhost:52140/api/Orders/' + order.orderId + '/image'" />
                                             </div>
                                             <div class="col-md-6 modal-head ">
                                                 <h2 class="featurette-heading" v-if="order.type === 1">Hímzés</h2>

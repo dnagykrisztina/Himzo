@@ -63,7 +63,7 @@
                                         <div class="container marketing">
                                             <div class="row featurette headContainer">
                                                 <div class="col-md-4">
-                                                    <img class="imageorder" :src="`data:image/png;base64,${  order.pattern  }`" />
+                                                    <img class="imageorder" :src= "'http://localhost:52140/api/Orders/' + order.orderId + '/image'" />
                                                 </div>
                                                 <div class="col-md-8 modal-head">
                                                     <h2 class="featurette-heading">{{ order.userName }}</h2>
@@ -127,6 +127,7 @@ export default {
         data() {
             return {
                 stateIcon: this.order.orderState
+                //picture: 'http://localhost:52140/api/Orders/'.concat(this.order.orderId)
         };
       },
     filters: {
