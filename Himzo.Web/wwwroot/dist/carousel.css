@@ -1,10 +1,10 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
-*{
-    outline: none;
-    margin: 0;
-    padding: 0;
+* {
+  outline: none;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -126,6 +126,7 @@ body {
 .navbar-dark {
   background-color: #445c3c;
   size: 100000px;
+  color: white;
 }
 
 .jumbotron {
@@ -157,7 +158,11 @@ body {
   margin: 10%;
   width: 100%;
 }
-.navbar .navbar-expand-md .navbar-dark .fixed-top .bg-dark {
-  background: #445c3c;
-  color: #445c3c;
+
+.dropdown-content a {
+  background-color: #445c3c;
+  color: white;
+}
+.dropdown-content a:hover {
+  background-color: #263d1e;
 }

@@ -1,85 +1,32 @@
 <template>
-    <div>
-        <div class="jumbotron">
-            <div class="container">
-                <h1 class="display-3">{{ username }}</h1>
-            </div>
-        </div>
-
-        <body>
-            <main role="main">
-                <form class="needs-validation" validate>
-                    <!-- Main jumbotron for a primary marketing message or call to action -->
-
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <input type="email"
-                                       class="form-control"
-                                       id="email"
-                                       placeholder
-                                       value
-                                       required
-                                       v-bind="inputEmail" />
-                                <label for="email">{{ email }}</label>
-                            </div>
-                            <div class="invalid-feedback">Kérlek add meg az e-mail címed!</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="university">{{ university }}</label>
-                                <input type="text" class="form-control" id="university" placeholder value />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="newPassword">{{ newPassword }}</label>
-                                <input type="password"
-                                       class="form-control"
-                                       id="newPassword"
-                                       placeholder
-                                       required
-                                       value
-                                       v-bind="inputNewPassword" />
-                            </div>
-                            <div class="invalid-feedback">Kérlek add meg az új jelszavad!</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="newPasswordAgain">{{ newPasswordAgain }}</label>
-                                <input type="password"
-                                       class="form-control"
-                                       id="newPasswordAgain"
-                                       required
-                                       placeholder
-                                       value
-                                       v-bind="inputNewPasswordAgain" />
-                            </div>
-                            <div class="invalid-feedback">Kérlek add meg mégegyszer az új jelszavad!</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="oldPassword">{{ oldPassword }}</label>
-                                <input type="password"
-                                       class="form-control"
-                                       id="oldPassword"
-                                       placeholder
-                                       value
-                                       required
-                                       v-bind="inputOldPassword" />
-                            </div>
-                            <div class="invalid-feedback">Kérlek add meg a régi jelszavad!</div>
-                        </div>
-                        <div class="row">
-                            <hr class="mb-4" />
-                            <button class="btn btn-primary" @click="reset" type="reset">{{ cancelButton }}</button>
-                            <button class="btn btn-primary" type="submit">{{ saveButton }}</button>
-                        </div>
-                    </div>
-                </form>
-            </main>
-        </body>
+<div>
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3 text-center">Profilom</h1>
     </div>
+  </div>
+
+  <body>
+    <main role="main">
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+
+      <div class="container jumbotron">
+        <div class="d-flex justify-content-between">
+          <div class="col-5 text-right h3 p-4">{{ username }}</div>
+          <div class="col-5 text-left h3 p-4">{{username_}}</div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="col-5 text-right h3 p-4">{{ email }}</div>
+          <div class="col-5 text-left h3 p-4">{{email_}}</div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div class="col-5 text-right h3 p-4">{{ university }}</div>
+          <div class="col-5 text-left h3 p-4">{{university_}}</div>
+        </div>
+      </div>
+    </main>
+  </body>
+</div>
 </template>
 
  
@@ -90,28 +37,21 @@ export default {
   props: {},
   data() {
     return {
-      username: null,
+      username: "Név",
+      username_: "Hahó",
       email: "E-mail cím",
+      email_: "vmi",
       university: "Egyetem",
-      newPassword: "Új jelszó",
-      newPasswordAgain: "Új jelszó mégegyszer",
-      oldPassword: "Régi jelszó",
-      inputEmail: "",
-      inputUniversity: "",
-      inputNewPassword: "",
-      inputNewPasswordAgain: "",
-      inputOldPassword: "",
-      cancelButton: "Mégse",
-      saveButton: "Adatok mentése"
+      university_: "BME"
     };
   },
   async mounted() {
     //Username
     try {
       const res = await axios.get("http://localhost:52140/api/User");
-      this.username = res.data.userName;
-      this.inputUniversity = res.data.university;
-      this.inputEmail = res.data.email;
+      this.username_ = res.data.userName;
+      this.university_ = res.data.university;
+      this.email_ = res.data.email;
     } catch (e) {
       console.log(e);
     }

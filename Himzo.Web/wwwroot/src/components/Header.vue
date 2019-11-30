@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <nav class="navbar navbar-expand-md fixed-top navbar-dark">
         <a class="navbar-brand" @click="himzo">{{ titleHimzo }}</a>
         <button
           class="navbar-toggler"

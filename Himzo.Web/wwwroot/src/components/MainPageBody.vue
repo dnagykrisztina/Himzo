@@ -1,81 +1,58 @@
 <template>
-  <body>
-    <main role="main">
-      <div class="container marketing">
-        <!-- START THE FEATURETTES -->
+<body>
+  <main role="main">
+    <div class="container marketing">
+      <!-- START THE FEATURETTES -->
 
-        <!--<img :src="dataUrl" />-->
+      <!--<img :src="dataUrl" />-->
 
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">{{ patchTitle }}</h2>
-            <p class="lead">{{ patchDescription }}</p>
-            <a
-              @click="patchForm"
-              class="btn btn-lg btn-block btn-outline-primary"
-              >Rendelés</a
-            >
-          </div>
-
-          <div class="col-md-5">
-            <div class="demo">
-              <!-- <coverflow :coverList="coverList" :coverWidth="100" :index="2" @change="handleChange"></coverflow> -->
-              <coverflow
-                :coverList="coverList0"
-                :width="400"
-                :coverWidth="300"
-                :index="1"
-              ></coverflow>
-            </div>
-          </div>
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">{{ patchTitle }}</h2>
+          <p class="lead">{{ patchDescription }}</p>
+          <a @click="patchForm()" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
         </div>
 
-        <hr class="featurette-divider" />
-
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">{{ embroideredPatternTitle }}</h2>
-            <p class="lead">{{ embroideredPatternDescription }}</p>
-            <a
-              @click="patternForm"
-              class="btn btn-lg btn-block btn-outline-primary"
-              >Rendelés</a
-            >
-          </div>
-          <div class="col-md-5 order-md-1">
-            <coverflow
-              :coverList="coverList1"
-              :width="400"
-              :coverWidth="300"
-              :index="0"
-            ></coverflow>
+        <div class="col-md-5">
+          <div class="demo">
+            <!-- <coverflow :coverList="coverList" :coverWidth="100" :index="2" @change="handleChange"></coverflow> -->
+            <coverflow :coverList="coverList0" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
         </div>
-
-        <hr class="featurette-divider" />
-
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">{{ sewaterTitle }}</h2>
-            <p class="lead">{{ sweaterDescription }}</p>
-          </div>
-          <div class="col-md-5">
-            <coverflow
-              :coverList="coverList2"
-              :width="400"
-              :coverWidth="300"
-              :index="1"
-            ></coverflow>
-          </div>
-        </div>
-
-        <hr class="featurette-divider" />
-
-        <!-- /END THE FEATURETTES -->
       </div>
-      <!-- /.container -->
-    </main>
-  </body>
+
+      <hr class="featurette-divider" />
+
+      <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">{{ embroideredPatternTitle }}</h2>
+          <p class="lead">{{ embroideredPatternDescription }}</p>
+          <a @click="patternForm()" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
+        </div>
+        <div class="col-md-5 order-md-1">
+          <coverflow :coverList="coverList1" :width="400" :coverWidth="300" :index="0"></coverflow>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">{{ sewaterTitle }}</h2>
+          <p class="lead">{{ sweaterDescription }}</p>
+        </div>
+        <div class="col-md-5">
+          <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="1"></coverflow>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <!-- /END THE FEATURETTES -->
+    </div>
+    <!-- /.container -->
+  </main>
+</body>
 </template>
 
 <script>
@@ -95,16 +72,21 @@ export default {
     },
     patternForm() {
       console.log("patternform");
-      //var auth = true;
-
+      var auth;
       axios.get("http://localhost:52140/api/User").then(function(response) {
+        console.log(response.data);
         console.log(response.status);
-        if (response.status === 200) {
-          this.$router.push("/patchform");
-        } else {
-          this.$router.push("/signin");
-        }
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);
+        auth = response.status;
       });
+
+      if (auth == 200) {
+        this.$router.push("/patternform");
+      } else {
+        this.$router.push("/signin");
+      }
     }
   },
   data() {
