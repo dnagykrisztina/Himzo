@@ -22,6 +22,7 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: Build backend service
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
@@ -29,12 +30,24 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: Run tests
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
+- script: dotnet test '$(System.DefaultWorkingDirectory)/HimzoTests' --logger trx  --collect "Code coverage"
+  displayName: Gather test results
+  
+- task: PublishTestResults@2
+  displayName: Save test results
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
 
 - publish: '$(build.artifactStagingDirectory)/Himzo.Web.zip'
+  displayName: Publish backend artifact
   artifact: 'Himzo'
 
 - powershell: |
@@ -52,3 +65,18 @@ steps:
     Start-Process "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
     Start-Sleep -s 30
   displayName: Run the test web server
+
+- task: DotNetCoreCLI@2
+  displayName: Publish results
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+    
+- task: AzureWebApp@1
+  displayName: Deploy Web App
+  inputs:
+    azureSubscription: '<Azure service connection>'
+    appName: 'Himzo'
+    package: $(System.ArtifactsDirectory)/**/*.zip
