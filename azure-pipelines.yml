@@ -17,6 +17,10 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
 
+- task: NodeTool@0 
+  inputs:
+    versionSpec: '12.13'
+
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
@@ -65,6 +69,16 @@ steps:
     Start-Process "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
     Start-Sleep -s 30
   displayName: Run the test web server
+
+- script: npm install
+  displayName: Prepare to build Frontend
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot'
+  failOnStderr: true
+
+- script: npm run build
+  displayName: Build Frontend
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot'
+  failOnStderr: true
 
 - task: DotNetCoreCLI@2
   displayName: Publish results
