@@ -66,8 +66,9 @@ steps:
     Start-Process "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
     Start-Sleep -s 30
   displayName: Run the test web server
+  failOnStderr: true
 
-- script: npm install
+- script: npm install --no-optional
   displayName: Prepare to build Frontend
   workingDirectory: '$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot'
   failOnStderr: true
