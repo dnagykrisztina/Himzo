@@ -1,8 +1,13 @@
 ﻿using Himzo.Dal;
 using Himzo.Dal.Entities;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -10,7 +15,6 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using static HimzoTests.Controllers.TestClasses;
 
 namespace HimzoTests.Controllers
 {
@@ -24,6 +28,7 @@ namespace HimzoTests.Controllers
 					Email = "test@email.com",
 					UserName = "test@email.com",
 					Name = "Test User",
+					University = "BME",
 					Comments = new List<Comment>(),
 					Orders = new List<Order>()
 				},
@@ -87,21 +92,21 @@ namespace HimzoTests.Controllers
 			{
 				new Image{
 					ImageId = 1,
-					Path = "/folt",
+					Path = "profile",
 					ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/folt.png"),
 					Type = Order.ProductType.FOLT,
 					Active = true
 				},
 				new Image{
 					ImageId = 2,
-					Path = "/minta",
+					Path = "profile",
 					ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/minta.jpg"),
 					Type = Order.ProductType.MINTA,
 					Active = true
 				},
 				new Image{
 					ImageId = 3,
-					Path = "/pulcsi",
+					Path = "profile",
 					ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
 					Type = Order.ProductType.PULCSI,
 					Active = true
@@ -115,7 +120,7 @@ namespace HimzoTests.Controllers
 					ContentId = 1,
 					Title = "Rendelés",
 					ContentString = null,
-					Path = "header",
+					Path = "profile",
 					UpdateTime = new DateTime()
 				},
 				new Content
@@ -123,7 +128,7 @@ namespace HimzoTests.Controllers
 					ContentId = 2,
 					Title = "Főoldal",
 					ContentString = null,
-					Path = "body",
+					Path = "profile",
 					UpdateTime = new DateTime()
 				},
 				new Content
@@ -131,7 +136,7 @@ namespace HimzoTests.Controllers
 					ContentId = 3,
 					Title = "Rendeléseim",
 					ContentString = null,
-					Path = "body",
+					Path = "profile",
 					UpdateTime = new DateTime()
 				},
 			};
@@ -204,30 +209,44 @@ namespace HimzoTests.Controllers
 				},
 			};
 
-		private Mock<HimzoDbContext> MockHimzoDbContext;
-		private Mock<UserManager<User>> MockUserManager;
+		private HimzoDbContext MockHimzoDbContext;
+		public Mock<UserManager<User>> MockUserManager;
 		private Mock<SignInManager<User>> MockSignInManager;
-
-		public static Mock<DbSet<T>> GetDbSet<T>(IQueryable<T> TestData) where T : class
-		{
-			var MockSet = new Mock<DbSet<T>>();
-			MockSet.As<IQueryable<T>>().Setup(x => x.Provider).Returns(new TestAsyncQueryProvider<T>(TestData.Provider));
-			MockSet.As<IQueryable<T>>().Setup(x => x.Expression).Returns(TestData.Expression);
-			MockSet.As<IQueryable<T>>().Setup(x => x.ElementType).Returns(TestData.ElementType);
-			MockSet.As<IQueryable<T>>().Setup(x => x.GetEnumerator()).Returns(TestData.GetEnumerator());
-			return MockSet;
-		}
 
 		public MockHimzoDb()
 		{
-			MockHimzoDbContext = new Mock<HimzoDbContext>();
-			// Setup HimzoDbContext methods
-			// ================================================================
-			MockHimzoDbContext.Object.Comments = GetDbSet<Comment>(CommentMockList.AsQueryable()).Object;
-			MockHimzoDbContext.Object.Contents = GetDbSet<Content>(ContentMockList.AsQueryable()).Object;
-			MockHimzoDbContext.Object.Orders = GetDbSet<Order>(OrderMockList.AsQueryable()).Object;
-			MockHimzoDbContext.Object.Images = GetDbSet<Image>(ImageMockList.AsQueryable()).Object;
-			MockHimzoDbContext.Object.Roles = GetDbSet<Role>(RoleMockList.AsQueryable()).Object;
+			DbContextOptionsBuilder options = new DbContextOptionsBuilder();
+			var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "TestHimzoDb.db" };
+			var connectionString = connectionStringBuilder.ToString();
+			var connection = new SqliteConnection(connectionString);
+			options.UseSqlite(connection);
+			MockHimzoDbContext = new HimzoDbContext(options.Options);
+			MockHimzoDbContext.Database.EnsureDeleted();
+			MockHimzoDbContext.Database.EnsureCreated();
+			foreach (User user in UserMockList) {
+				MockHimzoDbContext.Users.Add(user);
+			}
+			foreach (Role role in RoleMockList)
+			{
+				MockHimzoDbContext.Roles.Add(role);
+			}
+			foreach (Comment comment in CommentMockList)
+			{
+				MockHimzoDbContext.Comments.Add(comment);
+			}
+			foreach (Image image in ImageMockList)
+			{
+				MockHimzoDbContext.Images.Add(image);
+			}
+			foreach (Content content in ContentMockList)
+			{
+				MockHimzoDbContext.Contents.Add(content);
+			}
+			foreach (Order order in OrderMockList)
+			{
+				MockHimzoDbContext.Orders.Add(order);
+			}
+			MockHimzoDbContext.SaveChanges();
 			// ================================================================
 			// Setup UserManager
 
@@ -242,14 +261,22 @@ namespace HimzoTests.Controllers
 			MockUserManager.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<User, string>((x, y) => UserMockList.Add(x));
 			MockUserManager.Setup(x => x.UpdateAsync(It.IsAny<User>())).ReturnsAsync(IdentityResult.Success);
 			MockUserManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(UserMockList[0]);
-			
+			MockUserManager.Setup(x => x.FindByEmailAsync(It.IsAny<string>())).ReturnsAsync(UserMockList[0]);
+			MockUserManager.Setup(x => x.GetRolesAsync(It.IsAny<User>())).ReturnsAsync(new List<string>() { "User" });
+
 			// ================================================================
 			// Setup SignInManager
-			MockSignInManager = new Mock<SignInManager<User>>();
+			/*MockSignInManager = new Mock<SignInManager<User>>(MockUserManager.Object,
+				 new Mock<IHttpContextAccessor>().Object,
+				 new Mock<IUserClaimsPrincipalFactory<User>>().Object,
+				 new Mock<IOptions<IdentityOptions>>().Object,
+				 new Mock<ILogger<SignInManager<User>>>().Object,
+				 new Mock<IAuthenticationSchemeProvider>().Object);
+				 */
 			// ================================================================
 		}
 
-		public HimzoDbContext GetDbContext() { return MockHimzoDbContext.Object; }
+		public HimzoDbContext GetDbContext() { return MockHimzoDbContext; }
 		public UserManager<User> GetUserManager() { return this.MockUserManager.Object; }
 		public SignInManager<User> GetSignInManager() { return this.MockSignInManager.Object; }
 

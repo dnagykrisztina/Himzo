@@ -12,8 +12,10 @@ using HimzoTests.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using System.IO;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace Himzo.Web.Controllers.Tests
 {
@@ -22,11 +24,12 @@ namespace Himzo.Web.Controllers.Tests
 	{
 		private OrdersController OrdersController;
 		private List<Order> DbContent;
+		private MockHimzoDb db;
 
 		[TestInitialize()]
 		public void SetupTest() 
         {
-			MockHimzoDb db = new MockHimzoDb();
+			db = new MockHimzoDb();
 			OrdersController = new OrdersController(db.GetDbContext(), db.GetUserManager());
 			OrdersController.ControllerContext = new ControllerContext();
 			OrdersController.ControllerContext.HttpContext = new DefaultHttpContext();
@@ -44,14 +47,13 @@ namespace Himzo.Web.Controllers.Tests
 			var OrdersResult = await OrdersController.GetOrders();
 			var Orders = OrdersResult.Value as List<OrderDTO>;
 
+			Assert.IsNotNull(Orders);
 		    foreach(var Order in Orders) {
 				int i = Orders.ToList().IndexOf(Order);
 				Assert.AreEqual(Order.OrderId, DbContent[i].OrderId);
 				Assert.AreEqual(Order.OrderState, DbContent[i].OrderState);
 				Assert.AreEqual(Order.Type, DbContent[i].Type);
 				Assert.AreEqual(Order.Amount, DbContent[i].Amount);
-				Assert.AreEqual(Order.CommentContent, DbContent[i].Comment.Content);
-				Assert.AreEqual(Order.CommentUpdateTime, DbContent[i].Comment.UpdateTime);
 			}
 	    }
 
@@ -67,21 +69,52 @@ namespace Himzo.Web.Controllers.Tests
 		}
 
 		[TestMethod()]
-		public void PatchOrderTest()
+		public async Task PatchOrderTest()
 		{
-			Assert.Fail();
+			JsonPatchDocument<OrderPatchDTOUnion> jsonPatch = new JsonPatchDocument<OrderPatchDTOUnion>();
+			jsonPatch.Add(o => o.Amount, 2);
+		    var OrderResult = await OrdersController.PatchOrder(1, jsonPatch);
+			var ChangedOrderResult = OrderResult as ObjectResult;
+			var ChangedOrder = ChangedOrderResult.Value as OrderDTO;
+			Assert.IsNotNull(ChangedOrder);
+			Assert.AreEqual(ChangedOrder.OrderId, 1);
+			Assert.AreEqual(ChangedOrder.Amount, 2);
 		}
 
 		[TestMethod()]
-		public void PostOrderTest()
+		public async Task PostOrderTest()
 		{
-			Assert.Fail();
+			OrderPatchDetailsDTO newOrder = new OrderPatchDetailsDTO() {
+				Size = "50x50",
+				Amount = 1,
+				OrderTime = new DateTime(),
+				Deadline = DateTime.Now.AddDays(1),
+				OrderComment = "New order #1",
+				Type = Order.ProductType.FOLT,
+				Pattern = System.IO.File.ReadAllBytes("../../../TestPictures/folt.png"),
+				Fonts = "Arial",
+				PatternPlace = "mellkas"
+			};
+			var numOfOrders = DbContent.Count();
+			var Response = await OrdersController.PostOrder(newOrder);
+			var NewOrder = db.GetDbContext().Orders.Find(numOfOrders+1);
+			Assert.IsNotNull(NewOrder);
+			Assert.AreEqual(NewOrder.OrderId, numOfOrders+1);
+			Assert.AreEqual(NewOrder.OrderState, Order.State.WAITING_FOR_ANSWER);
+			Assert.AreEqual(NewOrder.Type, Order.ProductType.FOLT);
+			Assert.AreEqual(NewOrder.Amount, 1);
+			Assert.AreEqual(NewOrder.OrderComment, "New order #1");
 		}
 
 		[TestMethod()]
-		public void DeleteOrderTest()
+		public async Task DeleteOrderTest()
 		{
-			Assert.Fail();
+			var OrderDeleteResult = await OrdersController.DeleteOrder(1);
+			var DeletedOrder = OrderDeleteResult.Value as OrderDTO;
+			Assert.IsNotNull(DeletedOrder);
+			Assert.AreEqual(DeletedOrder.OrderId, 1);
+			Assert.AreEqual(DeletedOrder.OrderState, Order.State.WAITING_FOR_ANSWER);
+			Assert.IsFalse(db.GetDbContext().Orders.Any(e => e.OrderId == 1));
 		}
 	}
 }

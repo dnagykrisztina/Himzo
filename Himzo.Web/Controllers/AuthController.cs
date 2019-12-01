@@ -283,7 +283,7 @@ namespace Himzo.Web.Controllers
 						return new JsonResult(new DeleteResult
 						{
 							Message = "User " + user.UserName + " has been deleted!",
-							Success = false
+							Success = true
 						});
 					}
 					else
@@ -333,7 +333,7 @@ namespace Himzo.Web.Controllers
 						return new JsonResult(new DeleteResult
 						{
 							Message = "User " + user.UserName + " has been deleted from role "+roleName+"!",
-							Success = false
+							Success = true
 						});
 					}
 					else
@@ -383,7 +383,7 @@ namespace Himzo.Web.Controllers
 						return new JsonResult(new DeleteResult
 						{
 							Message = "User " + user.UserName + " has been deleted from role " + roleName + "!",
-							Success = false
+							Success = true
 						});
 					}
 					else

@@ -33,7 +33,7 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- publish: 'd:/a/1/a/Himzo.Web.zip'
+- publish: '$(build.artifactStagingDirectory)/Himzo.Web.zip'
   artifact: 'Himzo'
 
 - powershell: |
@@ -47,7 +47,7 @@ steps:
     Enable-WindowsOptionalFeature -online -FeatureName NetFx4Extended-ASPNET45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-NetFxExtensibility45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-ASPNET45
-    Copy-Item -Path "d:/a/1/s/Himzo.Web/wwwroot" -Destination "d:/a/1/s/Himzo.Web/bin/Release/netcoreapp3.0" -Recurse
-    Start-Process "d:/a/1/s/Himzo.Web/bin/Release/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
+    Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0" -Recurse
+    Start-Process "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
     Start-Sleep -s 30
   displayName: Run the test web server
