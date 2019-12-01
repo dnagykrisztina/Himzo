@@ -19,23 +19,23 @@
             <li class="nav-item">
               <a class="nav-link" href="index.html">{{ order }}</a>
             </li>
-            <li class="nav-item" v-if="role=== Admin || role === Kortag || role === User">
+            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'">
               <a class="nav-link" @click="userorder">{{ myOrders }}</a>
             </li>
-            <li class="nav-item" v-if="role=== Admin || role === Kortag">
+            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag'">
               <a class="nav-link" @click="allorder">{{ allOrder }}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
             </li>
-            <li class="nav-item" v-if="role=== Admin">
+            <li class="nav-item" v-if="role=== 'Admin'">
               <a class="nav-link" @click="members">{{ memberss }}</a>
             </li>
           </ul>
           <!--<a class="nav-link btn btn-success" @click="signin">{{ signIn }}</a>-->
           <a
             class="dropdown nav-item my-2 my-sm-0"
-            v-if="role=== Admin || role === Kortag || role === User"
+            v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'"
           >
             <a href="#" class="dropbtn nav-link">{{ username }}</a>
             <div class="dropdown-content">
@@ -46,7 +46,7 @@
           <button
             class="btn btn-outline-success my-2 my-sm-0"
             @click="signin"
-            v-if="role!== Admin && role !== Kortag && role !== User"
+            v-if="role!== 'Admin' && role !== 'Kortag' && role !== 'User'"
           >{{ signIn }}</button>
         </div>
       </nav>
@@ -109,7 +109,7 @@ export default {
     try {
       const res = await axios.get("http://localhost:52140/api/User");
       this.username = res.data.userName;
-      this.role = res.data.role;
+      this.role = res.data.roles[0];
     } catch (e) {
       console.log(e);
     }

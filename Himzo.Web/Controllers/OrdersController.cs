@@ -69,7 +69,7 @@ namespace Himzo.Web.Controllers
                                                 Fonts = x.Fonts,
                                                 OrderComment = x.OrderComment,
                                                 OrderTime = x.OrderTime,
-                                                Pattern = x.Pattern,
+                                                PatternUrl = "/api/Orders/" + x.OrderId + "/image",
                                                 PatternPlace = x.PatternPlace,
                                                 UserName = x.User.Name,
                                                 UserEmail = x.User.Email
@@ -98,7 +98,7 @@ namespace Himzo.Web.Controllers
                                             Fonts = x.Fonts,
                                             OrderComment = x.OrderComment,
                                             OrderTime = x.OrderTime,
-                                            Pattern = x.Pattern,
+                                            PatternUrl = "/api/Orders/" + x.OrderId + "/image",
                                             PatternPlace = x.PatternPlace,
                                             UserName = x.User.Name,
                                             UserEmail = x.User.Email
@@ -122,7 +122,7 @@ namespace Himzo.Web.Controllers
                                                     Fonts = x.Fonts,
                                                     OrderComment = x.OrderComment,
                                                     OrderTime = x.OrderTime,
-                                                    Pattern = x.Pattern,
+                                                    PatternUrl = "/api/Orders/" + x.OrderId + "/image",
                                                     PatternPlace = x.PatternPlace,
                                                     UserName = x.User.Name,
                                                     UserEmail = x.User.Email
@@ -215,6 +215,10 @@ namespace Himzo.Web.Controllers
                         patchModel.ApplyTo(tempOrder);
 
                         var orderPatchDTO = ConvertToPatchDetailsDTO(tempOrder);
+                        if (!IsValidPOST(orderPatchDTO))
+                        {
+                            return BadRequest("Error processing new order due to unprocessable input!");
+                        }
                         order = await MapPatchDetailsToOrderAsync(orderPatchDTO, order);
 
                         _context.Orders.Update(order);
@@ -233,6 +237,10 @@ namespace Himzo.Web.Controllers
                     } else
                     {
                         var orderPatchDetailsDTO = ConvertToPatchDetailsDTO(tempOrder);
+                        if (!IsValidPOST(orderPatchDetailsDTO))
+                        {
+                            return BadRequest("Error processing new order due to unprocessable input!");
+                        }
                         var orderPatchDTO = ConvertToPatchDTO(tempOrder);
                         order = await MapPatchDetailsToOrderAsync(orderPatchDetailsDTO, order);
                         order = await MapPatchToOrderAsync(orderPatchDTO, order);
@@ -344,7 +352,7 @@ namespace Himzo.Web.Controllers
                 Size = order.Size,
                 Amount = order.Amount,
                 Deadline = order.Deadline,
-                Pattern = order.Pattern,
+                PatternUrl = "/api/Orders/" + order.OrderId + "/image",
                 OrderComment = order.OrderComment,
                 OrderTime = order.OrderTime,
                 Fonts = order.Fonts,
@@ -434,7 +442,7 @@ namespace Himzo.Web.Controllers
             if ((orderDTO.Amount < 0 || orderDTO.Amount > 5000) ||
                 orderDTO.Deadline < DateTime.Now || orderDTO.Deadline == null ||
                 orderDTO.Fonts == null ||
-                orderDTO.Pattern == null ||
+                orderDTO.Pattern == null || orderDTO.Pattern.Length == 0 ||
                 orderDTO.PatternPlace == null || orderDTO.PatternPlace == "" ||
                 orderDTO.Size == null || orderDTO.Size == "" ||
                 (orderDTO.Type != Order.ProductType.FOLT && orderDTO.Type != Order.ProductType.MINTA &&
