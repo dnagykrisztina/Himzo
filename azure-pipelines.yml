@@ -87,10 +87,3 @@ steps:
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
-    
-- task: AzureWebApp@1
-  displayName: Deploy Web App
-  inputs:
-    azureSubscription: '<Azure service connection>'
-    appName: 'Himzo'
-    package: $(System.ArtifactsDirectory)/**/*.zip
