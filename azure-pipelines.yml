@@ -64,9 +64,10 @@ steps:
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-NetFxExtensibility45
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-ASPNET45
     Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0" -Recurse
-    Start-Process "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
+    cd "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/"
+    Start-Process "./Himzo.Web.exe" -WindowStyle Hidden
     Start-Sleep -s 60
-    newman run "$(System.DefaultWorkingDirectory)/PostmanTests/Tests.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/PostmanTests/Local.postman_environment.json"
+    newman run "$(System.DefaultWorkingDirectory)/Himzo.Web/Tests.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/PostmanTests/Local.postman_environment.json"
   displayName: Run the test web server
   failOnStderr: true
 
