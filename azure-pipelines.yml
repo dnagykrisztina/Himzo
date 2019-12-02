@@ -17,18 +17,75 @@ variables:
 steps:
 - task: NuGetToolInstaller@1
 
+- task: NodeTool@0 
+  inputs:
+    versionSpec: '12.13'
+
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: Build backend service
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: Run tests
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --logger trx --collect "Code coverage"'
+  
+- task: PublishTestResults@2
+  displayName: Save test results
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
+
+- publish: '$(build.artifactStagingDirectory)/Himzo.Web.zip'
+  displayName: Publish backend artifact
+  artifact: 'Himzo'
+
+- powershell: |
+    npm install -g newman
+    Set-ExecutionPolicy Bypass -Scope Process
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServer
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-CommonHttpFeatures
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-HttpErrors
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-HttpRedirect
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-ApplicationDevelopment
+    Enable-WindowsOptionalFeature -online -FeatureName NetFx4Extended-ASPNET45
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-NetFxExtensibility45
+    Enable-WindowsOptionalFeature -Online -FeatureName IIS-ASPNET45
+    Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0" -Recurse
+    Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.DAL" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release" -Recurse
+    cd "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/"
+    Start-Process "./Himzo.Web.exe" -WindowStyle Hidden
+    Start-Sleep -s 60
+    newman run "$(System.DefaultWorkingDirectory)/Himzo.Web/Tests.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/PostmanTests/Local.postman_environment.json"
+  displayName: Run the test web server
+  failOnStderr: true
+
+- script: npm install --no-optional
+  displayName: Prepare to build Frontend
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot'
+  failOnStderr: true
+
+- script: npm run build
+  displayName: Build Frontend
+  workingDirectory: '$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot'
+  failOnStderr: true
+
+- task: DotNetCoreCLI@2
+  displayName: Publish results
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True

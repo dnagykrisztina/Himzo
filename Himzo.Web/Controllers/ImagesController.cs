@@ -45,7 +45,7 @@ namespace Himzo.Web.Controllers
             string path = HttpContext.Request.Query["path"].ToString();
             string type = HttpContext.Request.Query["type"].ToString();
 
-            var user = await _userManager.GetUserAsync(HttpContext.User);
+			var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user != null)
             {
                 if (await _userManager.IsInRoleAsync(user, Role.User))
@@ -54,11 +54,11 @@ namespace Himzo.Web.Controllers
                 }
                 else if (await _userManager.IsInRoleAsync(user, Role.Kortag))
                 {
-                    return await GetImageByPath(type, path, pathMembers);
+					return await GetImageByPath(type, path, pathMembers);
                 }
                 else if (await _userManager.IsInRoleAsync(user, Role.Admin))
                 {
-                    return await GetImageByPath(type, path, pathAdmins);
+					return await GetImageByPath(type, path, pathAdmins);
                 }
             }
             else

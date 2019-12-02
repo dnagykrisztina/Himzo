@@ -11,7 +11,8 @@ namespace Himzo.Dal
 {
     public class HimzoDbContext : IdentityDbContext<User, Role, int>
     {
-        public HimzoDbContext(DbContextOptions options) : base(options) { }
+		public HimzoDbContext() : base(new DbContextOptionsBuilder().Options) { }
+		public HimzoDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Content> Contents { get; set; }

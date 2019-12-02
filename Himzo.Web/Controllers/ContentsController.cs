@@ -90,7 +90,7 @@ namespace Himzo.Web.Controllers
             try
             {
                 Content content = await _context.Contents.Where(x => x.ContentId == id).FirstOrDefaultAsync();
-                if (content == null)
+				if (content == null)
                 {
                     return NotFound();
                 }
@@ -99,7 +99,7 @@ namespace Himzo.Web.Controllers
                 patchModel.ApplyTo(contentDTO);
                 content = MapToContent(contentDTO, content);
 
-                _context.Contents.Update(content);
+				_context.Contents.Update(content);
                 await _context.SaveChangesAsync();
                 return new ObjectResult(ConvertToContentDTO(content));
 
