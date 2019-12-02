@@ -52,6 +52,7 @@ steps:
   artifact: 'Himzo'
 
 - powershell: |
+    npm install -g newman
     Set-ExecutionPolicy Bypass -Scope Process
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServer
@@ -64,7 +65,8 @@ steps:
     Enable-WindowsOptionalFeature -Online -FeatureName IIS-ASPNET45
     Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0" -Recurse
     Start-Process "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/Himzo.Web.exe" -WindowStyle Hidden
-    Start-Sleep -s 30
+    Start-Sleep -s 60
+    newman run "$(System.DefaultWorkingDirectory)/Himzo.Web/Tests.postman_collection.json" -d "$(System.DefaultWorkingDirectory)/Himzo.Web/TestData.json"
   displayName: Run the test web server
   failOnStderr: true
 
