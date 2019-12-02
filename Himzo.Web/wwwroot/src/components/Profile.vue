@@ -11,6 +11,7 @@ import Header from "./Header.vue";
 //import Title from "./Title.vue";
 import ProfileBody from "./ProfileBody.vue";
 import Footer from "./Footer.vue";
+import axios from "axios";
 
 export default {
   name: "Profile",

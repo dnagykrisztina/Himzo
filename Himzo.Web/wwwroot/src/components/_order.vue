@@ -107,11 +107,6 @@
                                 </b-modal>
                             </div>
                         </div>
-                        <div class="row ">
-                            <div class="col">
-                                id: {{order.orderId}}
-                            </div>
-                        </div>
                     </div>
 
                 </div>

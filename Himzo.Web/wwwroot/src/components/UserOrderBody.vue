@@ -15,7 +15,7 @@
 
             <main role="main" class="container">
                 <!--<userorder v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></userorder> -->
-                <userorder v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></userorder>
+                <userorder v-for="order in orders.slice().reverse()" v-bind:key="order.id" v-bind:order="order"></userorder>
 
                 <hr class="featurette-divider" />
             </main>

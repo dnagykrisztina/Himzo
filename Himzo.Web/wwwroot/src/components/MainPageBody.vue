@@ -36,7 +36,7 @@
 
       <hr class="featurette-divider" />
 
-      <div class="row featurette">
+      <div class="row featurette" id="down">
         <div class="col-md-7">
           <h2 class="featurette-heading">{{ sewaterTitle }}</h2>
           <p class="lead">{{ sweaterDescription }}</p>

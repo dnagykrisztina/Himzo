@@ -73,29 +73,29 @@ export default {
       team_description: null
     };
   },
-  async mounted() {
-    try {
-      const res = await axios.get(
-        "http://localhost:52140/api/Contents?path=aboutus"
-      );
-      this.job_title = res.data[0].title;
-      this.job_description = res.data[0].contentString;
-      this.history_title = res.data[1].title;
-      this.history_description = res.data[1].contentString;
-      this.how_to_join_title = res.data[2].title;
-      this.how_to_join_description = res.data[2].contentString;
-      this.team_title = res.data[3].title;
-      this.team_description = res.data[3].contentString;
-      /* var i;
-      this.allcontents = res.data;
-      for (i = 0; i < this.allcontents.length; i++) {
-        this.contents[i].title = this.allcontents[i].title;
-        this.contents[i].description = this.allcontents[i].contentString;*/
-      // }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+        async mounted() {
+            try {
+                const res = await axios.get(
+                    "http://localhost:52140/api/Contents?path=aboutus"
+                );
+                this.job_title = res.data[0].title;
+                this.job_description = res.data[0].contentString;
+                this.history_title = res.data[1].title;
+                this.history_description = res.data[1].contentString;
+                this.how_to_join_title = res.data[2].title;
+                this.how_to_join_description = res.data[2].contentString;
+                this.team_title = res.data[3].title;
+                this.team_description = res.data[3].contentString;
+                /* var i;
+                this.allcontents = res.data;
+                for (i = 0; i < this.allcontents.length; i++) {
+                  this.contents[i].title = this.allcontents[i].title;
+                  this.contents[i].description = this.allcontents[i].contentString;*/
+                // }
+            } catch (e) {
+                console.log(e);
+            }
+        }
 };
 </script>
 

@@ -2,7 +2,7 @@
   <div>
     <div>
       <nav class="navbar navbar-expand-md fixed-top navbar-dark">
-        <a class="navbar-brand" @click="himzo">{{ titleHimzo }}</a>
+        <a class="navbar-brand" href="index.html">{{ titleHimzo }}</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -15,23 +15,23 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">{{ order }}</a>
-            </li>
-            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'">
-              <a class="nav-link" @click="userorder">{{ myOrders }}</a>
-            </li>
-            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag'">
-              <a class="nav-link" @click="allorder">{{ allOrder }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
-            </li>
-            <li class="nav-item" v-if="role=== 'Admin'">
-              <a class="nav-link" @click="members">{{ memberss }}</a>
-            </li>
-          </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#down" id="scrolldown" >{{ order }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
+                </li>
+                <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'">
+                    <a class="nav-link" @click="userorder">{{ myOrders }}</a>
+                </li>
+                <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag'">
+                    <a class="nav-link" @click="allorder">{{ allOrder }}</a>
+                </li>
+                <li class="nav-item" v-if="role=== 'Admin'">
+                    <a class="nav-link" @click="members">{{ memberss }}</a>
+                </li>
+            </ul>
           <!--<a class="nav-link btn btn-success" @click="signin">{{ signIn }}</a>-->
           <a
             class="dropdown nav-item my-2 my-sm-0"
@@ -60,10 +60,6 @@ export default {
   name: "Header",
   props: {},
   methods: {
-    himzo() {
-      console.log("valami");
-      this.$router.push("/");
-    },
     aboutus() {
       console.log("valami");
       this.$router.push("/aboutus");

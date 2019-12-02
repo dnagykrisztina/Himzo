@@ -9,7 +9,7 @@
     </div>
     <body>
       <main role="main" class="container">
-        <order v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></order>
+        <order v-for="order in orders.slice().reverse()"  v-bind:key="order.id" v-bind:order="order"></order>
 
         <hr class="featurette-divider" />
       </main>

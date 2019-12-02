@@ -10,6 +10,7 @@
 import Header from "./Header.vue";
 import PatchFormBody from "./PatchFormBody.vue";
 import Footer from "./Footer.vue";
+import axios from "axios";
 
 export default {
   name: "PatchForm",
@@ -18,6 +19,22 @@ export default {
     Header,
     PatchFormBody,
     Footer
+  },
+  async mounted() {
+    try {
+        const response = await axios.get("http://localhost:52140/api/User");
+        if (response.status === 200) {
+            this.auth = true;
+        } else {
+            this.auth = false;
+    }
+    } catch (e) {
+        console.log(e);
+    }
+
+    if (!this.auth) {
+        this.$router.push("/");
+    } 
   }
 };
 </script>

@@ -10,6 +10,7 @@ import PatchForm from '@/components/PatchForm'
 import PatternForm from '@/components/PatternForm'
 import AllOrder from '@/components/AllOrder'
 import UserOrder from '@/components/UserOrder'
+//import axios from "axios"
 //import { ModalPlugin } from 'bootstrap-vue'
 
 //Vue.use(ModalPlugin)
