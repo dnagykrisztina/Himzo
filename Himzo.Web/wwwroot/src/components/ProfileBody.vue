@@ -49,7 +49,7 @@ export default {
     //Username
     try {
         const res = await axios.get("http://localhost:52140/api/User");
-        if (response.status === 200) {
+        if (res.status === 200) {
             this.auth = true;
         } else {
             this.auth = false;
