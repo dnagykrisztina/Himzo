@@ -11,6 +11,15 @@
       <!-- Main jumbotron for a primary marketing message or call to action -->
 
       <div class="container">
+        <div v-if="errors.length" class="alert alert-danger" role="alert">
+          <div class="pl-2">
+            <b>{{correctErrors}}</b>
+            <ul>
+              <li v-for="error in errors" v-bind:key="error.id">{{ error.name }}</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-8 order-md-1">
             <form>
@@ -22,7 +31,6 @@
                   v-validate="'image'"
                   data-vv-as="image"
                   name="image_field"
-                  required
                   @change="setImage"
                 />
                 <label class="custom-file-label" for="customFile">
@@ -43,41 +51,29 @@
                     type="number"
                     class="form-control"
                     id="amount"
-                    required
+                    value="1"
+                    min="1"
                     v-model="inputAmount"
                   />
                   <div class="invalid-feedback">Kérlek add meg a mintában használt fontot!</div>
                 </div>
                 <div class="col-md-4 mb-3">
                   <label for="deadline">{{ deadline }}</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="deadline"
-                    required
-                    v-model="inputDeadline"
-                  />
+                  <input type="date" class="form-control" id="deadline" v-model="inputDeadline" />
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="fonts">{{ fonts }}</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="fonts"
-                    value
-                    required
-                    v-model="inputFonts"
-                  />
+                  <input type="text" class="form-control" id="fonts" value v-model="inputFonts" />
                   <div class="invalid-feedback">Kérlek add meg a mintában használt fontot!</div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="comment">{{ comment }}</label>
-                  <input type="text" class="form-control" id="comment" value v-model="inputComment" />
+                  <input type="text" class="form-control" id="comment" v-model="inputComment" />
                 </div>
               </div>
 
@@ -88,7 +84,12 @@
                   cancelButton
                   }}
                 </a>
-                <a class="btn btn-primary" type="submit" v-on:click="postPost">{{ orderButton }}</a>
+                <a
+                  class="btn btn-primary"
+                  value="submit"
+                  type="submit"
+                  v-on:click="checkForm"
+                >{{ orderButton }}</a>
               </div>
             </form>
             <notifications position="top center" width="30%" class="error" group="err" max="3" />
@@ -108,47 +109,36 @@ export default {
   props: {},
   data() {
     return {
+      correctErrors: "Kérlek helyes formátumban add meg a következőket:",
       patchFormTitle: "Folt rendelés",
       patchFormDescription:
         "Foltot így meg így tudsz rendelni, ezt meg ezt kell tudni róla.",
       chooseFile: "Válaszd ki a fájlt",
-      pattern: "Minta",
+      pattern: "Minta*",
       inputPattern: null,
-      patternLocation: "Minta helye",
+      patternLocation: "Minta helye*",
       inputPatternLocation: null,
-      size: "Méret (cm)",
+      size: "Méret (cm)*",
       inputSize: null,
-      amount: "Mennyiség",
+      amount: "Mennyiség*",
       inputAmount: null,
-      deadline: "Határidő",
+      deadline: "Határidő*",
       inputDeadline: null,
       fonts: "Mintában használt fontok",
-      inputFonts: null,
+      inputFonts: "",
       comment: "Megjegyzés",
       inputComment: "",
       cancelButton: "Mégse",
       orderButton: "Megrendelem",
-      mukodik: "légyszílégyszíí"
+      errors: []
     };
   },
   methods: {
     reset: function() {
-      console.log("patchform reset");
       this.$router.push("/");
     },
-    hali: function() {
-      console.log("wtf");
-    },
-    routToOrders: function() {
-      console.log("hahó");
-      console.log(this);
-      this.hali();
-      this.$router.push("/signin");
-    },
-
     postPost: function() {
       const myStatus = this;
-      console.log(this);
       axios
         .post(`http://localhost:52140/api/Orders`, {
           size: this.inputSize,
@@ -161,16 +151,8 @@ export default {
           patternPlace: "-"
         })
         .then(function(response) {
-          //this.status = response.status;
-          console.log(response);
-          console.log(myStatus);
-          //this.routToOrders();
-
           if (response.status === 201) {
-            console.log(response.status);
             myStatus.$router.push("/userorder");
-          } else {
-            console.log("else");
           }
         })
 
@@ -185,20 +167,10 @@ export default {
           });
           return;
         });
-
-      /*.finally({
-
-          if(valami > 0) {
-            console.log("patchForm submit"), this.$router.push("/userorder");
-          }
-        })*/
-
-      //currentObj.output = response.data; //a response volt eredetileg a fgv paramétere
     },
 
     setImage: function(e) {
       const file = e.target.files[0];
-      //console.log(file);
 
       if (!file.type.includes("image/")) {
         alert("Please select an image file");
@@ -212,13 +184,58 @@ export default {
 
         reader.onload = event => {
           this.inputPattern = event.target.result.slice(23);
-          //console.log(this.inputPattern);
-          // rebuild cropperjs with the updated source
-          //this.$refs.cropper.replace(event.target.result);
         };
         reader.readAsDataURL(file);
       } else {
         alert("Sorry, FileReader API not supported");
+      }
+    },
+
+    checkForm: function(e) {
+      if (
+        this.inputPattern &&
+        this.inputSize &&
+        this.inputAmount &&
+        this.inputDeadline &&
+        this.checkDate()
+      ) {
+        this.postPost();
+        return true;
+      }
+      this.errors = [];
+
+      if (!this.inputPattern) {
+        this.errors.push({ id: 0, name: "a mintát" });
+      }
+
+      if (!this.inputSize) {
+        this.errors.push({ id: 2, name: "a minta méretét" });
+      }
+      if (!this.inputAmount) {
+        this.errors.push({ id: 3, name: "a mennyiséget" });
+      }
+      if (!this.inputDeadline) {
+        this.errors.push({ id: 4, name: "a határidőt" });
+      }
+      if (this.inputDeadline && !this.checkDate()) {
+        this.errors.push({ id: 5, name: " határidőt" });
+      }
+
+      console.log(this.inputDeadline);
+      e.preventDefault();
+    },
+    checkDate: function() {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, "0");
+      var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var yyyy = today.getFullYear();
+
+      today = yyyy + "-" + mm + "-" + dd;
+
+      if (today >= this.inputDeadline) {
+        return false;
+      } else if (today < this.inputDeadline) {
+        return true;
       }
     }
   }
