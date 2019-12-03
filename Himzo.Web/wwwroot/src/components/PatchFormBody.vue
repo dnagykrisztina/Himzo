@@ -109,6 +109,7 @@ export default {
   props: {},
   data() {
     return {
+      file: "Kép a mintáról*",
       correctErrors: "Kérlek helyes formátumban add meg a következőket:",
       patchFormTitle: "Folt rendelés",
       patchFormDescription:
