@@ -65,6 +65,21 @@
         });
 
     </script>
+    <!--editable content,  change event-->
+    <script>
+         $('body').on('focus', '[contenteditable]', function() {
+            const $this = $(this);
+            $this.data('before', $this.html());
+         }).on('blur keyup paste input', '[contenteditable]', function() {
+                const $this = $(this);
+                if ($this.data('before') !== $this.html()) {
+                    $this.data('before', $this.html());
+                    $this.trigger('change');
+                }
+         });
+
+    </script>
+   
 
     <!--atcopyzott head vége-->
 
