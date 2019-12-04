@@ -3,7 +3,7 @@
   <main role="main">
     <div class="container marketing">
       <div class="row featurette">
-        <div class="col-md-7">
+        <div class="col-md-7 pr-5">
           <div v-if="role==='Admin'">
             <textarea
               class="form-control title"
@@ -68,7 +68,7 @@
       <hr class="featurette-divider" />
 
       <div class="row featurette">
-        <div class="col-md-7 order-md-2">
+        <div class="col-md-7 order-md-2 pl-5">
           <div v-if="role==='Admin'">
             <textarea
               class="form-control title"
@@ -133,7 +133,7 @@
       <hr class="featurette-divider" />
 
       <div class="row featurette" id="down">
-        <div class="col-md-7">
+        <div class="col-md-7 pr-5">
           <div v-if="role==='Admin'">
             <textarea
               class="form-control title"
@@ -614,7 +614,7 @@ textarea {
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-.description{
+.description {
   font-size: 1.25rem;
   font-weight: 300;
   margin-top: 0;
@@ -626,5 +626,8 @@ textarea {
 }
 .marketing .col-md-5 {
   text-align: left;
+}
+.lead {
+  text-align: justify;
 }
 </style>

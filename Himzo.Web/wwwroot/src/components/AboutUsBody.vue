@@ -1,143 +1,164 @@
 <template>
 <body>
   <main role="main">
-      <div class="container marketing">
-          <!-- START THE FEATURETTES -->
-          
-          <div class="row featurette">
-              <div class="col-md-5">
-                  <div v-if="role==='Admin'">
-                      <textarea class="form-control title"
-                                id="inputJobTitle"
-                                rows="3"
-                                for="inputJobTitle"
-                                v-model="job.title"
-                                placeholder="Amivel foglalkozunk"
-                                @change="updateJobTitle"></textarea>
-                  </div>
-                  <div v-if="role !=='Admin'">
-                      <h2 class="featurette-heading">{{ job.title }}</h2>
-                  </div>
-              </div>
-              <div class="col-md-7">
-                  <div v-if="role==='Admin'">
-                      <textarea class="form-control description"
-                                id="inputJobDescription"
-                                rows="3"
-                                for="inputJobDescription"
-                                v-model="job.description"
-                                placeholder="Add meg mivel foglalkoztok!"
-                                @change="updateJobDescription"></textarea>
-                  </div>
-                  <div v-if="role !=='Admin'">
-                      <p class="lead">{{ job.description }}</p>
-                  </div>
-              </div>
-          </div>
-
-          <hr class="featurette-divider" />
-
-          <div class="row featurette">
-              <div class="col-md-7">
-                  <div v-if="role==='Admin'">
-                      <textarea class="form-control description"
-                                id="inputHistoryDescription"
-                                rows="3"
-                                for="inputHistoryDescription"
-                                v-model="history.description"
-                                placeholder="�rj p�r sz�t a k�r t�rt�net�r�l!"
-                                @change="updateHistoryDescription"></textarea>
-                  </div>
-                  <div v-if="role !=='Admin'">
-                      <p class="lead">{{ history.description }}</p>
-                  </div>
-              </div>
-              <div class="col-md-5">
-                  <div v-if="role==='Admin'">
-                      <textarea class="form-control title"
-                                id="inputHistoryTitle"
-                                rows="3"
-                                for="inputHistoryTitle"
-                                v-model="history.title"
-                                placeholder="A k�r t�rt�nete"
-                                @change="updateHistoryTitle"></textarea>
-                  </div>
-                  <div v-if="role !=='Admin'">
-                      <h2 class="featurette-heading">{{ history.title }}</h2>
-                  </div>
-              </div>
-          </div>
-
-          <hr class="featurette-divider" />
-
-          <div class="row featurette">
-              <div class="col-md-5">
-                  <div v-if="role==='Admin'">
-                      <textarea class="form-control title"
-                                id="inputJoinTitle"
-                                rows="3"
-                                for="inputJoinTitle"
-                                v-model="join.title"
-                                placeholder="Csatlakoz�si lehet�s�g"
-                                @change="updateJoinTitle"></textarea>
-                  </div>
-                  <div v-if="role !=='Admin'">
-                      <h2 class="featurette-heading">{{ join.title }}</h2>
-                  </div>
-              </div>
-              <div class="col-md-7">
-                  <div v-if="role==='Admin'">
-                      <textarea class="form-control description"
-                                id="inputJoinDescription"
-                                rows="3"
-                                for="inputJoinDescription"
-                                v-model="join.description"
-                                placeholder="Add meg hogy lehet csatlakozni a k�rh�z!"
-                                @change="updateJoinDescription"></textarea>
-                  </div>
-                  <div v-if="role !=='Admin'">
-                      <p class="lead">{{ join.description }}</p>
-                  </div>
-              </div>
-          </div>
-
-          <hr class="featurette-divider" />
-
-          <div class="row featurette">
-              <div class="col-md-7">
-                  <div v-if="role==='Admin'">
-                      <textarea class="form-control description"
-                                id="inputTeamDescription"
-                                rows="3"
-                                for="inputTeamDescription"
-                                v-model="team.description"
-                                placeholder="�rj a csapatr�l p�r sz�t!"
-                                @change="updateTeamDescription"></textarea>
-                  </div>
-                  <div v-if="role !=='Admin'">
-                      <p class="lead">{{ team.description }}</p>
-                  </div>
-              </div>
-              <div class="col-md-5">
-                  <div v-if="role==='Admin'">
-                      <textarea class="form-control title"
-                                id="inputTeamTitle"
-                                rows="3"
-                                for="inputTeamTitle"
-                                v-model="team.title"
-                                placeholder="A csapat"
-                                @change="updateTeamTitle"></textarea>
-                  </div>
-                  <div v-if="role !=='Admin'">
-                      <h2 class="featurette-heading">{{ team.title }}</h2>
-                  </div>
-              </div>
-          </div>
-
-          <hr class="featurette-divider" />
-
-          <!-- /END THE FEATURETTES -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">{{mainTitle}}</h1>
       </div>
+    </div>
+    <div class="container marketing">
+      <!-- START THE FEATURETTES -->
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <div v-if="role==='Admin'">
+            <textarea
+              class="form-control title"
+              id="inputJobTitle"
+              rows="3"
+              for="inputJobTitle"
+              v-model="job.title"
+              placeholder="Amivel foglalkozunk"
+              @change="updateJobTitle"
+            ></textarea>
+          </div>
+          <div v-if="role !=='Admin'">
+            <h2 class="featurette-heading">{{ job.title }}</h2>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div v-if="role==='Admin'">
+            <textarea
+              class="form-control description"
+              id="inputJobDescription"
+              rows="3"
+              for="inputJobDescription"
+              v-model="job.description"
+              placeholder="Add meg mivel foglalkoztok!"
+              @change="updateJobDescription"
+            ></textarea>
+          </div>
+          <div v-if="role !=='Admin'">
+            <p class="lead">{{ job.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <div v-if="role==='Admin'">
+            <textarea
+              class="form-control description"
+              id="inputHistoryDescription"
+              rows="3"
+              for="inputHistoryDescription"
+              v-model="history.description"
+              placeholder="�rj p�r sz�t a k�r t�rt�net�r�l!"
+              @change="updateHistoryDescription"
+            ></textarea>
+          </div>
+          <div v-if="role !=='Admin'">
+            <p class="lead">{{ history.description }}</p>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div v-if="role==='Admin'">
+            <textarea
+              class="form-control title"
+              id="inputHistoryTitle"
+              rows="3"
+              for="inputHistoryTitle"
+              v-model="history.title"
+              placeholder="A k�r t�rt�nete"
+              @change="updateHistoryTitle"
+            ></textarea>
+          </div>
+          <div v-if="role !=='Admin'">
+            <h2 class="featurette-heading">{{ history.title }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <div v-if="role==='Admin'">
+            <textarea
+              class="form-control title"
+              id="inputJoinTitle"
+              rows="3"
+              for="inputJoinTitle"
+              v-model="join.title"
+              placeholder="Csatlakozosi lehetőség"
+              @change="updateJoinTitle"
+            ></textarea>
+          </div>
+          <div v-if="role !=='Admin'">
+            <h2 class="featurette-heading">{{ join.title }}</h2>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div v-if="role==='Admin'">
+            <textarea
+              class="form-control description"
+              id="inputJoinDescription"
+              rows="3"
+              for="inputJoinDescription"
+              v-model="join.description"
+              placeholder="Add meg hogy lehet csatlakozni a k�rh�z!"
+              @change="updateJoinDescription"
+            ></textarea>
+          </div>
+          <div v-if="role !=='Admin'">
+            <p class="lead">{{ join.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <div v-if="role==='Admin'">
+            <textarea
+              class="form-control description"
+              id="inputTeamDescription"
+              rows="3"
+              for="inputTeamDescription"
+              v-model="team.description"
+              placeholder="�rj a csapatr�l p�r sz�t!"
+              @change="updateTeamDescription"
+            ></textarea>
+          </div>
+          <div v-if="role !=='Admin'">
+            <p class="lead">{{ team.description }}</p>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div v-if="role==='Admin'">
+            <textarea
+              class="form-control title"
+              id="inputTeamTitle"
+              rows="3"
+              for="inputTeamTitle"
+              v-model="team.title"
+              placeholder="A csapat"
+              @change="updateTeamTitle"
+            ></textarea>
+          </div>
+          <div v-if="role !=='Admin'">
+            <h2 class="featurette-heading">{{ team.title }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <hr class="featurette-divider" />
+
+      <!-- /END THE FEATURETTES -->
+    </div>
     <!-- /.container -->
   </main>
 </body>
@@ -189,8 +210,8 @@ export default {
         ])
         .then(
           //res => console.log(res.data),
-            console.log(this.history.description),
-            this.makeToast()
+          console.log(this.history.description),
+          this.makeToast()
         )
         .catch(e => {
           this.errors.push(e);
@@ -207,7 +228,7 @@ export default {
         ])
         .then(
           //res => console.log(res.data),
-            console.log(this.history.title)
+          console.log(this.history.title)
         )
         .catch(e => {
           this.errors.push(e);
@@ -224,8 +245,8 @@ export default {
         ])
         .then(
           //res => console.log(res.data),
-            console.log(this.join.description),
-            this.makeToast()
+          console.log(this.join.description),
+          this.makeToast()
         )
         .catch(e => {
           this.errors.push(e);
@@ -242,50 +263,51 @@ export default {
         ])
         .then(
           //res => console.log(res.data),
-            console.log(this.join.title)
+          console.log(this.join.title)
         )
         .catch(e => {
           this.errors.push(e);
         });
     },
     updateTeamDescription() {
-        axios
-            .patch("http://localhost:52140/api/Contents/".concat(this.team.id), [
-                {
-                    op: "replace",
-                    path: "/contentString",
-                    value: this.team.description
-                }
-            ])
-            .then(
-                //res => console.log(res.data),
-                console.log(this.team.description)
+      axios
+        .patch("http://localhost:52140/api/Contents/".concat(this.team.id), [
+          {
+            op: "replace",
+            path: "/contentString",
+            value: this.team.description
+          }
+        ])
+        .then(
+          //res => console.log(res.data),
+          console.log(this.team.description)
         )
         .catch(e => {
           this.errors.push(e);
         });
     },
     updateTeamTitle() {
-        axios
-            .patch("http://localhost:52140/api/Contents/".concat(this.team.id), [
-                {
-                    op: "replace",
-                    path: "/title",
-                    value: this.team.title
-                }
-            ])
-            .then(
-                //res => console.log(res.data),
-                console.log(this.team.title)
+      axios
+        .patch("http://localhost:52140/api/Contents/".concat(this.team.id), [
+          {
+            op: "replace",
+            path: "/title",
+            value: this.team.title
+          }
+        ])
+        .then(
+          //res => console.log(res.data),
+          console.log(this.team.title)
         )
         .catch(e => {
           this.errors.push(e);
         });
     }
-},
-    
+  },
+
   data() {
     return {
+      mainTitle: "Rólunk",
       job: {
         description: null,
         title: null,
@@ -307,7 +329,7 @@ export default {
         id: null
       },
 
-        role: null
+      role: null
     };
   },
   async mounted() {
@@ -369,5 +391,11 @@ textarea {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.lead {
+  text-align: justify;
+}
+body {
+  padding: 0px;
 }
 </style>
