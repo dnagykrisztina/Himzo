@@ -16,6 +16,36 @@
           <h1 class="display-3">{{ title.title }}</h1>
         </div>
 
+            <div v-if="role==='Admin'">
+                <textarea class="form-control title"
+                          id="inputTitle"
+                          for="inputTitle"
+                          v-model="title"
+                          placeholder="Amivel foglalkozunk"
+                          @change="updateTitle"></textarea>
+            </div>
+            <div v-if="role !=='Admin'">
+                <h1 class="display-3">{{ title }}</h1>
+            </div>
+
+            
+            <div v-if="role==='Admin'">
+                <textarea class="form-control description"
+                          id="inputtitleDescription"
+                          rows="3"
+                          for="inputtitleDescription"
+                          v-model="titleDescription"
+                          placeholder="Írj pár szót a körről!"
+                          @change="updateTitleDescription"></textarea>
+            </div>
+            <div v-if="role !=='Admin'">
+                <p>{{ titleDescription }}</p>
+            </div>
+            <p>
+                <a class="btn btn-primary btn-lg"
+                   @click="aboutus"
+                   role="button">{{ moreButton }}&raquo;</a>
+            </p>
         <div v-if="role==='Admin'">
           <textarea
             class="form-control description"
@@ -120,13 +150,14 @@ export default {
 </script>
 
 <style scoped>
+  height: 98px;
 textarea {
   background: transparent;
   border: 0 none;
   width: 100%;
   outline: none;
   resize: none;
-  height: auto;
+  height: 98px;
 }
 
 .title {

@@ -90,10 +90,10 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row ml-1 mt-5">
                 <hr class="mb-4" />
-                <a class="btn btn-primary" v-on:click="reset" type="reset">{{ cancelButton }}</a>
-                <a class="btn btn-primary" type="submit" v-on:click="checkForm">{{ orderButton }}</a>
+                <a class="btn btn-lg  btn-outline-primary mr-4" v-on:click="reset" type="reset">{{ cancelButton }}</a>
+                <a class="btn btn-lg  btn-outline-primary" type="submit" v-on:click="checkForm">{{ orderButton }}</a>
               </div>
             </form>
             <notifications position="top center" width="30%" class="error" group="err" max="3" />

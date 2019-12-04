@@ -128,7 +128,7 @@ li a,
   display: inline-block;
   color: white;
   text-align: center;
-
+  cursor: pointer;
   text-decoration: none;
 }
 
@@ -143,19 +143,21 @@ li.dropdown {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  text-align: center;
 }
 
 .dropdown-content a {
-  background-color: #445c3c;
-  color: white;
+  text-align: center;
+  color: lightgrey;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
-  text-align: left;
+  cursor: pointer;
 }
 
 .dropdown-content a:hover {
-  background-color: #263d1e;
+  color: whitesmoke;
+  background-color:#445c3c;
 }
 
 .dropdown:hover .dropdown-content {

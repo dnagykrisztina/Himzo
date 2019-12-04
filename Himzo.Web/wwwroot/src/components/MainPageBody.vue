@@ -614,7 +614,7 @@ textarea {
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-.description {
+.description{
   font-size: 1.25rem;
   font-weight: 300;
   margin-top: 0;
@@ -622,6 +622,7 @@ textarea {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  height: fit-content;
 }
 .marketing .col-md-5 {
   text-align: left;

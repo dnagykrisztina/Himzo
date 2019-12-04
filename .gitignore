@@ -7,4 +7,4 @@
 **/obj
 /Himzo.Web/wwwroot/node_modules
 /Himzo.Web/wwwroot/src/node_modules/.cache/vue-loader
-/Himzo.Web/wwwroot/dist/js
+/Himzo.Web/wwwroot/dist

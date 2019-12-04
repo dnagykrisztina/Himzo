@@ -7,6 +7,7 @@ import VueAxios from "vue-axios";
 window.axios = require("axios");
 import Notifications from "vue-notification";
 
+
 Vue.use(coverflow);
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;

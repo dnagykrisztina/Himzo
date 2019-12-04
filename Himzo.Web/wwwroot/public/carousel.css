@@ -99,14 +99,18 @@ body {
 
 /*Button*/
 .btn {
-  color: #f1f1f1;
-  background-color: #ff7e67;
-  border-color: rgb(139, 69, 56);
+    color: whitesmoke !important;
+    background-color: #216583;
+    border-color: #161c36;
 }
-.btn:hover {
-  background-color: rgb(139, 69, 56);
-  border-color: #ff7e67;
-}
+    .btn:hover {
+        background-color: #1b536b;
+        border-color: #0d2530;
+    }
+
+    .btn:not(:disabled):not(.disabled) {
+        cursor: pointer;
+    }
 
 .bd-placeholder-img {
   font-size: 1.125rem;
