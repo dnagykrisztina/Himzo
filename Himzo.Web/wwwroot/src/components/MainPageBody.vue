@@ -42,26 +42,28 @@
             <coverflow :coverList="coverList0" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
           <div v-if="role==='Admin'" class="row">
-              <div class="col-6">
-                  <input type="file"
-                         class="custom-file-input col-5"
-                         id="customFile"
-                         v-validate="'image'"
-                         data-vv-as="image"
-                         name="image_field"
-                         @change="setImage($event, 0)" />
-                  <label class="custom-file-label" for="customFile">
-                      {{
-                        chooseFile0
-                      }}
-                  </label>
-              </div>
-                  <span class="btn btn-primary col-5"
-                     value="submit"
-                     type="submit"
-                     v-on:click="postImage(0)">
-                      Mentés
-                  </span>
+            <div class="col-6">
+              <input
+                type="file"
+                class="custom-file-input col-5"
+                id="customFile0"
+                v-validate="'image0'"
+                data-vv-as="image"
+                name="image_field"
+                @change="setImage($event, 0)"
+              />
+              <label class="custom-file-label" for="customFile0">
+                {{
+                chooseFile0
+                }}
+              </label>
+            </div>
+            <span
+              class="btn btn-primary col-5"
+              value="submit"
+              type="submit"
+              v-on:click="postImage(0)"
+            >Mentés</span>
           </div>
         </div>
       </div>
@@ -105,26 +107,28 @@
             <coverflow :coverList="coverList1" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
           <div v-if="role==='Admin'" class="row">
-              <div class="col-6">
-                  <input type="file"
-                         class="custom-file-input col-5"
-                         id="customFile"
-                         v-validate="'image'"
-                         data-vv-as="image"
-                         name="image_field"
-                         @change="setImage($event, 1)" />
-                  <label class="custom-file-label" for="customFile">
-                      {{
-                        chooseFile1
-                      }}
-                  </label>
-              </div>
-              <span class="btn btn-primary col-5"
-                value="submit"
-                type="submit"
-                v-on:click="postImage(1)"
-                >Mentés
-              </span>
+            <div class="col-6">
+              <input
+                type="file"
+                class="custom-file-input col-5"
+                id="customFile1"
+                v-validate="'image1'"
+                data-vv-as="image"
+                name="image_field"
+                @change="setImage($event, 1)"
+              />
+              <label class="custom-file-label" for="customFile1">
+                {{
+                chooseFile1
+                }}
+              </label>
+            </div>
+            <span
+              class="btn btn-primary col-5"
+              value="submit"
+              type="submit"
+              v-on:click="postImage(1)"
+            >Mentés</span>
           </div>
         </div>
       </div>
@@ -167,26 +171,28 @@
             <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
           <div v-if="role==='Admin'" class="row">
-              <div class="col-6">
-                  <input type="file"
-                         class="custom-file-input col-5"
-                         id="customFile"
-                         v-validate="'image'"
-                         data-vv-as="image"
-                         name="image_field"
-                         @change="setImage($event, 2)" />
-                  <label class="custom-file-label" for="customFile">
-                      {{
-                        chooseFile2
-                      }}
-                  </label>
-              </div>
-              <span class="btn btn-primary col-5"
-                value="submit"
-                type="submit"
-                v-on:click="postImage(2)"
-                >Mentés
-              </span>
+            <div class="col-6">
+              <input
+                type="file"
+                class="custom-file-input col-5"
+                id="customFile2"
+                v-validate="'image2'"
+                data-vv-as="image"
+                name="image_field"
+                @change="setImage($event, 2)"
+              />
+              <label class="custom-file-label" for="customFile2">
+                {{
+                chooseFile2
+                }}
+              </label>
+            </div>
+            <span
+              class="btn btn-primary col-5"
+              value="submit"
+              type="submit"
+              v-on:click="postImage(2)"
+            >Mentés</span>
           </div>
         </div>
       </div>
@@ -206,9 +212,123 @@ import axios from "axios";
 
 export default {
   name: "MainPageBody",
-  props: {},
-  datat: {
-    username: null
+  data() {
+    return {
+      auth: false,
+      chooseFile0: "Válassz képet",
+      chooseFile1: "Válassz képet",
+      chooseFile2: "Válassz képet",
+      saveButton: "Mentés",
+      image0: null,
+      image1: null,
+      image2: null,
+      role: null,
+      patch: {
+        title: null,
+        description: null,
+        id: null
+      },
+      embroideredPattern: {
+        title: null,
+        description: null,
+        id: null
+      },
+      sweater: {
+        title: null,
+        description: null,
+        id: null
+      },
+      coverList0: [
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        }
+      ],
+      coverList1: [
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        }
+      ],
+      coverList2: [
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        }
+      ]
+    };
   },
   methods: {
     patchForm: function() {
@@ -362,7 +482,15 @@ export default {
         const reader = new FileReader();
 
         reader.onload = event => {
-          this.image = event.target.result.slice(23);
+          if (i === 0) {
+            this.image0 = event.target.result.slice(23);
+          }
+          if (i === 1) {
+            this.image1 = event.target.result.slice(23);
+          }
+          if (i === 2) {
+            this.image2 = event.target.result.slice(23);
+          }
         };
         reader.readAsDataURL(file);
       } else {
@@ -371,12 +499,23 @@ export default {
     },
     postImage: function(itype) {
       const loc = location;
+      var postImage;
       //const myStatus = this;
-      console.log(this.image);
+      if (itype === 0) {
+        postImage = this.image0;
+      }
+      if (itype === 1) {
+        postImage = this.image1;
+      }
+      if (itype === 2) {
+        postImage = this.image2;
+      }
+      console.log(this.postImage);
+      console.log(itype);
       axios
         .post(`http://localhost:52140/api/Images`, {
           path: "welcome",
-          byteImage: this.image,
+          byteImage: postImage,
           type: itype,
           active: true
         })
@@ -387,122 +526,6 @@ export default {
           console.log(error);
         });
     }
-  },
-  data() {
-    return {
-      auth: false,
-      chooseFile0: "Válassz képet",
-      chooseFile1: "Válassz képet",
-      chooseFile2: "Válassz képet",
-      saveButton: "Mentés",
-      patch: {
-        title: null,
-        description: null,
-        id: null
-      },
-      embroideredPattern: {
-        title: null,
-        description: null,
-        id: null
-      },
-      sweater: {
-        title: null,
-        description: null,
-        id: null
-      },
-      image: null,
-      role: null,
-      coverList0: [
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        }
-      ],
-      coverList1: [
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        }
-      ],
-      coverList2: [
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        },
-        {
-          cover: null
-        }
-      ]
-    };
   },
 
   async mounted() {
@@ -600,6 +623,6 @@ textarea {
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 .marketing .col-md-5 {
-     text-align: left; 
+  text-align: left;
 }
 </style>
