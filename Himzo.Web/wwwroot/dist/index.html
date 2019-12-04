@@ -12,4 +12,13 @@
                 $("html, body").animate({ scrollTop: 400 }, 600);
                 return false;
             });
-        });</script><link href=/css/app.2eb7fd97.css rel=preload as=style><link href=/js/app.0a837198.js rel=preload as=script><link href=/js/chunk-vendors.59af55d8.js rel=preload as=script><link href=/css/app.2eb7fd97.css rel=stylesheet></head><body><noscript><strong>We're sorry but himzo doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.59af55d8.js></script><script src=/js/app.0a837198.js></script></body></html>
+        });</script><script>$('body').on('focus', '[contenteditable]', function() {
+            const $this = $(this);
+            $this.data('before', $this.html());
+         }).on('blur keyup paste input', '[contenteditable]', function() {
+                const $this = $(this);
+                if ($this.data('before') !== $this.html()) {
+                    $this.data('before', $this.html());
+                    $this.trigger('change');
+                }
+         });</script><link href=/css/app.e08df75a.css rel=preload as=style><link href=/js/app.f734e356.js rel=preload as=script><link href=/js/chunk-vendors.e65f9436.js rel=preload as=script><link href=/css/app.e08df75a.css rel=stylesheet></head><body><noscript><strong>We're sorry but himzo doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.e65f9436.js></script><script src=/js/app.f734e356.js></script></body></html>
