@@ -2,9 +2,6 @@
 <body>
   <main role="main">
     <div class="container marketing">
-      <!-- START THE FEATURETTES -->
-      <!--<img :src="dataUrl" />-->
-
       <div class="row featurette">
         <div class="col-md-7">
           <div v-if="role==='Admin'">
@@ -297,9 +294,15 @@ export default {
         },
         {
           cover: null
+        },
+        {
+          cover: null
         }
       ],
       coverList2: [
+        {
+          cover: null
+        },
         {
           cover: null
         },
@@ -461,8 +464,6 @@ export default {
     },
     setImage: function(e, i) {
       const file = e.target.files[0];
-      console.log(e);
-      console.log(i);
 
       if (!file.type.includes("image/")) {
         alert("Please select an image file");
@@ -500,7 +501,6 @@ export default {
     postImage: function(itype) {
       const loc = location;
       var postImage;
-      //const myStatus = this;
       if (itype === 0) {
         postImage = this.image0;
       }
@@ -577,6 +577,7 @@ export default {
     try {
       const response = await axios.get("http://localhost:52140/api/User");
       this.role = response.data.roles[0];
+      console.log(response.status);
       if (response.status === 200) {
         this.auth = true;
       } else {

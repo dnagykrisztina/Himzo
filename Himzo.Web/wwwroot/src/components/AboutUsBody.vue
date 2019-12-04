@@ -175,10 +175,7 @@ export default {
             value: this.job.description
           }
         ])
-        .then(
-          //res => console.log(res.data),
-          console.log(this.job.description)
-        )
+        .then(console.log(this.job.description))
         .catch(e => {
           this.errors.push(e);
         });
@@ -192,10 +189,7 @@ export default {
             value: this.job.title
           }
         ])
-        .then(
-          //res => console.log(res.data),
-          console.log(this.job.title)
-        )
+        .then(console.log(this.job.title))
         .catch(e => {
           this.errors.push(e);
         });
@@ -346,12 +340,6 @@ export default {
       this.team.title = res.data[3].title;
       this.team.description = res.data[3].contentString;
       this.team.id = res.data[3].contentId;
-      /* var i;
-                this.allcontents = res.data;
-                for (i = 0; i < this.allcontents.length; i++) {
-                  this.contents[i].title = this.allcontents[i].title;
-                  this.contents[i].description = this.allcontents[i].contentString;*/
-      // }
     } catch (e) {
       console.log(e);
     }

@@ -8,8 +8,6 @@
   </div>
   <body>
     <main role="main">
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-
       <div class="container">
         <div v-if="errors.length" class="alert alert-danger" role="alert">
           <div class="pl-2">

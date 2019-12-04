@@ -1,26 +1,26 @@
 <template>
-    <div>
-        <div class="jumbotron">
-            <div class="container">
-                <h1 class="display-3">{{ title }}</h1>
+<div>
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">{{ title }}</h1>
 
-                <p>{{ titleDescription }}</p>
-            </div>
-        </div>
-        <body>
-            <main role="main">
-                <!-- Main jumbotron for a primary marketing message or call to action -->
-
-            </main>
-
-            <main role="main" class="container">
-                <!--<userorder v-for="order in orders" v-bind:key="order.id" v-bind:order="order"></userorder> -->
-                <userorder v-for="order in orders.slice().reverse()" v-bind:key="order.id" v-bind:order="order"></userorder>
-
-                <hr class="featurette-divider" />
-            </main>
-        </body>
+      <p>{{ titleDescription }}</p>
     </div>
+  </div>
+  <body>
+    <main role="main"></main>
+
+    <main role="main" class="container">
+      <userorder
+        v-for="order in orders.slice().reverse()"
+        v-bind:key="order.id"
+        v-bind:order="order"
+      ></userorder>
+
+      <hr class="featurette-divider" />
+    </main>
+  </body>
+</div>
 </template>
 
  

@@ -8,8 +8,6 @@
 
   <body>
     <main role="main">
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-
       <div class="container jumbotron">
         <div class="d-flex justify-content-between">
           <div class="col-5 text-right h3 p-4">{{ username }}</div>
@@ -46,43 +44,22 @@ export default {
     };
   },
   async mounted() {
-    //Username
     try {
-        const res = await axios.get("http://localhost:52140/api/User");
-        if (res.status === 200) {
-            this.auth = true;
-        } else {
-            this.auth = false;
-        }
-        this.username_ = res.data.userName;
-        this.university_ = res.data.university;
-        this.email_ = res.data.email;
+      const res = await axios.get("http://localhost:52140/api/User");
+      if (res.status === 200) {
+        this.auth = true;
+      } else {
+        this.auth = false;
+      }
+      this.username_ = res.data.userName;
+      this.university_ = res.data.university;
+      this.email_ = res.data.email;
     } catch (e) {
-          console.log(e);
+      console.log(e);
     }
 
     if (!this.auth) {
-        this.$router.push("/");
-    }
-  },
-  methods: {
-    postPost() {
-      axios
-        .push(`http://localhost:52140/api/User`, {
-          /* size: this.inputSize,
-          amount: this.inputAmount,
-          deadline: this.inputDeadline,
-          pattern: null,
-          orderComment: this.inputComment,
-          orderTime: this.orderTime,
-          fonts: this.inputFonts,
-          type: 0,
-          patternPlace: this.inputPatternLocation*/
-        })
-        // .then(response => {})
-        .catch(e => {
-          this.errors.push(e);
-        });
+      this.$router.push("/");
     }
   }
 };

@@ -93,7 +93,6 @@ export default {
         id: null
       },
       moreButton: "Tudj meg többet",
-      //contents: [{ key: "title", title: null, description: null }],
       postBody: "",
       errors: [],
       role: null

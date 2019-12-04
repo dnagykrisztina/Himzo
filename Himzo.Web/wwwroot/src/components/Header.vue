@@ -15,23 +15,26 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#down" id="scrolldown" >{{ order }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
-                </li>
-                <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'">
-                    <a class="nav-link" @click="userorder">{{ myOrders }}</a>
-                </li>
-                <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag'">
-                    <a class="nav-link" @click="allorder">{{ allOrder }}</a>
-                </li>
-                <li class="nav-item" v-if="role=== 'Admin'">
-                    <a class="nav-link" @click="members">{{ memberss }}</a>
-                </li>
-            </ul>
+          <ul class="navbar-nav mr-auto">
+            <li v-if="this.currentRoute === 'Index'" class="nav-item">
+              <a class="nav-link" href="#" id="scrolldown">{{ order }}</a>
+            </li>
+            <li v-if="this.currentRoute !== 'Index'" class="nav-item">
+              <a class="nav-link" @click="index">{{ order }}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
+            </li>
+            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'">
+              <a class="nav-link" @click="userorder">{{ myOrders }}</a>
+            </li>
+            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag'">
+              <a class="nav-link" @click="allorder">{{ allOrder }}</a>
+            </li>
+            <li class="nav-item" v-if="role=== 'Admin'">
+              <a class="nav-link" @click="members">{{ memberss }}</a>
+            </li>
+          </ul>
           <!--<a class="nav-link btn btn-success" @click="signin">{{ signIn }}</a>-->
           <a
             class="dropdown nav-item my-2 my-sm-0"
@@ -58,10 +61,27 @@
 import axios from "axios";
 export default {
   name: "Header",
-  props: {},
+  data() {
+    return {
+      currentRoute: null,
+      titleHimzo: "Hímző",
+      order: "Rendelés",
+      myOrders: "Rendeléseim",
+      aboutUs: "Rólunk",
+      username: "",
+      profile: "Profilom",
+      signOut: "Kilépés",
+      signIn: "Bejelentkezés",
+      allOrder: "Rendelések",
+      memberss: "Körtagok",
+      role: null
+    };
+  },
   methods: {
+    index() {
+      this.$router.push("/");
+    },
     aboutus() {
-      console.log("valami");
       this.$router.push("/aboutus");
     },
     profileroute() {
@@ -77,30 +97,17 @@ export default {
       this.$router.push("/userorder");
     },
     allorder() {
-      console.log("valami");
+      console.log(location);
       this.$router.push("/allorder");
-    },
-    members() {
-      console.log("valami");
-      this.$router.push("/members");
     }
   },
-  data() {
-    return {
-      titleHimzo: "Hímző",
-      order: "Rendelés",
-      myOrders: "Rendeléseim",
-      aboutUs: "Rólunk",
-      username: "",
-      profile: "Profilom",
-      signOut: "Kilépés",
-      signIn: "Bejelentkezés",
-      allOrder: "Rendelések",
-      memberss: "Körtagok",
-      role: null
-    };
-  },
+
   async mounted() {
+    try {
+      this.currentRoute = this.$route.name;
+    } catch (e) {
+      console.log(e);
+    }
     //Username
     try {
       const res = await axios.get("http://localhost:52140/api/User");
@@ -139,7 +146,8 @@ li.dropdown {
 }
 
 .dropdown-content a {
-  color: black;
+  background-color: #445c3c;
+  color: white;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -147,7 +155,7 @@ li.dropdown {
 }
 
 .dropdown-content a:hover {
-  background-color: #f1f1f1;
+  background-color: #263d1e;
 }
 
 .dropdown:hover .dropdown-content {

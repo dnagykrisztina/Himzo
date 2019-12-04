@@ -158,11 +158,3 @@ body {
   margin: 10%;
   width: 100%;
 }
-
-.dropdown-content a {
-  background-color: #445c3c;
-  color: white;
-}
-.dropdown-content a:hover {
-  background-color: #263d1e;
-}
