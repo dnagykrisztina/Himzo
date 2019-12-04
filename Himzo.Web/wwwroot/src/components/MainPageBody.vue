@@ -41,31 +41,27 @@
           <div class="demo row">
             <coverflow :coverList="coverList0" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
-          <div>
-            <div class="row">
-              <input
-                type="file"
-                class="custom-file-input col-5"
-                id="customFile"
-                v-validate="'image'"
-                data-vv-as="image"
-                name="image_field"
-                @change="setImage($event, 0)"
-              />
-              <label class="custom-file-label" for="customFile">
-                {{
-                chooseFile0
-                }}
-              </label>
-            </div>
-            <div class="row">
-              <a
-                class="btn btn-primary col-5"
-                value="submit"
-                type="submit"
-                v-on:click="postImage(0)"
-              >{{ saveButton }}</a>
-            </div>
+          <div v-if="role==='Admin'" class="row">
+              <div class="col-6">
+                  <input type="file"
+                         class="custom-file-input col-5"
+                         id="customFile"
+                         v-validate="'image'"
+                         data-vv-as="image"
+                         name="image_field"
+                         @change="setImage($event, 0)" />
+                  <label class="custom-file-label" for="customFile">
+                      {{
+                        chooseFile0
+                      }}
+                  </label>
+              </div>
+                  <span class="btn btn-primary col-5"
+                     value="submit"
+                     type="submit"
+                     v-on:click="postImage(0)">
+                      Mentés
+                  </span>
           </div>
         </div>
       </div>
@@ -108,31 +104,27 @@
           <div class="demo">
             <coverflow :coverList="coverList1" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
-          <div>
-            <div class="row">
-              <input
-                type="file"
-                class="custom-file-input col-5"
-                id="customFile"
-                v-validate="'image'"
-                data-vv-as="image"
-                name="image_field"
-                @change="setImage($event, 1)"
-              />
-              <label class="custom-file-label" for="customFile">
-                {{
-                chooseFile1
-                }}
-              </label>
-            </div>
-            <div class="row">
-              <a
-                class="btn btn-primary col-5"
+          <div v-if="role==='Admin'" class="row">
+              <div class="col-6">
+                  <input type="file"
+                         class="custom-file-input col-5"
+                         id="customFile"
+                         v-validate="'image'"
+                         data-vv-as="image"
+                         name="image_field"
+                         @change="setImage($event, 1)" />
+                  <label class="custom-file-label" for="customFile">
+                      {{
+                        chooseFile1
+                      }}
+                  </label>
+              </div>
+              <span class="btn btn-primary col-5"
                 value="submit"
                 type="submit"
                 v-on:click="postImage(1)"
-              >{{ saveButton }}</a>
-            </div>
+                >Mentés
+              </span>
           </div>
         </div>
       </div>
@@ -174,31 +166,27 @@
           <div class="demo">
             <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
-          <div>
-            <div class="row">
-              <input
-                type="file"
-                class="custom-file-input col-5"
-                id="customFile"
-                v-validate="'image'"
-                data-vv-as="image"
-                name="image_field"
-                @change="setImage($event, 2)"
-              />
-              <label class="custom-file-label" for="customFile">
-                {{
-                chooseFile2
-                }}
-              </label>
-            </div>
-            <div class="row">
-              <a
-                class="btn btn-primary col-5"
+          <div v-if="role==='Admin'" class="row">
+              <div class="col-6">
+                  <input type="file"
+                         class="custom-file-input col-5"
+                         id="customFile"
+                         v-validate="'image'"
+                         data-vv-as="image"
+                         name="image_field"
+                         @change="setImage($event, 2)" />
+                  <label class="custom-file-label" for="customFile">
+                      {{
+                        chooseFile2
+                      }}
+                  </label>
+              </div>
+              <span class="btn btn-primary col-5"
                 value="submit"
                 type="submit"
                 v-on:click="postImage(2)"
-              >{{ saveButton }}</a>
-            </div>
+                >Mentés
+              </span>
           </div>
         </div>
       </div>
@@ -610,5 +598,8 @@ textarea {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.marketing .col-md-5 {
+     text-align: left; 
 }
 </style>
