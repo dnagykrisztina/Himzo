@@ -38,9 +38,34 @@
         </div>
 
         <div class="col-md-5">
-          <div class="demo">
-            <!-- <coverflow :coverList="coverList" :coverWidth="100" :index="2" @change="handleChange"></coverflow> -->
+          <div class="demo row">
             <coverflow :coverList="coverList0" :width="400" :coverWidth="300" :index="1"></coverflow>
+          </div>
+          <div>
+            <div class="row">
+              <input
+                type="file"
+                class="custom-file-input col-5"
+                id="customFile"
+                v-validate="'image'"
+                data-vv-as="image"
+                name="image_field"
+                @change="setImage($event, 0)"
+              />
+              <label class="custom-file-label" for="customFile">
+                {{
+                chooseFile0
+                }}
+              </label>
+            </div>
+            <div class="row">
+              <a
+                class="btn btn-primary col-5"
+                value="submit"
+                type="submit"
+                v-on:click="postImage(0)"
+              >{{ saveButton }}</a>
+            </div>
           </div>
         </div>
       </div>
@@ -79,8 +104,36 @@
           </div>
           <a v-on:click="patternForm" class="btn btn-lg btn-block btn-outline-primary">Rendelés</a>
         </div>
-        <div class="col-md-5 order-md-1">
-          <coverflow :coverList="coverList1" :width="400" :coverWidth="300" :index="0"></coverflow>
+        <div class="col-md-5">
+          <div class="demo">
+            <coverflow :coverList="coverList1" :width="400" :coverWidth="300" :index="1"></coverflow>
+          </div>
+          <div>
+            <div class="row">
+              <input
+                type="file"
+                class="custom-file-input col-5"
+                id="customFile"
+                v-validate="'image'"
+                data-vv-as="image"
+                name="image_field"
+                @change="setImage($event, 1)"
+              />
+              <label class="custom-file-label" for="customFile">
+                {{
+                chooseFile1
+                }}
+              </label>
+            </div>
+            <div class="row">
+              <a
+                class="btn btn-primary col-5"
+                value="submit"
+                type="submit"
+                v-on:click="postImage(1)"
+              >{{ saveButton }}</a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -118,7 +171,35 @@
           </div>
         </div>
         <div class="col-md-5">
-          <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="1"></coverflow>
+          <div class="demo">
+            <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="1"></coverflow>
+          </div>
+          <div>
+            <div class="row">
+              <input
+                type="file"
+                class="custom-file-input col-5"
+                id="customFile"
+                v-validate="'image'"
+                data-vv-as="image"
+                name="image_field"
+                @change="setImage($event, 2)"
+              />
+              <label class="custom-file-label" for="customFile">
+                {{
+                chooseFile2
+                }}
+              </label>
+            </div>
+            <div class="row">
+              <a
+                class="btn btn-primary col-5"
+                value="submit"
+                type="submit"
+                v-on:click="postImage(2)"
+              >{{ saveButton }}</a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -269,11 +350,63 @@ export default {
         .catch(e => {
           this.errors.push(e);
         });
+    },
+    setImage: function(e, i) {
+      const file = e.target.files[0];
+      console.log(e);
+      console.log(i);
+
+      if (!file.type.includes("image/")) {
+        alert("Please select an image file");
+        return;
+      }
+      if (i === 0) {
+        this.chooseFile0 = e.target.files[0].name;
+      }
+      if (i === 1) {
+        this.chooseFile1 = e.target.files[0].name;
+      }
+      if (i === 2) {
+        this.chooseFile2 = e.target.files[0].name;
+      }
+
+      if (typeof FileReader === "function") {
+        const reader = new FileReader();
+
+        reader.onload = event => {
+          this.image = event.target.result.slice(23);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert("Sorry, FileReader API not supported");
+      }
+    },
+    postImage: function(itype) {
+      const loc = location;
+      //const myStatus = this;
+      console.log(this.image);
+      axios
+        .post(`http://localhost:52140/api/Images`, {
+          path: "welcome",
+          byteImage: this.image,
+          type: itype,
+          active: true
+        })
+        .then(function() {
+          loc.reload();
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
   data() {
     return {
       auth: false,
+      chooseFile0: "Válassz képet",
+      chooseFile1: "Válassz képet",
+      chooseFile2: "Válassz képet",
+      saveButton: "Mentés",
       patch: {
         title: null,
         description: null,
@@ -292,6 +425,21 @@ export default {
       image: null,
       role: null,
       coverList0: [
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
         {
           cover: null
         },
@@ -326,9 +474,27 @@ export default {
         },
         {
           cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
         }
       ],
       coverList2: [
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
+        {
+          cover: null
+        },
         {
           cover: null
         },
