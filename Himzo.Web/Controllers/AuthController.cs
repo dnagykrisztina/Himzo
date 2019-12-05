@@ -251,7 +251,7 @@ namespace Himzo.Web.Controllers
 			IList<string> userRoles = (await _UserManager.GetRolesAsync(user));
 			return new JsonResult(new UserResult
 			{
-				UserName = user.Email,
+				UserName = user.Name,
 				Email = user.Email,
 				University = user.University,
 				Roles = userRoles
