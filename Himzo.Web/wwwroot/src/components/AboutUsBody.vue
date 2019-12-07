@@ -307,7 +307,6 @@ export default {
 
   data() {
     return {
-      mainTitle: "Rólunk",
       job: {
         description: null,
         title: null,
@@ -393,10 +392,10 @@ textarea {
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-.lead {
-  text-align: justify;
+   p.lead{
+    cursor: default;
 }
-body {
-  padding: 0px;
+      h2.featurette-heading{
+    cursor: default;
 }
 </style>
