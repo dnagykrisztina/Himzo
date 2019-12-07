@@ -25,20 +25,20 @@
             <li class="nav-item">
               <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
             </li>
-            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'">
+            <li
+              class="nav-item"
+              v-if="role === 'Admin' || role === 'Kortag' || role === 'User'"
+            >
               <a class="nav-link" @click="userorder">{{ myOrders }}</a>
             </li>
-            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag'">
+            <li class="nav-item" v-if="role === 'Admin' || role === 'Kortag'">
               <a class="nav-link" @click="allorder">{{ allOrder }}</a>
-            </li>
-            <li class="nav-item" v-if="role=== 'Admin'">
-              <a class="nav-link" @click="members">{{ memberss }}</a>
             </li>
           </ul>
           <!--<a class="nav-link btn btn-success" @click="signin">{{ signIn }}</a>-->
           <a
             class="dropdown nav-item my-2 my-sm-0"
-            v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'"
+            v-if="role === 'Admin' || role === 'Kortag' || role === 'User'"
           >
             <a href="#" class="dropbtn nav-link">{{ username }}</a>
             <div class="dropdown-content">
@@ -49,8 +49,10 @@
           <button
             class="btn btn-outline-success my-2 my-sm-0"
             @click="signin"
-            v-if="role!== 'Admin' && role !== 'Kortag' && role !== 'User'"
-          >{{ signIn }}</button>
+            v-if="role !== 'Admin' && role !== 'Kortag' && role !== 'User'"
+          >
+            {{ signIn }}
+          </button>
         </div>
       </nav>
     </div>
@@ -153,11 +155,12 @@ li.dropdown {
   text-decoration: none;
   display: block;
   cursor: pointer;
+  background-color: #445c3c;
 }
 
 .dropdown-content a:hover {
   color: whitesmoke;
-  background-color:#445c3c;
+  background-color: #445c3c;
 }
 
 .dropdown:hover .dropdown-content {
