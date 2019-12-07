@@ -247,4 +247,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+    .file-input {
+    cursor: pointer;
+}
+label{
+    cursor: pointer;
+}
+input[type="file" i]{
+    cursor: pointer;
+}
+</style>

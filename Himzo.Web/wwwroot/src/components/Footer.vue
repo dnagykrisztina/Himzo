@@ -5,7 +5,7 @@
     <div class="container">
       <p class="float-right row">
         <!--<a href="#">{{scrollBackToTop}}</a>-->
-        <a href="#" id="scroll" style="display: none;">{{scrollBackToTop}}</a>
+        <a href="#" id="scroll" style="display: none; cursor: pointer;" >{{scrollBackToTop}}</a>
       </p>
     </div>
 
@@ -32,7 +32,7 @@
           data-trigger="focus"
           data-content="himzo@sch.bme.hu"
         >
-          <i class="fas fa-envelope mx-3 fa-2x"></i>
+          <i class="fas fa-envelope mx-3 fa-2x" style="cursor: pointer;"></i>
         </a>
       </a>
 
@@ -49,20 +49,20 @@
           data-trigger="focus"
           data-content="Schönherz Kollégium <br />819. szoba <br /> Irinyi József utca 42."
         >
-          <i class="fas fa-home mx-3 fa-2x"></i>
+          <i class="fas fa-home mx-3 fa-2x" style="cursor: pointer;"></i>
         </a>
       </a>
 
       <!-- Facebook -->
       <a href="https://www.facebook.com/pulcsi.es.foltmekor/">
-        <i class="fab fa-facebook-f mx-3 fa-2x"></i>
+        <i class="fab fa-facebook-f mx-3 fa-2x" style="cursor: pointer;"></i>
       </a>
       <!-- Social buttons -->
     </div>
     <!-- Footer Elements -->
 
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">{{copiright}}</div>
+    <div class="footer-copyright text-center py-3" >{{copiright}}</div>
     <!-- Copyright -->
   </footer>
   <!-- Footer -->
@@ -81,3 +81,10 @@ export default {
   }
 };
 </script>
+
+<style>
+
+    .footer-copyright{
+        cursor:default;
+    }
+</style>

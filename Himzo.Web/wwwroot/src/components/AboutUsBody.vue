@@ -349,6 +349,7 @@ textarea {
   outline: none;
   resize: none;
   height: auto;
+  cursor: pointer;
 }
 .title {
   font-weight: 400;
@@ -369,5 +370,11 @@ textarea {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+   p.lead{
+    cursor: default;
+}
+      h2.featurette-heading{
+    cursor: default;
 }
 </style>

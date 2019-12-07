@@ -76,9 +76,9 @@
           >
           </a>
         </div>
-        <label>
+        <label style="margin-top: 20px;">
           Nincs fiókod?
-          <a @click="register">Regisztrálj</a>
+          <a class="link pt-2" @click="register">Regisztrálj</a>
         </label>
         <p class="mt-5 mb-3 text-muted">&copy; Pulcsi és FoltMéKör</p>
       </form>
@@ -98,3 +98,18 @@ export default {
   }
 };
 </script>
+
+<style>
+
+a:not([href]):not([tabindex]).link {
+        color: #007bff;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+.text-muted{
+        cursor:default;
+    }
+h1{
+    cursor: default;
+}
+</style>

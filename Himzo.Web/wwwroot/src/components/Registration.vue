@@ -66,10 +66,10 @@
         >
           Regisztrálás
         </button>
-        <label>
-          Már van fiókod?
-          <a @click="signin">Jelenkezz be</a>
-        </label>
+            <label style="margin-top: 20px;">
+                Már van fiókod?
+                <a class="link" @click="signin">Jelenkezz be</a>
+            </label>
         <p class="mt-5 mb-3 text-muted">&copy; Pulcsi és FoltMéKör</p>
       </form>
     </body>
@@ -88,3 +88,19 @@ export default {
   }
 };
 </script>
+
+<style>
+
+   a:not([href]):not([tabindex]).link {
+        color: #007bff;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+   .text-muted{
+        cursor:default;
+    }
+   h1{
+    cursor: default;
+}
+   
+</style>

@@ -186,4 +186,10 @@ textarea {
   font-weight: 400;
   line-height: 1.5;
 }
+   p{
+    cursor: default;
+}
+      h1.display-3{
+    cursor: default;
+}
 </style>

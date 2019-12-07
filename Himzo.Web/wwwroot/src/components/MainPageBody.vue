@@ -167,7 +167,7 @@
           <div class="demo">
             <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
-          <div v-if="role==='Admin'" class="row">
+          <div v-if="role==='Admin'" class="row file-input">
             <div class="col-6">
               <input
                 type="file"
@@ -602,6 +602,7 @@ textarea {
   outline: none;
   resize: none;
   height: 70px;
+  cursor: pointer;
 }
 .title {
   font-weight: 400;
@@ -627,4 +628,21 @@ textarea {
 .marketing .col-md-5 {
   text-align: left;
 }
+.file-input {
+    cursor: pointer;
+}
+label{
+    cursor: pointer;
+}
+input[type="file" i]{
+    cursor: pointer;
+}
+
+   p.lead{
+    cursor: default;
+}
+      h2.featurette-heading{
+    cursor: default;
+}
+
 </style>

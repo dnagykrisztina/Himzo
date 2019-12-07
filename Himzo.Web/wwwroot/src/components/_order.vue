@@ -6,7 +6,7 @@
                     <div class="col-lg-9 col-sm-12">
                         <div class="row">
                             <div class="col">
-                                <h2> {{ order.userName }}</h2>
+                                <h2> {{ order.userName }} </h2>
                             </div>
                         </div>
                         <div class="row pb-4">
@@ -16,14 +16,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-1 text-center">
+                            <div class="col-1 text-center" >
                                 <h2 v-show="stateIcon == 0" class="fas fa-cog"> </h2>
                                 <h2 v-show="stateIcon == 1" class="fas fa-clock"></h2>
                                 <h2 v-show="stateIcon == 2" class="fas fa-check-circle"></h2>
                                 <h2 v-show="stateIcon == 3" class="fas fa-times-circle"></h2>
                             </div>
                             <div class="col">
-                                <select v-model="order.orderState" class="mb-3 form-control " @change="updateState()">
+                                <select v-model="order.orderState" class="mb-3 form-control " @change="updateState()" style="cursor: pointer;">
                                     <option value="0"> Rendelés feldolgozás alatt</option>
                                     <option value="1"> Folyamatban</option>
                                     <option value="2"> Kész</option>
@@ -37,6 +37,7 @@
                             </div>
                             <div class="col-11 ">
                                 <textarea class="form-control"
+                                          style="cursor: pointer;"
                                           id="inputComment"
                                           rows="3"
                                           for="inputComment"
@@ -52,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12 text-center">
+                    <div class="col-lg-3 col-sm-12 text-center pl-0">
                         <div class="row ">
                             <div class="col">
                                 <b-button class="btn btn-lg  btn-outline-primary" typeof=" button" id="show-btn" @click="showModal">Rendelés adatai &raquo;</b-button>
