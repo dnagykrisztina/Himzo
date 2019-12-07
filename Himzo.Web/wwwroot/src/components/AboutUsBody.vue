@@ -1,11 +1,11 @@
 <template>
 <body>
   <main role="main">
-    <div class="jumbotron">
+    <!-- <div class="jumbotron">
       <div class="container">
         <h1 class="display-3">{{mainTitle}}</h1>
       </div>
-    </div>
+    </div>-->
     <div class="container marketing">
       <!-- START THE FEATURETTES -->
 

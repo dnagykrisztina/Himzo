@@ -30,7 +30,7 @@
         <div v-if="role !== 'Admin'">
           <p>{{ title.description }}</p>
         </div>
-        <p>
+        <p  v-if="this.currentRoute !== 'AboutUs'">
           <a class="btn btn-primary btn-lg" @click="aboutus" role="button"
             >{{ moreButton }}&raquo;</a
           >
@@ -97,7 +97,8 @@ export default {
       moreButton: "Tudj meg többet",
       postBody: "",
       errors: [],
-      role: null
+      role: null,
+      currentRoute: null
     };
   },
   async mounted() {
@@ -114,6 +115,11 @@ export default {
     try {
       const response = await axios.get("http://localhost:52140/api/User");
       this.role = response.data.roles[0];
+    } catch (e) {
+      console.log(e);
+    }
+     try {
+      this.currentRoute = this.$route.name;
     } catch (e) {
       console.log(e);
     }
