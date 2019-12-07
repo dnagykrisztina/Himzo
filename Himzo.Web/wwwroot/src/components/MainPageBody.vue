@@ -510,6 +510,10 @@ export default {
       if (itype === 2) {
         postImage = this.image2;
       }
+      if (postImage === null) {
+        alert("Válassz ki képet!");
+        return;
+      }
       console.log(this.postImage);
       console.log(itype);
       axios
@@ -529,6 +533,18 @@ export default {
   },
 
   async mounted() {
+    try {
+      const response = await axios.get("http://localhost:52140/api/User");
+      this.role = response.data.roles[0];
+      console.log(response.status);
+      if (response.status === 200) {
+        this.auth = true;
+      } else {
+        this.auth = false;
+      }
+    } catch (e) {
+      console.log(e);
+    }
     try {
       const res = await axios.get(
         "http://localhost:52140/api/Contents?path=welcome"
@@ -570,18 +586,6 @@ export default {
       for (var k = 0; k < arrayLength2; k++) {
         let cover2 = "data:image/jpg;base64,".concat(img2.data[k].byteImage);
         this.coverList2[k].cover = cover2;
-      }
-    } catch (e) {
-      console.log(e);
-    }
-    try {
-      const response = await axios.get("http://localhost:52140/api/User");
-      this.role = response.data.roles[0];
-      console.log(response.status);
-      if (response.status === 200) {
-        this.auth = true;
-      } else {
-        this.auth = false;
       }
     } catch (e) {
       console.log(e);
@@ -632,20 +636,19 @@ textarea {
   text-align: justify;
 }
 .file-input {
-    cursor: pointer;
+  cursor: pointer;
 }
-label{
-    cursor: pointer;
+label {
+  cursor: pointer;
 }
-input[type="file" i]{
-    cursor: pointer;
-}
-
-   p.lead{
-    cursor: default;
-}
-      h2.featurette-heading{
-    cursor: default;
+input[type="file" i] {
+  cursor: pointer;
 }
 
+p.lead {
+  cursor: default;
+}
+h2.featurette-heading {
+  cursor: default;
+}
 </style>

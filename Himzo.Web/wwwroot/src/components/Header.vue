@@ -25,10 +25,7 @@
             <li class="nav-item">
               <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
             </li>
-            <li
-              class="nav-item"
-              v-if="role === 'Admin' || role === 'Kortag' || role === 'User'"
-            >
+            <li class="nav-item" v-if="role === 'Admin' || role === 'Kortag' || role === 'User'">
               <a class="nav-link" @click="userorder">{{ myOrders }}</a>
             </li>
             <li class="nav-item" v-if="role === 'Admin' || role === 'Kortag'">
@@ -50,9 +47,7 @@
             class="btn btn-outline-success my-2 my-sm-0"
             @click="signin"
             v-if="role !== 'Admin' && role !== 'Kortag' && role !== 'User'"
-          >
-            {{ signIn }}
-          </button>
+          >{{ signIn }}</button>
         </div>
       </nav>
     </div>
@@ -141,7 +136,7 @@ li.dropdown {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color:#445c3c;
+  background-color: #445c3c;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -149,7 +144,7 @@ li.dropdown {
 }
 
 .dropdown-content a {
-  text-align: center;
+  text-align: left;
   color: lightgrey;
   padding: 12px 16px;
   text-decoration: none;
