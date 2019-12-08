@@ -30,10 +30,8 @@
         <div v-if="role !== 'Admin'">
           <p>{{ title.description }}</p>
         </div>
-        <p  v-if="this.currentRoute !== 'AboutUs'">
-          <a class="btn btn-primary btn-lg" @click="aboutus" role="button"
-            >{{ moreButton }}&raquo;</a
-          >
+        <p v-if="this.currentRoute !== 'AboutUs'">
+          <a class="btn btn-primary btn-lg" @click="aboutus" role="button">{{ moreButton }}&raquo;</a>
         </p>
       </div>
     </div>
@@ -103,6 +101,12 @@ export default {
   },
   async mounted() {
     try {
+      const response = await axios.get("http://localhost:52140/api/User");
+      this.role = response.data.roles[0];
+    } catch (e) {
+      console.log(e);
+    }
+    try {
       const res = await axios.get(
         "http://localhost:52140/api/Contents?path=title"
       );
@@ -113,12 +117,6 @@ export default {
       console.log(e);
     }
     try {
-      const response = await axios.get("http://localhost:52140/api/User");
-      this.role = response.data.roles[0];
-    } catch (e) {
-      console.log(e);
-    }
-     try {
       this.currentRoute = this.$route.name;
     } catch (e) {
       console.log(e);
@@ -163,10 +161,10 @@ textarea {
   font-weight: 400;
   line-height: 1.5;
 }
-   p{
-    cursor: default;
+p {
+  cursor: default;
 }
-      h1.display-3{
-    cursor: default;
+h1.display-3 {
+  cursor: default;
 }
 </style>

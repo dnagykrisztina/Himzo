@@ -36,11 +36,11 @@ export default {
   data() {
     return {
       username: "Név",
-      username_: "Hahó",
+      username_: null,
       email: "E-mail cím",
-      email_: "vmi",
+      email_: null,
       university: "Egyetem",
-      university_: "BME"
+      university_: null
     };
   },
   async mounted() {
