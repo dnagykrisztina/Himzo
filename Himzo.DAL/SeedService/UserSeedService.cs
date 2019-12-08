@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Himzo.Dal.SeedService
 {
@@ -22,6 +23,15 @@ namespace Himzo.Dal.SeedService
             _roleManager = roleManager;
             _userManager = userManager;
             _context = context;
+        }
+
+        public byte[] GetPicture(string picturePath)
+        {
+            Assembly myAssembly = Assembly.GetExecutingAssembly();
+            Stream myStream = myAssembly.GetManifestResourceStream(picturePath);
+            MemoryStream ms = new MemoryStream();
+            myStream.CopyTo(ms);
+            return ms.ToArray();
         }
 
         public async Task SeedUserAsync()
@@ -90,9 +100,9 @@ namespace Himzo.Dal.SeedService
             var orderCount = _context.Orders.Count();
             if (orderCount == 0)
             {
-                byte[] FoltImage = System.IO.File.ReadAllBytes("../Himzo.DAL/Pictures/folt.png");
-                byte[] MintaImage = System.IO.File.ReadAllBytes("../Himzo.DAL/Pictures/minta.jpg");
-                byte[] PulcsiImage = System.IO.File.ReadAllBytes("../Himzo.DAL/Pictures/pulcsi.png");
+                byte[] FoltImage = GetPicture("Himzo.Dal.Pictures.folt.png");
+                byte[] MintaImage = GetPicture("Himzo.Dal.Pictures.minta.jpg");
+                byte[] PulcsiImage = GetPicture("Himzo.Dal.Pictures.pulcsi.png");
 
                 Comment Comment_1 = new Comment
                 {
