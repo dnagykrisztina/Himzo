@@ -82,11 +82,11 @@ steps:
   workingDirectory: '$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot'
   failOnStderr: true
 
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: '155afe11-1ab3-4fc0-906c-582fbee1d592'
-    appName: 'Himzo'
-    package: $(System.ArtifactsDirectory)/**/*.zip 
+#- task: AzureWebApp@1
+#  inputs:
+#    azureSubscription: '155afe11-1ab3-4fc0-906c-582fbee1d592'
+#    appName: 'Himzo'
+#    package: $(System.ArtifactsDirectory)/**/*.zip 
 
 - task: DotNetCoreCLI@2
   displayName: Publish results
