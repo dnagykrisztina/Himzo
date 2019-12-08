@@ -3,7 +3,7 @@
   <main role="main">
     <div class="container marketing">
       <div class="row featurette">
-        <div class="col-md-7">
+        <div class="col-md-7 pr-5">
           <div v-if="role==='Admin'">
             <textarea
               class="form-control title"
@@ -68,7 +68,7 @@
       <hr class="featurette-divider" />
 
       <div class="row featurette">
-        <div class="col-md-7 order-md-2">
+        <div class="col-md-7 order-md-2 pl-5">
           <div v-if="role==='Admin'">
             <textarea
               class="form-control title"
@@ -133,7 +133,7 @@
       <hr class="featurette-divider" />
 
       <div class="row featurette" id="down">
-        <div class="col-md-7">
+        <div class="col-md-7 pr-5">
           <div v-if="role==='Admin'">
             <textarea
               class="form-control title"
@@ -167,7 +167,7 @@
           <div class="demo">
             <coverflow :coverList="coverList2" :width="400" :coverWidth="300" :index="1"></coverflow>
           </div>
-          <div v-if="role==='Admin'" class="row">
+          <div v-if="role==='Admin'" class="row file-input">
             <div class="col-6">
               <input
                 type="file"
@@ -510,6 +510,10 @@ export default {
       if (itype === 2) {
         postImage = this.image2;
       }
+      if (postImage === null) {
+        alert("Válassz ki képet!");
+        return;
+      }
       console.log(this.postImage);
       console.log(itype);
       axios
@@ -529,6 +533,18 @@ export default {
   },
 
   async mounted() {
+    try {
+      const response = await axios.get("http://localhost:52140/api/User");
+      this.role = response.data.roles[0];
+      console.log(response.status);
+      if (response.status === 200) {
+        this.auth = true;
+      } else {
+        this.auth = false;
+      }
+    } catch (e) {
+      console.log(e);
+    }
     try {
       const res = await axios.get(
         "http://localhost:52140/api/Contents?path=welcome"
@@ -574,18 +590,6 @@ export default {
     } catch (e) {
       console.log(e);
     }
-    try {
-      const response = await axios.get("http://localhost:52140/api/User");
-      this.role = response.data.roles[0];
-      console.log(response.status);
-      if (response.status === 200) {
-        this.auth = true;
-      } else {
-        this.auth = false;
-      }
-    } catch (e) {
-      console.log(e);
-    }
   },
   components: {
     coverflow
@@ -602,6 +606,7 @@ textarea {
   outline: none;
   resize: none;
   height: 70px;
+  cursor: pointer;
 }
 .title {
   font-weight: 400;
@@ -614,7 +619,7 @@ textarea {
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-.description{
+.description {
   font-size: 1.25rem;
   font-weight: 300;
   margin-top: 0;
@@ -626,5 +631,24 @@ textarea {
 }
 .marketing .col-md-5 {
   text-align: left;
+}
+.lead {
+  text-align: justify;
+}
+.file-input {
+  cursor: pointer;
+}
+label {
+  cursor: pointer;
+}
+input[type="file" i] {
+  cursor: pointer;
+}
+
+p.lead {
+  cursor: default;
+}
+h2.featurette-heading {
+  cursor: default;
 }
 </style>

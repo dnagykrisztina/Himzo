@@ -58,18 +58,24 @@
           required
           autofocus
         />
-
+        <p pt-3 style="font-size: 0.7rem;margin-top: 20px;">
+            
+            Ennek révén beleegyezel, és hozzájárulást
+            adsz az Adatkezelőnek ahhoz, hogy a személyes adataid
+            kezelésre és felhasználásra kerüljenek.
+        </p>
         <button
           class="btn btn-lg btn-primary btn-block mt-2 mb-2"
           type="button"
           onclick="signup()"
         >
+
           Regisztrálás
         </button>
-        <label>
-          Már van fiókod?
-          <a @click="signin">Jelenkezz be</a>
-        </label>
+            <label style="margin-top: 20px;">
+                Már van fiókod?
+                <a class="link" @click="signin">Jelenkezz be</a>
+            </label>
         <p class="mt-5 mb-3 text-muted">&copy; Pulcsi és FoltMéKör</p>
       </form>
     </body>
@@ -88,3 +94,19 @@ export default {
   }
 };
 </script>
+
+<style>
+
+   a:not([href]):not([tabindex]).link {
+        color: #007bff;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+   .text-muted{
+        cursor:default;
+    }
+   h1{
+    cursor: default;
+}
+   
+</style>

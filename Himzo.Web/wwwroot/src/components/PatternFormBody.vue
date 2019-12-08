@@ -92,8 +92,16 @@
 
               <div class="row ml-1 mt-5">
                 <hr class="mb-4" />
-                <a class="btn btn-lg  btn-outline-primary mr-4" v-on:click="reset" type="reset">{{ cancelButton }}</a>
-                <a class="btn btn-lg  btn-outline-primary" type="submit" v-on:click="checkForm">{{ orderButton }}</a>
+                <a
+                  class="btn btn-lg btn-outline-primary mr-4"
+                  v-on:click="reset"
+                  type="reset"
+                >{{ cancelButton }}</a>
+                <a
+                  class="btn btn-lg btn-outline-primary"
+                  type="submit"
+                  v-on:click="checkForm"
+                >{{ orderButton }}</a>
               </div>
             </form>
             <notifications position="top center" width="30%" class="error" group="err" max="3" />
@@ -118,17 +126,17 @@ export default {
       patternFormDescription:
         "Mintát hozott anyagra így meg amúgy tudsz hímeztetni.",
       chooseFile: "Válaszd ki a fájlt",
-      pattern: "Minta",
+      pattern: "Minta*",
       inputPattern: "null",
-      patternLocation: "Minta helye",
+      patternLocation: "Minta helye*",
       inputPatternLocation: null,
-      size: "Méret (cm)",
+      size: "Méret (cm)*",
       inputSize: null,
-      amount: "Mennyiség",
+      amount: "Mennyiség*",
       inputAmount: null,
-      deadline: "Határidő",
+      deadline: "Határidő*",
       inputDeadline: null,
-      fonts: "Mintában használt fontok",
+      fonts: "Mintában használt betűtípusok",
       inputFonts: "",
       comment: "Megjegyzés",
       inputComment: " ",
@@ -176,7 +184,7 @@ export default {
       const file = e.target.files[0];
 
       if (!file.type.includes("image/")) {
-        alert("Please select an image file");
+        alert("Kérlek, egy képet válassz");
         return;
       }
       this.chooseFile = e.target.files[0].name;
@@ -195,18 +203,19 @@ export default {
       }
     },
     checkForm: function(e) {
+      this.errors = [];
       if (
         this.inputPattern &&
         this.inputSize &&
         this.inputAmount &&
         this.inputDeadline &&
         this.inputPatternLocation &&
-        this.checkDate()
+        this.checkDate() &&
+        this.checkAmount()
       ) {
         this.postPost();
         return true;
       }
-      this.errors = [];
 
       if (!this.inputPattern) {
         this.errors.push({ id: 0, name: "a mintát" });
@@ -216,6 +225,9 @@ export default {
       }
       if (!this.inputAmount) {
         this.errors.push({ id: 3, name: "a mennyiséget" });
+      }
+      if (this.inputAmount && !this.checkAmount()) {
+        this.errors.push({ id: 3, name: "a mennyiséget (0<x<5000)" });
       }
       if (!this.inputDeadline) {
         this.errors.push({ id: 4, name: "a határidőt" });
@@ -242,9 +254,24 @@ export default {
       } else if (today < this.inputDeadline) {
         return true;
       }
+    },
+    checkAmount: function() {
+      if (this.inputAmount < 5000 && this.inputAmount > 0) {
+        return true;
+      } else return false;
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.file-input {
+  cursor: pointer;
+}
+label {
+  cursor: pointer;
+}
+input[type="file" i] {
+  cursor: pointer;
+}
+</style>

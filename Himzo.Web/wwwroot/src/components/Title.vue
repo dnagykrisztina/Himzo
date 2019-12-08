@@ -2,7 +2,7 @@
   <div>
     <div class="jumbotron">
       <div class="container">
-        <div v-if="role==='Admin'">
+        <div v-if="role === 'Admin'">
           <textarea
             class="form-control title"
             id="inputTitle"
@@ -12,56 +12,28 @@
             @change="updateTitle"
           ></textarea>
         </div>
-        <div v-if="role !=='Admin'">
+        <div v-if="role !== 'Admin'">
           <h1 class="display-3">{{ title.title }}</h1>
         </div>
 
-            <div v-if="role==='Admin'">
-                <textarea class="form-control title"
-                          id="inputTitle"
-                          for="inputTitle"
-                          v-model="title"
-                          placeholder="Amivel foglalkozunk"
-                          @change="updateTitle"></textarea>
-            </div>
-            <div v-if="role !=='Admin'">
-                <h1 class="display-3">{{ title }}</h1>
-            </div>
-
-            
-            <div v-if="role==='Admin'">
-                <textarea class="form-control description"
-                          id="inputtitleDescription"
-                          rows="3"
-                          for="inputtitleDescription"
-                          v-model="titleDescription"
-                          placeholder="Írj pár szót a körről!"
-                          @change="updateTitleDescription"></textarea>
-            </div>
-            <div v-if="role !=='Admin'">
-                <p>{{ titleDescription }}</p>
-            </div>
-            <p>
-                <a class="btn btn-primary btn-lg"
-                   @click="aboutus"
-                   role="button">{{ moreButton }}&raquo;</a>
-            </p>
-        <div v-if="role==='Admin'">
+        <div v-if="role === 'Admin'">
           <textarea
             class="form-control description"
             id="inputtitleDescription"
             rows="3"
             for="inputtitleDescription"
             v-model="title.description"
-            placeholder="Add meg mivel foglalkoztok!"
+            placeholder="Írj pár szót a körről!"
             @change="updateTitleDescription"
           ></textarea>
         </div>
-        <div v-if="role !=='Admin'">
+        <div v-if="role !== 'Admin'">
           <p>{{ title.description }}</p>
         </div>
-        <p>
-          <a class="btn btn-primary btn-lg" @click="aboutus" role="button">{{ moreButton }}&raquo;</a>
+        <p  v-if="this.currentRoute !== 'AboutUs'">
+          <a class="btn btn-primary btn-lg" @click="aboutus" role="button"
+            >{{ moreButton }}&raquo;</a
+          >
         </p>
       </div>
     </div>
@@ -125,7 +97,8 @@ export default {
       moreButton: "Tudj meg többet",
       postBody: "",
       errors: [],
-      role: null
+      role: null,
+      currentRoute: null
     };
   },
   async mounted() {
@@ -145,12 +118,16 @@ export default {
     } catch (e) {
       console.log(e);
     }
+     try {
+      this.currentRoute = this.$route.name;
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
 </script>
 
 <style scoped>
-  height: 98px;
 textarea {
   background: transparent;
   border: 0 none;
@@ -185,5 +162,11 @@ textarea {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
+}
+   p{
+    cursor: default;
+}
+      h1.display-3{
+    cursor: default;
 }
 </style>

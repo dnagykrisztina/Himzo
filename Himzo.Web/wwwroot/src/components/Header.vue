@@ -25,20 +25,17 @@
             <li class="nav-item">
               <a class="nav-link" @click="aboutus">{{ aboutUs }}</a>
             </li>
-            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'">
+            <li class="nav-item" v-if="role === 'Admin' || role === 'Kortag' || role === 'User'">
               <a class="nav-link" @click="userorder">{{ myOrders }}</a>
             </li>
-            <li class="nav-item" v-if="role=== 'Admin' || role === 'Kortag'">
+            <li class="nav-item" v-if="role === 'Admin' || role === 'Kortag'">
               <a class="nav-link" @click="allorder">{{ allOrder }}</a>
-            </li>
-            <li class="nav-item" v-if="role=== 'Admin'">
-              <a class="nav-link" @click="members">{{ memberss }}</a>
             </li>
           </ul>
           <!--<a class="nav-link btn btn-success" @click="signin">{{ signIn }}</a>-->
           <a
             class="dropdown nav-item my-2 my-sm-0"
-            v-if="role=== 'Admin' || role === 'Kortag' || role === 'User'"
+            v-if="role === 'Admin' || role === 'Kortag' || role === 'User'"
           >
             <a href="#" class="dropbtn nav-link">{{ username }}</a>
             <div class="dropdown-content">
@@ -49,7 +46,7 @@
           <button
             class="btn btn-outline-success my-2 my-sm-0"
             @click="signin"
-            v-if="role!== 'Admin' && role !== 'Kortag' && role !== 'User'"
+            v-if="role !== 'Admin' && role !== 'Kortag' && role !== 'User'"
           >{{ signIn }}</button>
         </div>
       </nav>
@@ -139,7 +136,7 @@ li.dropdown {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #445c3c;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -147,17 +144,18 @@ li.dropdown {
 }
 
 .dropdown-content a {
-  text-align: center;
+  text-align: left;
   color: lightgrey;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
   cursor: pointer;
+  background-color: #445c3c;
 }
 
 .dropdown-content a:hover {
   color: whitesmoke;
-  background-color:#445c3c;
+  background-color: #445c3c;
 }
 
 .dropdown:hover .dropdown-content {
