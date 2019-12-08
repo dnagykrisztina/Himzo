@@ -58,12 +58,18 @@
           required
           autofocus
         />
-
+        <p pt-3 style="font-size: 0.7rem;margin-top: 20px;">
+            
+            Ennek révén beleegyezel, és hozzájárulást
+            adsz az Adatkezelőnek ahhoz, hogy a személyes adataid
+            kezelésre és felhasználásra kerüljenek.
+        </p>
         <button
           class="btn btn-lg btn-primary btn-block mt-2 mb-2"
           type="button"
           onclick="signup()"
         >
+
           Regisztrálás
         </button>
             <label style="margin-top: 20px;">

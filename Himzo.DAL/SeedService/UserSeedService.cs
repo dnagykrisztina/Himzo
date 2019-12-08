@@ -442,6 +442,142 @@ namespace Himzo.Dal.SeedService
                     UpdateTime = new DateTime(2019, 11, 06, 0, 00, 00)
                 };
 
+                Content content21 = new Content()
+                {
+                    Title = "Hímző",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content22 = new Content()
+                {
+                    Title = "Keress minket",
+                    ContentString = null,
+                    Path = "footer",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content23 = new Content()
+                {
+                    Title = "Pulcsi és Foltmékör",
+                    ContentString = null,
+                    Path = "title",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content24 = new Content()
+                {
+                    Title = "Rendelj foltot",
+                    ContentString = null,
+                    Path = "welcome",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content25 = new Content()
+                {
+                    Title = "Ismerj meg minket",
+                    ContentString = null,
+                    Path = "aboutus",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content26 = new Content()
+                {
+                    Title = "Regisztrálj",
+                    ContentString = null,
+                    Path = "registration",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content27 = new Content()
+                {
+                    Title = "Bejelentkezés",
+                    ContentString = null,
+                    Path = "signin",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content28 = new Content()
+                {
+                    Title = "Folt mérete",
+                    ContentString = null,
+                    Path = "patchform",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content29 = new Content()
+                {
+                    Title = "Minta mérete",
+                    ContentString = null,
+                    Path = "patternform",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content30 = new Content()
+                {
+                    Title = "Rendelések állapota",
+                    ContentString = null,
+                    Path = "userorder",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content31 = new Content()
+                {
+                    Title = "Rendelések",
+                    ContentString = null,
+                    Path = "header_member",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content32 = new Content()
+                {
+                    Title = "Minden rendelés",
+                    ContentString = null,
+                    Path = "allorder",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content33 = new Content()
+                {
+                    Title = "Tagok",
+                    ContentString = null,
+                    Path = "members",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content34 = new Content()
+                {
+                    Title = "Jogok",
+                    ContentString = null,
+                    Path = "header_admin",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content35 = new Content()
+                {
+                    Title = "Admincím",
+                    ContentString = null,
+                    Path = "title_admin",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content36 = new Content()
+                {
+                    Title = "Szerkesztés",
+                    ContentString = null,
+                    Path = "welcome_admin",
+                    UpdateTime = new DateTime()
+                };
+
+                Content content37 = new Content()
+                {
+                    Title = "Szerkesztés",
+                    ContentString = null,
+                    Path = "aboutus_admin",
+                    UpdateTime = new DateTime()
+                };
+
                 _context.Contents.Add(content1);
                 _context.Contents.Add(content2);
                 _context.Contents.Add(content3);
@@ -462,9 +598,48 @@ namespace Himzo.Dal.SeedService
                 _context.Contents.Add(content18);
                 _context.Contents.Add(content19);
                 _context.Contents.Add(content20);
-
+                _context.Contents.Add(content21);
+                _context.Contents.Add(content22);
+                _context.Contents.Add(content23);
+                _context.Contents.Add(content24);
+                _context.Contents.Add(content25);
+                _context.Contents.Add(content26);
+                _context.Contents.Add(content27);
+                _context.Contents.Add(content28);
+                _context.Contents.Add(content29);
+                _context.Contents.Add(content30);
+                _context.Contents.Add(content31);
+                _context.Contents.Add(content32);
+                _context.Contents.Add(content33);
+                _context.Contents.Add(content34);
+                _context.Contents.Add(content35);
+                _context.Contents.Add(content36);
+                _context.Contents.Add(content37);
                 _context.SaveChanges();
 
+            }
+
+            var imageCount = _context.Images.Count();
+            if (imageCount == 0)
+            {
+                Image image1 = new Image()
+                {
+                    Path = "welcome",
+                    ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+                    Type = Order.ProductType.PULCSI,
+                    Active = true
+                };
+
+                Image image2 = new Image()
+                {
+                    Path = "aboutus",
+                    ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+                    Type = Order.ProductType.PULCSI,
+                    Active = true
+                };
+
+                _context.Images.Add(image1);
+                _context.Images.Add(image2);
             }
         }
     }
