@@ -45,7 +45,7 @@ namespace Himzo.Web.Controllers.Tests
 			Assert.IsNotNull(CurrentUser);
 			Assert.AreEqual(CurrentUser.Email, DbContent[0].Email);
 			Assert.AreEqual(CurrentUser.University, DbContent[0].University);
-			Assert.AreEqual(CurrentUser.UserName, DbContent[0].UserName);
+			Assert.AreEqual(CurrentUser.UserName, DbContent[0].Name);
 			Assert.IsTrue(CurrentUser.Roles.Contains("User"));
 		}
 
@@ -57,7 +57,7 @@ namespace Himzo.Web.Controllers.Tests
 			Assert.IsNotNull(CurrentUser);
 			Assert.AreEqual(CurrentUser.Email, DbContent[0].Email);
 			Assert.AreEqual(CurrentUser.University, DbContent[0].University);
-			Assert.AreEqual(CurrentUser.UserName, DbContent[0].UserName);
+			Assert.AreEqual(CurrentUser.UserName, DbContent[0].Name);
 			Assert.IsTrue(CurrentUser.Roles.Contains("User"));
 		}
 
