@@ -139,7 +139,143 @@ namespace HimzoTests.Controllers
 					Path = "profile",
 					UpdateTime = new DateTime()
 				},
-			};
+                new Content
+                {
+                    ContentId = 4,
+                    Title = "Hímző",
+                    ContentString = null,
+                    Path = "header",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 5,
+                    Title = "Keress minket",
+                    ContentString = null,
+                    Path = "footer",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 6,
+                    Title = "Pulcsi és Foltmékör",
+                    ContentString = null,
+                    Path = "title",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 7,
+                    Title = "Rendelj foltot",
+                    ContentString = null,
+                    Path = "welcome",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 8,
+                    Title = "Ismerj meg minket",
+                    ContentString = null,
+                    Path = "aboutus",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 9,
+                    Title = "Regisztrálj",
+                    ContentString = null,
+                    Path = "registration",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 10,
+                    Title = "Bejelentkezés",
+                    ContentString = null,
+                    Path = "signin",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 11,
+                    Title = "Folt mérete",
+                    ContentString = null,
+                    Path = "patchform",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 12,
+                    Title = "Minta mérete",
+                    ContentString = null,
+                    Path = "patternform",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 13,
+                    Title = "Rendelések állapota",
+                    ContentString = null,
+                    Path = "userorder",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 14,
+                    Title = "Rendelések",
+                    ContentString = null,
+                    Path = "header_member",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 15,
+                    Title = "Minden rendelés",
+                    ContentString = null,
+                    Path = "allorder",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 16,
+                    Title = "Tagok",
+                    ContentString = null,
+                    Path = "members",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 17,
+                    Title = "Jogok",
+                    ContentString = null,
+                    Path = "header_admin",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 18,
+                    Title = "Admincím",
+                    ContentString = null,
+                    Path = "title_admin",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 19,
+                    Title = "Szerkesztés",
+                    ContentString = null,
+                    Path = "welcome_admin",
+                    UpdateTime = new DateTime()
+                },
+                new Content
+                {
+                    ContentId = 20,
+                    Title = "Szerkesztés",
+                    ContentString = null,
+                    Path = "aboutus_admin",
+                    UpdateTime = new DateTime()
+                }
+            };
 
 		private static List<Order> OrderMockList = new List<Order>
 			{
