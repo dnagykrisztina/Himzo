@@ -111,7 +111,21 @@ namespace HimzoTests.Controllers
 					Type = Order.ProductType.PULCSI,
 					Active = true
 				},
-			};
+                new Image{
+                    ImageId = 4,
+                    Path = "welcome",
+                    ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+                    Type = Order.ProductType.PULCSI,
+                    Active = true
+                },
+                new Image{
+                    ImageId = 5,
+                    Path = "aboutus",
+                    ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+                    Type = Order.ProductType.PULCSI,
+                    Active = true
+                },
+            };
 
 		private static List<Content> ContentMockList = new List<Content>
 			{
