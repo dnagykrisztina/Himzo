@@ -97,12 +97,13 @@ namespace Himzo.Dal.SeedService
                     throw new ApplicationException($"Test user cannot be created!");
             }
 
+            byte[] FoltImage = GetPicture("Himzo.Dal.Pictures.folt.png");
+            byte[] MintaImage = GetPicture("Himzo.Dal.Pictures.minta.jpg");
+            byte[] PulcsiImage = GetPicture("Himzo.Dal.Pictures.pulcsi.png");
+
             var orderCount = _context.Orders.Count();
             if (orderCount == 0)
             {
-                byte[] FoltImage = GetPicture("Himzo.Dal.Pictures.folt.png");
-                byte[] MintaImage = GetPicture("Himzo.Dal.Pictures.minta.jpg");
-                byte[] PulcsiImage = GetPicture("Himzo.Dal.Pictures.pulcsi.png");
 
                 Comment Comment_1 = new Comment
                 {
@@ -635,7 +636,7 @@ namespace Himzo.Dal.SeedService
                 Image image1 = new Image()
                 {
                     Path = "welcome",
-                    ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+                    ByteImage = PulcsiImage,
                     Type = Order.ProductType.PULCSI,
                     Active = true
                 };
@@ -643,7 +644,7 @@ namespace Himzo.Dal.SeedService
                 Image image2 = new Image()
                 {
                     Path = "aboutus",
-                    ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+                    ByteImage = PulcsiImage,
                     Type = Order.ProductType.PULCSI,
                     Active = true
                 };

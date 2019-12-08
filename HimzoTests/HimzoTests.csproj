@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestPictures\folt.png" />
+    <None Remove="TestPictures\minta.jpg" />
+    <None Remove="TestPictures\pulcsi.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestPictures\folt.png" />
+    <EmbeddedResource Include="TestPictures\minta.jpg" />
+    <EmbeddedResource Include="TestPictures\pulcsi.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.0-preview3-19553-01" />
     <PackageReference Include="EntityFrameworkTesting" Version="1.2.3" />
     <PackageReference Include="EntityFrameworkTesting.Moq" Version="1.2.3" />

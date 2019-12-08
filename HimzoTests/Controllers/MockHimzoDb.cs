@@ -12,7 +12,9 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 
@@ -20,6 +22,15 @@ namespace HimzoTests.Controllers
 {
 	class MockHimzoDb
 	{
+
+		public static byte[] GetPicture(string picturePath)
+		{
+			Assembly myAssembly = Assembly.GetExecutingAssembly();
+			Stream myStream = myAssembly.GetManifestResourceStream(picturePath);
+			MemoryStream ms = new MemoryStream();
+			myStream.CopyTo(ms);
+			return ms.ToArray();
+		}
 
 		private static List<User> UserMockList = new List<User>
 			{
@@ -93,35 +104,35 @@ namespace HimzoTests.Controllers
 				new Image{
 					ImageId = 1,
 					Path = "profile",
-					ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/folt.png"),
+					ByteImage = GetPicture("HimzoTests.TestPictures.folt.png"),
 					Type = Order.ProductType.FOLT,
 					Active = true
 				},
 				new Image{
 					ImageId = 2,
 					Path = "profile",
-					ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/minta.jpg"),
+					ByteImage = GetPicture("HimzoTests.TestPictures.minta.jpg"),
 					Type = Order.ProductType.MINTA,
 					Active = true
 				},
 				new Image{
 					ImageId = 3,
 					Path = "profile",
-					ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+					ByteImage = GetPicture("HimzoTests.TestPictures.pulcsi.png"),
 					Type = Order.ProductType.PULCSI,
 					Active = true
 				},
                 new Image{
                     ImageId = 4,
                     Path = "welcome",
-                    ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+                    ByteImage = GetPicture("HimzoTests.TestPictures.pulcsi.png"),
                     Type = Order.ProductType.PULCSI,
                     Active = true
                 },
                 new Image{
                     ImageId = 5,
                     Path = "aboutus",
-                    ByteImage = System.IO.File.ReadAllBytes("../../../TestPictures/pulcsi.png"),
+                    ByteImage = GetPicture("HimzoTests.TestPictures.pulcsi.png"),
                     Type = Order.ProductType.PULCSI,
                     Active = true
                 },
