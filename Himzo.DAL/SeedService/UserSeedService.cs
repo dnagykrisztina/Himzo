@@ -175,7 +175,7 @@ namespace Himzo.Dal.SeedService
 
                 Order Order2 = new Order
                 {
-                    User = KorUser, // User object
+                    User = TestUser, // User object
                     OrderState = Order.State.IN_PROGRESS, // OrderState enum
                     Type = Order.ProductType.FOLT, // Type enum
                     Amount = 100, // Integer

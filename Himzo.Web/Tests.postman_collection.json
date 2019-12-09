@@ -96,9 +96,9 @@
 															"    pm.expect(jsonData.size).to.eql(\"20x30mm\");",
 															"    pm.expect(jsonData.fonts).to.eql(\"Arial\");",
 															"    pm.expect(jsonData.patternPlace).to.eql(\"-\");",
-															"    pm.expect(jsonData.orderId).to.eql(1);",
+															"    pm.expect(jsonData.orderId).to.eql(7);",
 															"    pm.expect(jsonData.orderComment).to.eql(\"Amilyen gyorsan csak lehet!\");",
-															"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
+															"    pm.expect(jsonData.commentContent).to.eql(\"Minta comment #4\");",
 															"    pm.expect(jsonData.userName).to.eql(\"TestUser\");",
 															"    pm.expect(jsonData.userEmail).to.eql(\"testuser@himzo.hu\");",
 															"});",
@@ -112,13 +112,13 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{url}}/Orders/1",
+													"raw": "{{url}}/Orders/7",
 													"host": [
 														"{{url}}"
 													],
 													"path": [
 														"Orders",
-														"1"
+														"7"
 													]
 												}
 											},
@@ -254,13 +254,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/Orders/2",
+											"raw": "{{url}}/Orders/8",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"2"
+												"8"
 											]
 										}
 									},
@@ -1228,13 +1228,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/Orders/2",
+											"raw": "{{url}}/Orders/8",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"2"
+												"8"
 											]
 										},
 										"description": "This is request so the db can remain idempotent."
@@ -1366,7 +1366,6 @@
 													"pm.test(\"Update body is of expected values\", function () {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.orderId).to.eql(1);",
-													"    pm.expect(jsonData.commentUpdateTime).to.eql(\"0001-01-01T00:00:00\");",
 													"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
 													"    pm.expect(jsonData.orderState).to.eql(0);",
 													"    pm.expect(jsonData.size).to.eql(\"30x30mm\");",
@@ -1374,7 +1373,7 @@
 													"    pm.expect(jsonData.type).to.eql(1);",
 													"    pm.expect(jsonData.orderComment).to.eql(\"Nem gond ha késik kicsit.\");",
 													"    pm.expect(jsonData.fonts).to.eql(\"London\");",
-													"    pm.expect(jsonData.patternPlace).to.eql(\"-\");",
+													"    pm.expect(jsonData.patternPlace).to.eql(\"'A képen szereplő minta túl nagy a megadott mérethez képest!\");",
 													"    pm.expect(jsonData.userName).to.eql(\"TestUser\");",
 													"    pm.expect(jsonData.userEmail).to.eql(\"testuser@himzo.hu\");",
 													"});",
@@ -1807,9 +1806,10 @@
 													"",
 													"pm.test(\"Comment values is of expected values\", function () {",
 													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.commentUpdateTime).to.eql(\"0001-01-01T00:00:00\");",
 													"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
-													"});"
+													"});",
+													"",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -1989,13 +1989,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/Orders/2",
+											"raw": "{{url}}/Orders/8",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"2"
+												"8"
 											]
 										}
 									},
@@ -2248,13 +2248,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/Orders/1",
+											"raw": "{{url}}/Orders/7",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"1"
+												"7"
 											]
 										}
 									},
@@ -2296,13 +2296,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/Orders/2",
+											"raw": "{{url}}/Orders/8",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"2"
+												"8"
 											]
 										}
 									},
@@ -3850,13 +3850,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/Orders/2",
+											"raw": "{{url}}/Orders/8",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"2"
+												"8"
 											]
 										},
 										"description": "Patch test for the OrderController"
@@ -4094,13 +4094,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/Orders/2",
+											"raw": "{{url}}/Orders/8",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"2"
+												"8"
 											]
 										},
 										"description": "Patch test for the OrderController"
@@ -4450,13 +4450,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/Orders/3",
+											"raw": "{{url}}/Orders/7",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"3"
+												"7"
 											]
 										}
 									},
@@ -4865,13 +4865,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/Orders/1",
+											"raw": "{{url}}/Orders/7",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"1"
+												"7"
 											]
 										}
 									},
@@ -4913,13 +4913,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{url}}/Orders/8",
+											"raw": "{{url}}/Orders/6",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"8"
+												"6"
 											]
 										}
 									},
@@ -6520,13 +6520,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/Orders/8",
+											"raw": "{{url}}/Orders/6",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"8"
+												"6"
 											]
 										},
 										"description": "Patch test for the OrderController"
@@ -6774,13 +6774,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/Orders/8",
+											"raw": "{{url}}/Orders/6",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"8"
+												"6"
 											]
 										},
 										"description": "Patch test for the OrderController"
@@ -7130,13 +7130,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{url}}/Orders/3",
+											"raw": "{{url}}/Orders/2",
 											"host": [
 												"{{url}}"
 											],
 											"path": [
 												"Orders",
-												"3"
+												"2"
 											]
 										}
 									},
