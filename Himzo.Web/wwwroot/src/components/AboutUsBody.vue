@@ -392,10 +392,11 @@ textarea {
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
-   p.lead{
-    cursor: default;
+p.lead {
+  cursor: default;
+  text-align: justify;
 }
-      h2.featurette-heading{
-    cursor: default;
+h2.featurette-heading {
+  cursor: default;
 }
 </style>
