@@ -168,10 +168,15 @@ export default {
 
     setImage: function(e) {
       const file = e.target.files[0];
-
+      var s;
       if (!file.type.includes("image/")) {
         alert("Kérlek, egy képet válassz!");
         return;
+      }
+      if (file.type.includes("jpeg") || file.type.includes("jpg")) {
+        s = 23;
+      } else {
+        s = 22;
       }
 
       this.chooseFile = e.target.files[0].name;
@@ -180,7 +185,7 @@ export default {
         const reader = new FileReader();
 
         reader.onload = event => {
-          this.inputPattern = event.target.result.slice(23);
+          this.inputPattern = event.target.result.slice(s);
         };
         reader.readAsDataURL(file);
       } else {

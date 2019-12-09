@@ -464,10 +464,16 @@ export default {
     },
     setImage: function(e, i) {
       const file = e.target.files[0];
+      var s;
 
       if (!file.type.includes("image/")) {
         alert("Please select an image file");
         return;
+      }
+      if (file.type.includes("jpeg") || file.type.includes("jpg")) {
+        s = 23;
+      } else {
+        s = 22;
       }
       if (i === 0) {
         this.chooseFile0 = e.target.files[0].name;
@@ -481,16 +487,15 @@ export default {
 
       if (typeof FileReader === "function") {
         const reader = new FileReader();
-
         reader.onload = event => {
           if (i === 0) {
-            this.image0 = event.target.result.slice(23);
+            this.image0 = event.target.result.slice(s);
           }
           if (i === 1) {
-            this.image1 = event.target.result.slice(23);
+            this.image1 = event.target.result.slice(s);
           }
           if (i === 2) {
-            this.image2 = event.target.result.slice(23);
+            this.image2 = event.target.result.slice(s);
           }
         };
         reader.readAsDataURL(file);
