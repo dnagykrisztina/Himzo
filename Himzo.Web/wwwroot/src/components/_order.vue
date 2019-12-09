@@ -82,7 +82,10 @@
                         />
                       </div>
                       <div class="col-md-8 modal-head">
-                        <h2 class="featurette-heading">{{ order.userName }}</h2>
+                        <h2
+                          class="featurette-heading"
+                          style="font-size: xx-large; white-space: initial;"
+                        >{{ order.userName }}</h2>
                         <p class="lead">{{ order.userEmail }}</p>
                       </div>
                     </div>
