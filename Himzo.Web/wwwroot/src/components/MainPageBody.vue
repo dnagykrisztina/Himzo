@@ -574,6 +574,9 @@ export default {
       for (var i = 0; i < arrayLength0; i++) {
         let cover0 = "data:image/jpg;base64,".concat(img0.data[i].byteImage);
         this.coverList0[i].cover = cover0;
+        if (i === 9) {
+          break;
+        }
       }
 
       const img1 = await axios.get(
@@ -583,6 +586,10 @@ export default {
       for (var j = 0; j < arrayLength1; j++) {
         let cover1 = "data:image/jpg;base64,".concat(img1.data[j].byteImage);
         this.coverList1[j].cover = cover1;
+        console.log("img1");
+        if (j === 9) {
+          break;
+        }
       }
       const img2 = await axios.get(
         "http://localhost:52140/api/Images/?path=welcome&type=2"
@@ -591,6 +598,10 @@ export default {
       for (var k = 0; k < arrayLength2; k++) {
         let cover2 = "data:image/jpg;base64,".concat(img2.data[k].byteImage);
         this.coverList2[k].cover = cover2;
+        console.log("img2");
+        if (k === 9) {
+          break;
+        }
       }
     } catch (e) {
       console.log(e);
