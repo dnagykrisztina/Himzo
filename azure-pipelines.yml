@@ -66,9 +66,10 @@ steps:
     Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0" -Recurse
     Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.DAL" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release" -Recurse
     cd "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/"
-    Start-Process "./Himzo.Web.exe" -WindowStyle Hidden
+    $app = Start-Process "./Himzo.Web.exe" -NoNewWindow -PassThru
     Start-Sleep -s 60
     newman run "$(System.DefaultWorkingDirectory)/Himzo.Web/Tests.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/PostmanTests/Local.postman_environment.json"
+    Stop-Process -Id $app.Id
   displayName: Run the test web server
   failOnStderr: true
 
