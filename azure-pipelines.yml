@@ -66,11 +66,8 @@ steps:
     Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/wwwroot" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0" -Recurse
     Copy-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.DAL" -Destination "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release" -Recurse
     cd "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/"
-    New-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/wwwroot" -Name "dist" -ItemType "directory"
     New-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/wwwroot/dist" -Name "js" -ItemType "directory"
-    New-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/wwwroot/dist" -Name "img" -ItemType "directory"
     New-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/wwwroot/dist" -Name "css" -ItemType "directory"
-    New-Item -Path "$(System.DefaultWorkingDirectory)/Himzo.Web/bin/Release/netcoreapp3.0/wwwroot/dist" -Name "index.html" -ItemType "file"
     $app = Start-Process "./Himzo.Web.exe" -NoNewWindow -PassThru
     Start-Sleep -s 60
     newman run "$(System.DefaultWorkingDirectory)/Himzo.Web/Tests.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/PostmanTests/Local.postman_environment.json"
