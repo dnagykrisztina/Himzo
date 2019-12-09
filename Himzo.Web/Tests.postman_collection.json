@@ -1591,14 +1591,13 @@
 													"    pm.expect(jsonData.amount).to.eql(50);",
 													"    pm.expect(jsonData.orderComment).to.eql(\"Nem gond ha késik kicsit.\");",
 													"    ",
-													"    pm.expect(jsonData.commentUpdateTime).to.eql(\"0001-01-01T00:00:00\");",
 													"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
 													"    pm.expect(jsonData.orderState).to.eql(0);",
 													"    pm.expect(jsonData.fonts).to.eql(\"London\");",
 													"    pm.expect(jsonData.patternPlace).to.eql(\"-\");",
 													"    pm.expect(jsonData.userName).to.eql(\"TestUser\");",
 													"    pm.expect(jsonData.userEmail).to.eql(\"testuser@himzo.hu\");",
-													"    pm.expect(jsonData.type).to.eql(0);",
+													"    pm.expect(jsonData.type).to.eql(1);",
 													"});",
 													"",
 													"pm.test(\"Updated orderTime is of expected value\", function () {",
@@ -1672,7 +1671,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "[\r\n\t{ \"op\": \"replace\", \"path\": \"/Size\", \"value\": \"20x30mm\" },\r\n\t{ \"op\": \"replace\", \"path\": \"/Amount\",    \"value\":  10},\r\n\t{ \"op\": \"replace\", \"path\": \"/Deadline\",    \"value\":  \"2019-10-25\" },\r\n\t{ \"op\": \"replace\", \"path\": \"/OrderComment\",    \"value\":  \"Amilyen gyorsan csak lehet!\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/OrderTime\",    \"value\":  \"2019-09-25\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/Fonts\",    \"value\":  \"London\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/Type\",    \"value\":  \"0\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/PatternPlace\",    \"value\":  \"-\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/Pattern\",    \"value\":  \"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADeklEQVR42l1TbWxTVRh+Tm9717vurps46ZaWTUk7RNmHH1SzoBDFBX8soaHbglHjQiAxGgYREBd/AJkz/pBq/KOJ4C+2AVZTQki2mRl+oBL5ENG4LgNNyz467tbudvfentt7j2dNIOJJnuTknPe853ne530J/reamsPd4Y1rOvz+mi1er1tmzEYuq6mp9Pz4r1fmEr9dvzT033hybxMKNQeaNgRir+18PmIUnMjlKLJZo3TnrRRRUQG43RoGh2/Eb/6R6U1OXEndTxAMbvC3t7ckBvq3t1KjgA+PXoJhWCgTBdg2ULQs6JqNPbvrOEMRfX2Xr42N/d2RTF5Nk/XrWxyhYN2Zk1+/Gal6SOTpChg+PYmRkVmUlwtgjPFkNnw+AYcOrIIsMywoOt7quRqfur0YJeseb+38PBYd3vpKI0xDhdNpYSmXx7GBW8jni3A4AF1neHuPhGefE0A1HWK5hZELOezdP9lFoju2DZ480dktSYBlamDEhOgu4oeRuxg8vQTOHi3NwN53+GPKa8IonC4KnW937Z4fIvt6t858ejzsA1yc/ooER0kG5RGjY3nMZ0y0byuito7y8xXoHFmORRw8IMySjz96SauvF6V0WkdNjZtrdaNSLoNcQfDZF05eZhu97y4hq+SRzS0jdSePmell+GuXoczJOuk/0qbd/NOWfrpMUS7ZXLNVor3xaQsTkwTMtrD2MRM//8IdYRZMk0HNE7Q1Gwi3Cjo5fPCpmQIVfefOF+GpYPyBzYtmc+8tHDuqcBttfNBXhYUFLlC0S/eLKsOOzQaqq6VZEo08MRgMOru/SwhwuXgA77wsl/h6p4r+AQUwCd5/rxInzrohezg1bqtGGbraKOby8hAJBJ7sPLRfGz77vQfTM47Sj3WrKeLfZOAts8BNQZb//uquKqQyjpKtq70Wejbb+ORCdRepD6xzPNpQPNO1vRCJfVkFVbVw6ngGL24yUFAcPAGByGvz46iIyJFKeCSGw+0FfPu7Jz4174qWWtlX2+jf9IyReDlMW50M6HlDhakIK5ZzCYBQ5BCAr065YRsE47elaxdviR2zqYn0/WFaVRMKNK6hsX07lyMvNFE88jBbaQcOHkIJMncILt5wITbqif+luHqV6WTqgWm8t2Tv2u6WhmJHqMHaEvBaMnjdUguCmvxHGL+ecSbUu1MPjPO/a++MwCIfZKMAAAAASUVORK5CYII=\"}\r\n]",
+											"raw": "[\r\n\t{ \"op\": \"replace\", \"path\": \"/Size\", \"value\": \"20x30mm\" },\r\n\t{ \"op\": \"replace\", \"path\": \"/Amount\",    \"value\":  10},\r\n\t{ \"op\": \"replace\", \"path\": \"/Deadline\",    \"value\":  \"2025-11-25\" },\r\n\t{ \"op\": \"replace\", \"path\": \"/OrderComment\",    \"value\":  \"Amilyen gyorsan csak lehet!\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/OrderTime\",    \"value\":  \"2019-09-25\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/Fonts\",    \"value\":  \"Arial\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/Type\",    \"value\":  \"0\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/PatternPlace\",    \"value\":  \"-\"},\r\n\t{ \"op\": \"replace\", \"path\": \"/Pattern\",    \"value\":  \"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADeklEQVR42l1TbWxTVRh+Tm9717vurps46ZaWTUk7RNmHH1SzoBDFBX8soaHbglHjQiAxGgYREBd/AJkz/pBq/KOJ4C+2AVZTQki2mRl+oBL5ENG4LgNNyz467tbudvfentt7j2dNIOJJnuTknPe853ne530J/reamsPd4Y1rOvz+mi1er1tmzEYuq6mp9Pz4r1fmEr9dvzT033hybxMKNQeaNgRir+18PmIUnMjlKLJZo3TnrRRRUQG43RoGh2/Eb/6R6U1OXEndTxAMbvC3t7ckBvq3t1KjgA+PXoJhWCgTBdg2ULQs6JqNPbvrOEMRfX2Xr42N/d2RTF5Nk/XrWxyhYN2Zk1+/Gal6SOTpChg+PYmRkVmUlwtgjPFkNnw+AYcOrIIsMywoOt7quRqfur0YJeseb+38PBYd3vpKI0xDhdNpYSmXx7GBW8jni3A4AF1neHuPhGefE0A1HWK5hZELOezdP9lFoju2DZ480dktSYBlamDEhOgu4oeRuxg8vQTOHi3NwN53+GPKa8IonC4KnW937Z4fIvt6t858ejzsA1yc/ooER0kG5RGjY3nMZ0y0byuito7y8xXoHFmORRw8IMySjz96SauvF6V0WkdNjZtrdaNSLoNcQfDZF05eZhu97y4hq+SRzS0jdSePmell+GuXoczJOuk/0qbd/NOWfrpMUS7ZXLNVor3xaQsTkwTMtrD2MRM//8IdYRZMk0HNE7Q1Gwi3Cjo5fPCpmQIVfefOF+GpYPyBzYtmc+8tHDuqcBttfNBXhYUFLlC0S/eLKsOOzQaqq6VZEo08MRgMOru/SwhwuXgA77wsl/h6p4r+AQUwCd5/rxInzrohezg1bqtGGbraKOby8hAJBJ7sPLRfGz77vQfTM47Sj3WrKeLfZOAts8BNQZb//uquKqQyjpKtq70Wejbb+ORCdRepD6xzPNpQPNO1vRCJfVkFVbVw6ngGL24yUFAcPAGByGvz46iIyJFKeCSGw+0FfPu7Jz4174qWWtlX2+jf9IyReDlMW50M6HlDhakIK5ZzCYBQ5BCAr065YRsE47elaxdviR2zqYn0/WFaVRMKNK6hsX07lyMvNFE88jBbaQcOHkIJMncILt5wITbqif+luHqV6WTqgWm8t2Tv2u6WhmJHqMHaEvBaMnjdUguCmvxHGL+ecSbUu1MPjPO/a++MwCIfZKMAAAAASUVORK5CYII=\"}\r\n]",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2231,7 +2230,7 @@
 													"    pm.expect(jsonData.type).to.eql(0);",
 													"    pm.expect(jsonData.amount).to.eql(10);",
 													"    pm.expect(jsonData.size).to.eql(\"20x30mm\");",
-													"    pm.expect(jsonData.fonts).to.eql(\"Times New Roman\");",
+													"    pm.expect(jsonData.fonts).to.eql(\"Arial\");",
 													"    pm.expect(jsonData.patternPlace).to.eql(\"-\");",
 													"    pm.expect(jsonData.orderId).to.eql(1);",
 													"    pm.expect(jsonData.orderComment).to.eql(\"Amilyen gyorsan csak lehet!\");",
@@ -2275,7 +2274,7 @@
 													"",
 													"pm.test(\"Data is valid\", function () {",
 													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.orderState).to.eql(1);",
+													"    pm.expect(jsonData.orderState).to.eql(0);",
 													"    pm.expect(jsonData.type).to.eql(0);",
 													"    pm.expect(jsonData.amount).to.eql(10);",
 													"    pm.expect(jsonData.size).to.eql(\"20x30mm\");",
@@ -2283,7 +2282,7 @@
 													"    pm.expect(jsonData.patternPlace).to.eql(null);",
 													"    pm.expect(jsonData.orderId).to.eql(2);",
 													"    pm.expect(jsonData.orderComment).to.eql(\"Nem érek rá így megcsinálná nekem valaki?\");",
-													"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
+													"    pm.expect(jsonData.commentContent).to.eql(\"Elkészült a pulcsi lehet érte jönni.\");",
 													"    pm.expect(jsonData.userName).to.eql(\"Kortag\");",
 													"    pm.expect(jsonData.userEmail).to.eql(\"kortag@himzo.hu\");",
 													"});",
@@ -4044,7 +4043,7 @@
 													"    pm.expect(jsonData.commentUpdateTime).to.eql(\"0001-01-01T00:00:00\");",
 													"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
 													"    pm.expect(jsonData.orderState).to.eql(0);",
-													"    pm.expect(jsonData.fonts).to.eql(\"London\");",
+													"    pm.expect(jsonData.fonts).to.eql(\"Webdings\");",
 													"    pm.expect(jsonData.patternPlace).to.eql(\"-\");",
 													"    pm.expect(jsonData.userName).to.eql(\"Kortag\");",
 													"    pm.expect(jsonData.userEmail).to.eql(\"kortag@himzo.hu\");",
@@ -6455,8 +6454,7 @@
 													"pm.test(\"Update body is of expected values\", function () {",
 													"    var jsonData = pm.response.json();",
 													"    pm.expect(jsonData.orderId).to.eql(8);",
-													"    pm.expect(jsonData.commentUpdateTime).to.eql(\"0001-01-01T00:00:00\");",
-													"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
+													"    pm.expect(jsonData.commentContent).to.eql(\"Minta comment #3\");",
 													"    pm.expect(jsonData.orderState).to.eql(0);",
 													"    pm.expect(jsonData.size).to.eql(\"30x30mm\");",
 													"    pm.expect(jsonData.amount).to.eql(20);",
@@ -6466,6 +6464,16 @@
 													"    pm.expect(jsonData.patternPlace).to.eql(\"-\");",
 													"    pm.expect(jsonData.userName).to.eql(\"Adminisztrátor\");",
 													"    pm.expect(jsonData.userEmail).to.eql(\"admin@himzo.hu\");",
+													"});",
+													"",
+													"pm.test(\"Updated orderTime is of expected value\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    var orderDate = new Date(jsonData.orderTime);",
+													"    var comment = new Date();",
+													"    ",
+													"    pm.expect(orderDate.getYear()).to.eql(comment.getYear());",
+													"    pm.expect(orderDate.getMonth()).to.eql(comment.getMonth());",
+													"    pm.expect(orderDate.getDay()).to.eql(comment.getDay());",
 													"});",
 													"",
 													"pm.test(\"Updated orderTime is of expected value\", function () {",
@@ -6702,8 +6710,7 @@
 													"    pm.expect(jsonData.amount).to.eql(50);",
 													"    pm.expect(jsonData.orderComment).to.eql(\"Nem gond ha késik kicsit.\");",
 													"    ",
-													"    pm.expect(jsonData.commentUpdateTime).to.eql(\"0001-01-01T00:00:00\");",
-													"    pm.expect(jsonData.commentContent).to.eql(\"-\");",
+													"    pm.expect(jsonData.commentContent).to.eql(\"Minta comment #3\");",
 													"    pm.expect(jsonData.orderState).to.eql(0);",
 													"    pm.expect(jsonData.fonts).to.eql(\"Minta font\");",
 													"    pm.expect(jsonData.patternPlace).to.eql(\"Szívhez\");",
@@ -6712,14 +6719,25 @@
 													"    pm.expect(jsonData.type).to.eql(0);",
 													"});",
 													"",
+													"",
+													"pm.test(\"Comment time is of expected value\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    var orderDate = new Date(jsonData.orderTime);",
+													"    var now = new Date(\"0001-01-01T00:00:00\");",
+													"     pm.expect(orderDate.getYear()).to.eql(now.getYear());",
+													"    pm.expect(orderDate.getMonth()).to.eql(now.getMonth());",
+													"    pm.expect(orderDate.getDay()).to.eql(now.getDay());",
+													"    ",
+													"});",
+													"",
 													"pm.test(\"Updated orderTime is of expected value\", function () {",
 													"    var jsonData = pm.response.json();",
 													"    var orderDate = new Date(jsonData.orderTime);",
-													"    var now = new Date();",
+													"    var comment = new Date();",
 													"    ",
-													"    pm.expect(orderDate.getYear()).to.eql(now.getYear());",
-													"    pm.expect(orderDate.getMonth()).to.eql(now.getMonth());",
-													"    pm.expect(orderDate.getDay()).to.eql(now.getDay());",
+													"    pm.expect(orderDate.getYear()).to.eql(comment.getYear());",
+													"    pm.expect(orderDate.getMonth()).to.eql(comment.getMonth());",
+													"    pm.expect(orderDate.getDay()).to.eql(comment.getDay());",
 													"});",
 													"",
 													"pm.test(\"Updated deadline is of expected value\", function () {",
@@ -7440,43 +7458,6 @@
 						{
 							"name": "Accessable",
 							"item": [
-								{
-									"name": "Logout",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "486d2b57-d436-4092-88a0-ddfa4f0800db",
-												"exec": [
-													"pm.test(\"Status code is 200\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"pm.test(\"Success\", function () {",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData.success).to.eql(true);",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"url": {
-											"raw": "{{url}}/Auth/Logout",
-											"host": [
-												"{{url}}"
-											],
-											"path": [
-												"Auth",
-												"Logout"
-											]
-										}
-									},
-									"response": []
-								},
 								{
 									"name": "Header",
 									"event": [

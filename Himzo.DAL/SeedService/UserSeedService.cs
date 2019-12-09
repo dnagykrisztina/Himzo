@@ -126,6 +126,37 @@ namespace Himzo.Dal.SeedService
                     Content = "1 héten belül meglesz"
                 };
 
+                Comment CommentExample1 = new Comment
+                {
+                    User = KorUser,
+                    Content = "Minta comment #1",
+                    UpdateTime = new DateTime(2019, 1, 1, 12, 00, 00)
+                };
+                Comment CommentExample2 = new Comment
+                {
+                    User = KorUser,
+                    Content = "Minta comment #2",
+                    UpdateTime = new DateTime(2019, 1, 1, 12, 00, 00)
+                };
+                Comment CommentExample3 = new Comment
+                {
+                    User = KorUser,
+                    Content = "Minta comment #3",
+                    UpdateTime = new DateTime(2019, 1, 1, 12, 00, 00)
+                };
+                Comment CommentExample4 = new Comment
+                {
+                    User = KorUser,
+                    Content = "Minta comment #4",
+                    UpdateTime = new DateTime(2019, 1, 1, 12, 00, 00)
+                };
+                Comment CommentExample5 = new Comment
+                {
+                    User = KorUser,
+                    Content = "Minta comment #5",
+                    UpdateTime = new DateTime(2019, 1, 1, 12, 00, 00)
+                };
+
                 Order Order1 = new Order
                 {
                     User = TestUser, // User object
@@ -138,13 +169,13 @@ namespace Himzo.Dal.SeedService
                     OrderTime = new DateTime(2019, 9, 25, 10, 20, 00), // DateTime
                     Deadline = new DateTime(2019, 10, 25, 12, 00, 00), // DateTime
                     OrderComment = "Amilyen gyorsan csak lehet!", // String
-                    Comment = null, // Comment
+                    Comment = CommentExample4, // Comment
                     Pattern = FoltImage, // Image (byte[])
                 };
 
                 Order Order2 = new Order
                 {
-                    User = TestUser, // User object
+                    User = KorUser, // User object
                     OrderState = Order.State.IN_PROGRESS, // OrderState enum
                     Type = Order.ProductType.FOLT, // Type enum
                     Amount = 100, // Integer
@@ -186,7 +217,7 @@ namespace Himzo.Dal.SeedService
                     OrderTime = new DateTime(2019, 9, 25, 10, 20, 00), // DateTime
                     Deadline = new DateTime(2019, 10, 25, 12, 00, 00), // DateTime
                     OrderComment = "Nem érek rá így megcsinálná nekem valaki?", // String
-                    Comment = null, // Comment
+                    Comment = CommentExample5, // Comment
                     Pattern = FoltImage, // Image (byte[])
                 };
 
@@ -206,24 +237,7 @@ namespace Himzo.Dal.SeedService
                     Pattern = PulcsiImage, // Image (byte[])
                 };
 
-                Comment CommentExample1 = new Comment
-                {
-                    User = KorUser,
-                    Content = "Minta comment #1",
-                    UpdateTime = new DateTime(2019, 1, 1, 12, 00, 00)
-                };
-                Comment CommentExample2 = new Comment
-                {
-                    User = KorUser,
-                    Content = "Minta comment #2",
-                    UpdateTime = new DateTime(2019, 1, 1, 12, 00, 00)
-                };
-                Comment CommentExample3 = new Comment
-                {
-                    User = KorUser,
-                    Content = "Minta comment #3",
-                    UpdateTime = new DateTime(2019, 1, 1, 12, 00, 00)
-                };
+                
 
                 Order Order6 = new Order
                 {
@@ -279,6 +293,8 @@ namespace Himzo.Dal.SeedService
                 _context.Comments.Add(CommentExample1);
                 _context.Comments.Add(CommentExample2);
                 _context.Comments.Add(CommentExample3);
+                _context.Comments.Add(CommentExample4);
+                _context.Comments.Add(CommentExample5);
                 _context.Orders.Add(Order1);
                 _context.Orders.Add(Order2);
                 _context.Orders.Add(Order3);
@@ -589,6 +605,14 @@ namespace Himzo.Dal.SeedService
                     UpdateTime = new DateTime()
                 };
 
+                Content content38 = new Content()
+                {
+                    Title = "Profilom",
+                    ContentString = null,
+                    Path = "profile",
+                    UpdateTime = new DateTime()
+                };
+
                 _context.Contents.Add(content1);
                 _context.Contents.Add(content2);
                 _context.Contents.Add(content3);
@@ -626,6 +650,7 @@ namespace Himzo.Dal.SeedService
                 _context.Contents.Add(content35);
                 _context.Contents.Add(content36);
                 _context.Contents.Add(content37);
+                _context.Contents.Add(content38);
                 _context.SaveChanges();
 
             }
@@ -649,8 +674,27 @@ namespace Himzo.Dal.SeedService
                     Active = true
                 };
 
+                Image image3 = new Image()
+                {
+                    Path = "welcome",
+                    ByteImage = FoltImage,
+                    Type = Order.ProductType.FOLT,
+                    Active = true
+                };
+
+                Image image4 = new Image()
+                {
+                    Path = "aboutus",
+                    ByteImage = FoltImage,
+                    Type = Order.ProductType.FOLT,
+                    Active = true
+                };
+
                 _context.Images.Add(image1);
                 _context.Images.Add(image2);
+                _context.Images.Add(image3);
+                _context.Images.Add(image4);
+                _context.SaveChanges();
             }
         }
     }
