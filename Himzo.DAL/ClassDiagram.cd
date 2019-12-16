@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Himzo.Dal.Entities.ContentDTO">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAQAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Entities\DTOs\ContentDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.ImageDTO">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\DTOs\ImageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.ImagePatchDTO">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIgAAAAAAAAAAAAAAAgAQAAAAAAAAA=</HashCode>
+      <FileName>Entities\DTOs\ImageDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.OrderDTO">
+    <Position X="3" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EBAAAAAAAAAAgAAIAEAEAQCAACAgAAAAAQEACAAAAAI=</HashCode>
+      <FileName>Entities\DTOs\OrderDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.OrderPatchDTOUnion">
+    <Position X="7.5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAgAAIAEAEAQCQACAgAAAAAQEAAAAAAAA=</HashCode>
+      <FileName>Entities\DTOs\OrderDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.OrderPatchDTO">
+    <Position X="5.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAEAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\DTOs\OrderDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.OrderPatchDetailsDTO">
+    <Position X="9.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAgAAAAEAAAQCQACAAAAAAAQEAAAAAAAA=</HashCode>
+      <FileName>Entities\DTOs\OrderDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.Content">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAUIAAAAAAAAAAAAQAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Content.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.Image">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIgAAAAAAAAAAAAAAEgAQAAAAAAAAA=</HashCode>
+      <FileName>Entities\Image.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Himzo.Dal.Entities.Order">
+    <Position X="0.5" Y="3.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Himzo.Dal.Entities.Order.State" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Entities\Order.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Himzo.Dal.Entities.Order.ProductType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Entities\Order.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EBABAAAEAAAAgAAAAEAEAQCQACAAAAAAAQEAAAAAAAA=</HashCode>
+      <FileName>Entities\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
